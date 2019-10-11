@@ -67,7 +67,7 @@
         <header id="header" class="header">
             <div class="top-left">
                 <div class="navbar-header">
-                    <a class="navbar-brand " href="docente.html"><img src="images/logo.png" alt="Logo" ></a>
+                    <a class="navbar-brand " href="docente.php"><img src="images/logo.png" alt="Logo" ></a>
                     <a id="menuToggle" class="menutoggle" onclick="return ocultarmenus(this);"><i class="fa fa-bars" ></i></a>
                 </div>
             </div>
@@ -322,7 +322,7 @@
                                         </span>
                                     </div>
                                     <script>
-                                        function loadLog1() {
+                                        function loadLog1(){
                                             var buscar12= document.getElementById('buscar12').value;
                                             var xhttp = new XMLHttpRequest();
                                             xhttp.onreadystatechange = function() {
@@ -516,12 +516,28 @@
                                     <h4 class="box-title">EDITAR DOCENTE </h4>
                                 </div>
                                 <div class="card-body">
-                                    <form class="form-inline md-form mr-auto mb-4" action="FormUpdateDocente.php" method="POST" ><!-- action="#" method="POST" -->
-                                        <input name="buscar22" class="form-control col-md-8" type="text" placeholder="Ingrese documento a buscar" aria-label="Search">
-                                        <button name="enviar22"  class="btn aqua-gradient btn-rounded btn-sm my-1" type="submit">Buscar</button>
-                                    </form>                                      
-                                </div>  
-                                </div>
+                                    <div id="editar2" class="form-inline md-form mr-auto mb-4" > 
+                                        <input name="buscar22" id="buscar22" type="text" class="form-control col-md-8"  placeholder="Ingrese documento a buscar" >
+                                        <span >
+                                            <button name="enviar22" class="btn aqua-gradient btn-rounded btn-sm my-1" type="button" onclick="loadLog2()">Enviar</button>
+                                        </span>
+                                    </div>
+                                    <script>
+                                        function loadLog2() {
+                                            var buscar22= document.getElementById('buscar22').value;
+                                            var xhttp = new XMLHttpRequest();
+                                            xhttp.onreadystatechange = function() {
+                                                //Si 4 = se proceso y ya se recibieron los datos y 200 = se enviaron los datos correctamente
+                                                if (xhttp.readyState == 4 && xhttp.status == 200){
+                                                    document.getElementById("editar2").innerHTML = xhttp.responseText;//obtener los datos de respuesta como una cadena
+                                                }
+                                            };
+                                            xhttp.open("POST", "FormUpdateDocente.php", true);//Realiza la petición de apertura de comunicación con método POST.
+                                            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//Añade un par cabecera – valor a la cabecera HTTP. Necesario para pasar datos por POST.
+                                            xhttp.send("buscar22="+buscar22+"");//Envia la peticion al servidor
+                                        }
+                                    </script>                                      
+                                </div> 
                             </div> <!-- /.card -->
                         </div>  <!-- /.col-lg-12 -->
                     </div>
@@ -751,10 +767,8 @@
                     </div>
                 </div>
             </div>
-        </footer>
-        <!-- /.site-footer -->
-    </div>
-    <!-- /#right-panel -->
+        </footer><!-- /.site-footer -->        
+    </div><!-- /#right-panel -->   
     
     <!--Local Scripts--> 
     <script src="bootstrap-4_1_3/js/jquery.min.js"></script>
