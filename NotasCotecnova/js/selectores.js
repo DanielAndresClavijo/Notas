@@ -1,6 +1,3 @@
-//Las siguientes declaraciones son para los select
-document.getElementById('opcion').selected = "enable";
-document.getElementById('opcion').disabled = "enable";
 
 
 
