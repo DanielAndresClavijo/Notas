@@ -1,22 +1,26 @@
-<!doctype html>
-<html lang="es">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>ESTUDIANTE</title>
-    <meta name="description" content="Notas COTECNOVA">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Icono de la pagina-->
-    <link rel="apple-touch-icon" href="images/icon1.png">
-    <link rel="shortcut icon" href="images/icon1.png">
-<!-- CSS de la pagina-->
-    <link rel="stylesheet" href="bootstrap-4_1_3/css/bootstrap.css">
-    <link rel="stylesheet" href="fontawesome-free-5.11.2-web/css/all.css">
-    <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
-    <link rel="stylesheet" href="assets/css/style.css">   
-</head>
-
-<body>
+    <div class="card-body">
+        <div id="editar2" class="form-inline md-form mr-auto mb-4" > 
+            <input name="buscar22" id="buscar22" type="text" class="form-control col-md-8"  placeholder="Ingrese documento a buscar" >
+            <span >
+                <button name="enviar22" class="btn aqua-gradient btn-rounded btn-sm my-1" type="button" onclick="loadLog2()">Enviar</button>
+            </span>
+        </div>
+        <script>
+            function loadLog2() {
+                var buscar22= document.getElementById('buscar22').value;
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    //Si 4 = se proceso y ya se recibieron los datos y 200 = se enviaron los datos correctamente
+                    if (xhttp.readyState == 4 && xhttp.status == 200){
+                        document.getElementById("editar2").innerHTML = xhttp.responseText;//obtener los datos de respuesta como una cadena
+                    }
+                };
+                xhttp.open("POST", "FormUpdateDocente.php", true);//Realiza la petición de apertura de comunicación con método POST.
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//Añade un par cabecera – valor a la cabecera HTTP. Necesario para pasar datos por POST.
+                xhttp.send("buscar22="+buscar22+"");//Envia la peticion al servidor
+            }
+        </script>                                      
+    </div> 
     <?php
         require_once 'modelo/MySQL.php'; //se llama la pagina donde se encuentra la conexion para la base de datos
         
@@ -136,13 +140,3 @@
             </div>
         </div>
     </div>
-    <!--Local Scripts-->
-    <script src="bootstrap-4_1_3/js/jquery.min.js"></script>
-    <script src="bootstrap-4_1_3/js/popper.min.js"></script>
-    <script src="bootstrap-4_1_3/js/bootstrap.js"></script>
-    <script src="bootstrap-4_1_3/js/jquery.matchHeight.min.js"></script> 
-    <script src="fontawesome-free-5.11.2-web/js/all.js"></script>          
-    <script src="js/selectores.js"></script>
-    <script src="assets/js/main.js"></script>
-</body>
-</html>
