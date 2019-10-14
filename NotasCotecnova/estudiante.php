@@ -160,10 +160,8 @@
                     </div>
                 </div>
             </div>
-        </footer>
-        <!-- /.site-footer -->
-    </div>
-    <!-- /#right-panel -->
+        </footer><!-- /.site-footer -->
+    </div><!-- /#right-panel -->
     
     <!--Local Scripts-->
     <script src="bootstrap-4_1_3/js/jquery.min.js"></script>
