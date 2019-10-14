@@ -209,7 +209,7 @@
                                     <form action="controlador/inserts.php" method="POST">
                                         <div class="form-group">
                                             <label>Tipo de Documento</label>
-                                            <select name="tipo_documento1" class="form-control" id="exampleFormControlSelect1" data-live-search="true">
+                                            <select name="tipo_documento1" class="form-control" id="tipo_documento1" data-live-search="true">
                                                 <option disabled selected>Seleccione tipo de documento de identidad</option>
                                                 <?php 
                                                 //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
@@ -222,19 +222,19 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Numero de documento</label>
-                                            <input type="text" class="form-control" id="formGroupExampleInput2" name="documento1" placeholder="Ingrese Numero de identidad">
+                                            <input type="text" class="form-control" id="documento1" name="documento1" placeholder="Ingrese Numero de identidad">
                                         </div>
                                         <div class="form-group">
                                             <label>Nombres</label>
-                                            <input type="text" class="form-control" id="formGroupExampleInput2" name="nombre1" placeholder="Ingrese nombre o  nombres">
+                                            <input type="text" class="form-control" id="nombre1" name="nombre1" placeholder="Ingrese nombre o  nombres">
                                         </div>
                                         <div class="form-group">
                                             <label>Apellidos</label>
-                                            <input type="text" class="form-control" id="formGroupExampleInput2" name="apellido1" placeholder="Ingrese apellido o apellidos">
+                                            <input type="text" class="form-control" id="apellido1" name="apellido1" placeholder="Ingrese apellido o apellidos">
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">Estado Civil</label>
-                                            <select name="estado_civil1" class="form-control" id="exampleFormControlSelect1" data-live-search="true" >
+                                            <select name="estado_civil1" class="form-control" id="estado_civil1" data-live-search="true" >
                                                 <option disabled selected >Seleccione el estado civil</option>
                                                 <?php 
                                                 //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
@@ -247,7 +247,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Departamento de nacimiento</label>
-                                            <select name="departamento1" class="form-control" id="exampleFormControlSelect1" data-live-search="true" >
+                                            <select name="departamento1" class="form-control" id="departamento1" data-live-search="true" >
                                                 <option disabled selected >Seleccione el departamento de nacimiento</option>
                                                 <?php 
                                                 //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
@@ -260,7 +260,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Ciudad de nacimiento</label>
-                                            <select name="ciudad1" class="form-control" id="exampleFormControlSelect1" data-live-search="true" >
+                                            <select name="ciudad1" class="form-control" id="ciudad1" data-live-search="true" >
                                                 <option disabled selected >Seleccione la ciudad de nacimiento</option>
                                                 <?php 
                                                 //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
@@ -273,7 +273,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Programa que cursa</label>
-                                            <select name="programa1" class="form-control" id="exampleFormControlSelect1" data-live-search="true" >
+                                            <select name="programa1" class="form-control" id="programa1" data-live-search="true" >
                                                 <option disabled selected >Seleccione el Programa</option>
                                                 <?php 
                                                 //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
@@ -286,7 +286,7 @@
                                         </div>                                        
                                         <div class="form-group">
                                             <label>Contraseña de estudiante</label>
-                                            <input type="password" class="form-control" id="formGroupExampleInput2" name="contrasenna1" placeholder="Ingrese una contraseña para el estudiante">
+                                            <input type="password" class="form-control" id="contrasenna1" name="contrasenna1" placeholder="Ingrese una contraseña para el estudiante">
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" id="enviar1" name="enviar1" class="btn btn-primary">Submit</button>
@@ -436,7 +436,7 @@
                                     <form action="controlador/inserts.php" method="POST">
                                         <div class="form-group">
                                             <label>Tipo de Documento</label>
-                                            <select name="tipo_documento2" class="form-control" id="exampleFormControlSelect1">
+                                            <select name="tipo_documento2" class="form-control" id="tipo_documento2">
                                                 <option disabled selected>Seleccione tipo de documento de identidad</option>
                                                 <?php 
                                                 //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
@@ -449,19 +449,19 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Numero de documento</label>
-                                            <input type="text" class="form-control" id="formGroupExampleInput2" name="documento2" placeholder="Ingrese Numero de identidad">
+                                            <input type="text" class="form-control" id="documento2" name="documento2" placeholder="Ingrese Numero de identidad">
                                         </div>
                                         <div class="form-group">
                                             <label>Nombres</label>
-                                            <input type="text" class="form-control" id="formGroupExampleInput2" name="nombre2" placeholder="Ingrese nombre o  nombres">
+                                            <input type="text" class="form-control" id="nombre2" name="nombre2" placeholder="Ingrese nombre o  nombres">
                                         </div>
                                         <div class="form-group">
                                             <label>Apellidos</label>
-                                            <input type="text" class="form-control" id="formGroupExampleInput2" name="apellido2" placeholder="Ingrese apellido o apellidos">
+                                            <input type="text" class="form-control" id="apellido2" name="apellido2" placeholder="Ingrese apellido o apellidos">
                                         </div>
                                         <div class="form-group">
                                             <label>Ciudad de nacimiento</label>
-                                            <select name="ciudad2" class="form-control" id="exampleFormControlSelect1" data-live-search="true" >
+                                            <select name="ciudad2" class="form-control" id="ciudad2" data-live-search="true" >
                                                 <option disabled selected >Seleccione la ciudad de nacimiento</option>
                                                 <?php 
                                                 //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
@@ -474,7 +474,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">Estado Civil</label>
-                                            <select name="estado_civil2" class="form-control" id="exampleFormControlSelect1" data-live-search="true" >
+                                            <select name="estado_civil2" class="form-control" id="estado_civil2" data-live-search="true" >
                                                 <option disabled selected >Seleccione Estado Civil</option>
                                                 <?php 
                                                 //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
@@ -645,7 +645,7 @@
                                     <form action="controlador/inserts.php" method="POST">
                                         <div class="form-group">
                                             <label>Numero de documento de docente</label>
-                                            <select name="documento21" class="form-control" id="exampleFormControlSelect1" data-live-search="true">
+                                            <select name="documento21" class="form-control" id="documento21" data-live-search="true">
                                                 <option disabled selected>Seleccione el numero de documento del docente</option>
                                                 <?php 
                                                 //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
@@ -658,7 +658,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Numero de documento de estudiante</label>
-                                            <select name="documento11" class="form-control" id="exampleFormControlSelect1" data-live-search="true">
+                                            <select name="documento11" class="form-control" id="documento11" data-live-search="true">
                                                 <option disabled selected>Seleccione el numero de documento del estudiante</option>
                                                 <?php 
                                                 //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
@@ -671,19 +671,19 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Fecha y hora de ultima actualzacion</label>
-                                            <input type="datetime-local" class="form-control" id="formGroupExampleInput2" name="fechanota" >
+                                            <input type="datetime-local" class="form-control" id="fechanota" name="fechanota" >
                                         </div>  
                                         <div class="form-group">
                                             <label>Nota 1</label>
-                                            <input class="form-control" type="number" id="example-number-input" name="nota1" placeholder="Ingrese la nota 1 del estudiante">
+                                            <input class="form-control" type="number" id="nota1" name="nota1" placeholder="Ingrese la nota 1 del estudiante">
                                         </div>
                                         <div class="form-group">
                                             <label>Nota 2</label>
-                                            <input class="form-control" type="number" id="example-number-input" name="nota2" placeholder="Ingrese la nota 2 del estudiante">
+                                            <input class="form-control" type="number" id="nota2" name="nota2" placeholder="Ingrese la nota 2 del estudiante">
                                         </div>
                                         <div class="form-group">
                                             <label>Nota 3</label>
-                                            <input class="form-control" type="number" id="example-number-input" name="nota3" placeholder="Ingrese la nota 3 del estudiante">
+                                            <input class="form-control" type="number" id="nota3" name="nota3" placeholder="Ingrese la nota 3 del estudiante">
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" id="enviar3" name="enviar3" class="btn btn-primary">Submit</button>
@@ -777,7 +777,8 @@
     <script src="bootstrap-4_1_3/js/jquery.matchHeight.min.js"></script> 
     <script src="fontawesome-free-5.11.2-web/js/all.js"></script>        
     <script src="js/selectores.js"></script>
-    <script src="assets/js/main.js"> </script>
+    <script src="assets/js/main.js"></script>
+    
 </body>
 </html>
 
