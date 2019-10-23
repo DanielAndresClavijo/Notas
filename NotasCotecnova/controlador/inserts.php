@@ -31,7 +31,7 @@ if( !empty($_POST['tipo_documento1']) && !empty($_POST['estado_civil1']) && !emp
     $mysql->desconectar();//Desconexion 
 }else{
     //Docentes
-    if(  !empty($_POST['tipo_documento2']) && !empty($_POST['estado_civil2']) && !empty($_POST['ciudad2']) && !empty($_POST['documento2']) && !empty($_POST['nombre2']) && !empty($_POST['apellido2']) && !empty($_POST['contrasenna2'])){
+    if( !empty($_POST['tipo_documento2']) && !empty($_POST['estado_civil2']) && !empty($_POST['ciudad2']) && !empty($_POST['documento2']) && !empty($_POST['nombre2']) && !empty($_POST['apellido2']) && !empty($_POST['contrasenna2'])){
         require_once '../modelo/MySQL.php'; //se llama la pagina donde se encuentra la conexion para la base de datos
         //declaracion de variables
         //Variables de la tabla estudiantes    

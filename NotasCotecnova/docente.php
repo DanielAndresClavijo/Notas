@@ -10,11 +10,15 @@
     <link rel="apple-touch-icon" href="images/icon2.png">
     <link rel="shortcut icon" href="images/icon2.png">
 <!-- CSS de la pagina-->
+    <script src="js/jquery.js"></script>
+    <script src="js/datatables.js"></script>
     <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.css">
     <link rel="stylesheet" href="fontawesome-free-5.11.2-web/css/all.css">
     <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <LINK REL=StyleSheet HREF="css/style_1.css" TYPE="text/css" MEDIA=screen>
     <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/tail.select.css">
+    
 </head>
 
 <body>
@@ -57,11 +61,11 @@
                             <li onclick="return change33(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Eliminar</p></li>
                         </ul>
                     </li>
-                </ul>
+                </ul><!-- /.navbar-nav -->
             </div><!-- /.navbar-collapse -->
-        </nav>
-    </aside>
-    <!-- /#left-panel -->
+        </nav><!-- /.navbar navbar-expand-sm navbar-default -->
+    </aside><!-- /#left-panel -->
+    
     <!-- Right Panel -->
     <div id="right-panel" class="right-panel">
         <!-- Header-->
@@ -86,8 +90,7 @@
 
                 </div>
             </div>
-        </header>
-        <!-- /#header -->        
+        </header><!-- /#header -->        
         <?php
         require_once 'modelo/MySQL.php'; //se llama la pagina donde se encuentra la conexion para la base de datos
         
@@ -159,29 +162,31 @@
                                 </div>
                                 <div class="card-body--">
                                     <div class="table-stats order-table ov-h">
-                                        <table class="table ">
+                                        <table class="table" id="tabla" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th class="name">Documento de identidad</th>
+                                                    <th >Documento de identidad</th>
                                                     <th>Nombres</th>
                                                     <th>Apellidos</th>
                                                     <th>Programa </th>
                                                 </tr>
                                             </thead>
+                                            <tbody>
                                             <?php
                                             while ($consulta= mysqli_fetch_assoc($estudiantes)){
                                             ?>
-                                            <tbody>
+                                            
                                                 <tr>
-                                                    <td><span class="name"><?php echo $consulta['documento_de_identificacion'] ?></span> </td>
+                                                    <td><span class="serial"><?php echo $consulta['documento_de_identificacion'] ?></span> </td>
                                                     <td><span class="name"><?php echo $consulta['nombres'] ?></span> </td>
                                                     <td><span class="name"><?php echo $consulta['apellidos'] ?></span></td>
                                                     <td><span class="name"><?php echo $consulta['Programa_nombre'] ?></span></td>
                                                 </tr>
-                                            </tbody>
+                                            
                                             <?php
                                             }
                                             ?>
+                                            </tbody>
                                         </table>
                                     </div> <!-- /.table-stats -->
                                 </div>
@@ -494,7 +499,7 @@
                                 </div>
                                 <div class="card-body--">
                                     <div class="table-stats order-table ov-h">
-                                        <table class="table ">
+                                        <table class="table" id="tabla" style="width:100%">
                                             <thead>
                                                 <tr>
                                                     <th>Numero de documento</th>
@@ -878,15 +883,26 @@
     </div><!-- /#right-panel -->   
     
     <!--Local Scripts--> 
+    
     <script src="bootstrap-4.3.1-dist/js/jquery-3_4_1.js"></script>
+    
     <script src="bootstrap-4.3.1-dist/js/popper.min.js"></script>
     <script src="bootstrap-4.3.1-dist/js/bootstrap.js"></script>
+    
     <script src="bootstrap-4.3.1-dist/js/jquery.matchHeight.min.js"></script> 
     <script src="fontawesome-free-5.11.2-web/js/all.js"></script>        
     <script src="js/selectores.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="bootstrap-4.3.1-dist/js/tail.select.js"></script>
     <script>
+        $(document).ready(function() {
+            $('#tabla').DataTable( {
+                "order": [[ 3, "asc" ]]
+            } );
+        } );
+    </script>
+    <script>
+        
         tail.select('#departamento1',{
             search: true,
             "placeholder":  "Seleccione una opcion...",
