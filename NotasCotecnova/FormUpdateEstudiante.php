@@ -1,24 +1,4 @@
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Formulario Editar Estudiante</title>
-    <meta name="description" content="Notas COTECNOVA">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Icono de la pagina-->
-    <link rel="apple-touch-icon" href="images/icon2.png">
-    <link rel="shortcut icon" href="images/icon2.png">
-<!-- CSS de la pagina-->
-    <script src="js/jquery.js"></script>
-    <script src="js/datatables.js"></script>
-    <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.css">
-    <link rel="stylesheet" href="fontawesome-free-5.11.2-web/css/all.css">
-    <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <LINK REL=StyleSheet HREF="css/style_1.css" TYPE="text/css" MEDIA=screen>
-    <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/tail.select.css">
-    
-</head>  
-    
+
     <!-- Buscar Estudiante -->
     <div class="card-body">
         <div id="editar1" class="form-inline md-form mr-auto mb-4" > 
@@ -95,19 +75,19 @@
     <h2>Editar Estudiante</h2><br>
     <!-- Inicio de formulario de edicion de estudiante -->
         <form class="form-inline" action="controlador/Update.php" method="POST">
-            <div class="form-group">
+            <div class="form-group" style="width: 100%; margin-bottom: 1%;">
                 <label>Nombres</label><br>
                 <!-- En el value y el la opcion de la seleccion se imprimen los resultados de la consulta -->
-                <input type="text" class="form-control" id="nombre1" name="nombre1" value="<?php echo $nombre_e ?>" placeholder="Ingrese nombre o  nombres">
+                <input type="text" class="form-control" id="nombre1" name="nombre1" style="width: 100%;" value="<?php echo $nombre_e ?>" placeholder="Ingrese nombre o  nombres">
             </div>
-            <div class="form-group">
+            <div class="form-group" style="width: 100%; margin-bottom: 1%;">
                 <label>Apellidos</label><br>
                 <!-- En el value y el la opcion de la seleccion se imprimen los resultados de la consulta -->
-                    <input type="text" class="form-control" id="apellido1" name="apellido1" value="<?php echo $apellido_e?>" placeholder="Ingrese apellido o apellidos">
+                 <input type="text" class="form-control" id="apellido1" name="apellido1" style="width: 100%;" value="<?php echo $apellido_e?>" placeholder="Ingrese apellido o apellidos">
             </div>
-            <div class="form-group">
+            <div class="form-group" style="width: 100%; margin-bottom: 1%;">
                 <label for="exampleFormControlSelect1">Estado Civil</label> <br>   
-                <select name="estado_civil1" class="form-control" id="estado_civil1" data-live-search="true" >
+                <select name="estado_civil1" class="form-control" id="estado_civil1" style="width: 100%;" data-live-search="true" >
                     <option value="<?php echo $id_estado_e ?>"  selected ><?php echo $estado_e?></option>
                     <?php 
                     //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
@@ -118,9 +98,9 @@
             <?php   }   ?>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="width: 100%; margin-bottom: 1%;">
                 <label>Ciudad de nacimiento</label><br>
-                <select name="ciudad1" class="form-control" id="ciudad1" data-live-search="true" >
+                <select name="ciudad1" class="form-control" id="ciudad1" style="width: 100%;" data-live-search="true" >
                     <option value="<?php echo $id_ciudad_e ?>" selected><?php echo $ciudad_e ?></option>
                     <?php 
                     //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
@@ -130,9 +110,9 @@
             <?php   }   ?>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="width: 100%; margin-bottom: 1%;">
                 <label>Programa que cursa</label><br>
-                <select name="programa1" class="form-control" id="programa1" data-live-search="true" >
+                <select name="programa1" class="form-control" id="programa1" style="width: 100%;" data-live-search="true" >
                     <option value="<?php echo $id_programa_e?>"  selected ><?php echo $programa_e?></option>
                     <?php 
                     //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento

@@ -226,18 +226,22 @@
                                         <?php   }   ?>
                                             </select>                                            
                                         </div>
+                                        <p id="TipDoc1" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <label>Numero de documento</label>
                                             <input type="text" class="form-control" id="documento1" name="documento1" placeholder="Ingrese Numero de identidad">
                                         </div>
+                                        <p id="Doc1" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <label>Nombres</label>
                                             <input type="text" class="form-control" id="nombre1" name="nombre1" placeholder="Ingrese nombre o  nombres">
                                         </div>
+                                        <p id="Nom1" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <label>Apellidos</label>
                                             <input type="text" class="form-control" id="apellido1" name="apellido1" placeholder="Ingrese apellido o apellidos">
                                         </div>
+                                        <p id="Ape1" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">Estado Civil</label>
                                             <select name="estado_civil1" class="form-control" id="estado_civil1" data-live-search="true" >
@@ -251,6 +255,7 @@
                                         <?php   }   ?>
                                             </select>
                                         </div>
+                                        <p id="EstCivil1" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <label>Departamento de nacimiento</label>
                                             <select name="departamento1" class="tail-dropdown-search" id="departamento1" data-live-search="true" > 
@@ -264,6 +269,7 @@
                                         <?php   }   ?>
                                             </select>
                                         </div>
+                                        <p id="Depa1" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <label>Ciudad de nacimiento</label>
                                             <select name="ciudad1" class="tail-dropdown-search" id="ciudad1" data-live-search="true" >
@@ -277,6 +283,7 @@
                                         <?php   }   ?>
                                             </select>
                                         </div>
+                                        <p id="Ciu1" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <label>Programa que cursa</label>
                                             <select name="programa1" class="form-control" id="programa1" data-live-search="true" >
@@ -289,26 +296,17 @@
                                                 <option value="<?php echo $resultado['id_Programas'] ?>" ><?php echo $resultado['Programa_nombre'] ?></option>
                                         <?php   }   ?>
                                             </select>
-                                        </div>                                        
+                                        </div>
+                                        <p id="Program1" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <label>Contraseña de estudiante</label>
                                             <input type="password" class="form-control" id="contrasenna1" name="contrasenna1" placeholder="Ingrese una contraseña para el estudiante">
                                         </div>
-                                        <div>
-                                            <p id="TipDoc1" style="text-align:center;background:rgba(0,0,0,0.1);"></p>
-                                            <p id="Doc1" style="text-align:center;background:rgba(0,0,0,0.1);"></p>
-                                            <p id="Nom1" style="text-align:center;background:rgba(0,0,0,0.1);"></p>
-                                            <p id="Ape1" style="text-align:center;background:rgba(0,0,0,0.1);"></p>
-                                            <p id="EstCivil1" style="text-align:center;background:rgba(0,0,0,0.1);"></p>
-                                            <p id="Depa1" style="text-align:center;background:rgba(0,0,0,0.1);"></p>
-                                            <p id="Ciu1" style="text-align:center;background:rgba(0,0,0,0.1);"></p>
-                                            <p id="Program1" style="text-align:center;background:rgba(0,0,0,0.1);"></p>
-                                            <p id="Contra1" style="text-align:center;background:rgba(0,0,0,0.1);"></p>
-                                            <p id="mensaje1" style="text-align:center;background:rgba(0,0,0,0.1);"></p>
-                                        </div>
+                                        <p id="Contra1" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <button type="button" id="enviar1" name="enviar1" onclick="return valiForm1()" class="btn btn-primary">Submit</button>
                                         </div>
+                                        <p id="mensaje1" style="text-align:center;background:rgba(255,0,0,0.3);margin: 0;"></p>
                                     </div> 
                                     <script type="text/javascript">
                                         function valiForm1(){
@@ -323,66 +321,51 @@
                                             var contrasenna1 = document.getElementById('contrasenna1').value;
                                             var cont = 0;
                                             
-                                            if(tipo_documento1 == ""){
+                                            if( nombre1 == null || nombre1.length == 0 || /^\s+$/.test(nombre1) ) {
                                                 cont=cont+1;
-                                                document.getElementById('TipDoc1').innerHTML='El tipo de Documento no a sido seleccionado ';
-                                                setTimeout(function() {document.getElementById('TipDoc1').innerHTML='';}, 5000);
+                                                document.getElementById('Nom1').innerHTML='Campo Nombre vacio'; 
                                             }else{
-                                                document.getElementById('TipDoc1').innerHTML='';
+                                                document.getElementById('Nom1').innerHTML='';                                   
                                             }
-                                            if(documento1 == ""){
+                                            if(documento1 == "" ){
                                                 cont=cont+1;
-                                                document.getElementById('Doc1').innerHTML='Campo documento de identidad vacio';    
-                                                setTimeout(function() {document.getElementById('Doc1').innerHTML='';}, 5000);
+                                                document.getElementById('Doc1').innerHTML='Campo documento de identidad vacio'; 
                                             }else{
                                                 document.getElementById('Doc1').innerHTML='';
                                             }
-                                            if(nombre1 == ""){
-                                                cont=cont+1;
-                                                document.getElementById('Nom1').innerHTML='Campo Nombre vacio';  
-                                                setTimeout(function() {document.getElementById('Nom1').innerHTML='';}, 5000);
-                                            }else{
-                                                document.getElementById('Nom1').innerHTML='';
-                                            }
-                                            if(apellido1 == ""){
+                                            if(apellido1 == "" ){
                                                 cont=cont+1;
                                                 document.getElementById('Ape1').innerHTML='Campo apellido vacio';    
-                                                setTimeout(function() {document.getElementById('Ape1').innerHTML='';}, 5000);
                                             }else{
                                                 document.getElementById('Ape1').innerHTML='';
                                             }
-                                            if(estado_civil1 == ""){
+                                            if(estado_civil1 == "" ){
                                                 cont=cont+1;
                                                 document.getElementById('EstCivil1').innerHTML='El estado civil no a sido seleccionado';
-                                                setTimeout(function() {document.getElementById('EstCivil1').innerHTML='';}, 5000);
                                             }else{
                                                 document.getElementById('EstCivil1').innerHTML='';
                                             }
-                                            if(departamento1 == ""){
+                                            if(departamento1 == "" ){
                                                 cont=cont+1;
                                                 document.getElementById('Depa1').innerHTML='El departamento no a sido seleccionado'; 
-                                                setTimeout(function() {document.getElementById('Depa1').innerHTML='';}, 5000);
                                             }else{
                                                 document.getElementById('Depa1').innerHTML='';
                                             }
-                                            if(ciudad1 == ""){
+                                            if(ciudad1 == "" ){
                                                 cont=cont+1;
                                                 document.getElementById('Ciu1').innerHTML='La ciudad no a sido seleccionada';  
-                                                setTimeout(function() {document.getElementById('Ciu1').innerHTML='';}, 5000);
                                             }else{
                                                 document.getElementById('Ciu1').innerHTML='';
                                             }
-                                            if(programa1 == ""){
+                                            if(programa1 == "" ){
                                                 cont=cont+1;
                                                 document.getElementById('Program1').innerHTML='El programa no a sido seleccionado';
-                                                setTimeout(function() {document.getElementById('Program1').innerHTML='';}, 5000);
                                             }else{
                                                 document.getElementById('Program1').innerHTML='';
                                             }
-                                            if(contrasenna1 == ""){
+                                            if(contrasenna1 == "" ){
                                                 cont=cont+1;
                                                 document.getElementById('Contra1').innerHTML='No ha ingresado la contraseña'; 
-                                                setTimeout(function() {document.getElementById('Contra1').innerHTML='';}, 5000);
                                             }else{
                                                 document.getElementById('Contra1').innerHTML='';
                                             }
@@ -400,7 +383,6 @@
                                                 xhttp.send("tipo_documento1="+tipo_documento1+"&documento1="+documento1+"&nombre1="+nombre1+"&apellido1="+apellido1+"&estado_civil1="+estado_civil1+"&departamento1="+departamento1+"&ciudad1="+ciudad1+"&programa1="+programa1+"&contrasenna1="+contrasenna1+"");//Envia la peticion al servidor
                                             }else{
                                                 document.getElementById('mensaje1').innerHTML='Datos no registrados';
-                                                setTimeout(function() {document.getElementById('mensaje1').innerHTML='';}, 5000);
                                             }
                                         }   
                                     </script>

@@ -17,18 +17,30 @@ if( !empty($_POST['tipo_documento1']) && !empty($_POST['estado_civil1']) && !emp
 
     $mysql = new MySQL(); //se declara un nuevo array
     $mysql->conectar();//Se conecta a la base de datos
-    
-    //Variable para llamar el ingreso de usuario y entregarle el insert
-    $in = $mysql->ingresoRegistro("insert into notas.estudiantes (notas.estudiantes.documento_de_identificacion, notas.estudiantes.nombres, notas.estudiantes.apellidos, notas.estudiantes.contrasenna,notas.estudiantes.Programas_id_Programas, notas.estudiantes.tipo_documento_id_tipo_documento, notas.estudiantes.estado_civil_id_estado_civil, notas.estudiantes.ciudades_id_ciudad_nacimiento) values(".$documento1.",'".$nombre1."','".$apellido1."','".$pass1."',".$programa1.",".$tipoDocumento1.",".$estado_civil1.",".$ciudad1.")");
-    
-    //Validacion para saber si el registro se ejecuto correctamente
-    if($in){
-        echo '<button type="button" class="btn btn-primary"><a class="nav-link" href="docente.php">Subir Cambios</a></button>';
-        //header("Location: ../docente.php");
-    }else{
-        echo "Erroooooooooooooooooooooooooooooooor";
+    $estudiantes = $mysql->efectuarConsulta("SELECT notas.estudiantes.id, notas.estudiantes.nombres, notas.estudiantes.apellidos, notas.estudiantes.documento_de_identificacion, notas.programas.Programa_nombre FROM notas.estudiantes INNER JOIN notas.programas ON notas.programas.id_Programas=notas.estudiantes.Programas_id_Programas");
+    $cont=0;
+    while ($consulta= mysqli_fetch_assoc($estudiantes)){
+        if($consulta['documento_de_identificacion']==$documento1){
+            $cont = 1;
+        }
     }
-    $mysql->desconectar();//Desconexion 
+    if($cont==0){
+        //Variable para llamar el ingreso de usuario y entregarle el insert
+        $in = $mysql->ingresoRegistro("insert into notas.estudiantes (notas.estudiantes.documento_de_identificacion, notas.estudiantes.nombres, notas.estudiantes.apellidos, notas.estudiantes.contrasenna,notas.estudiantes.Programas_id_Programas, notas.estudiantes.tipo_documento_id_tipo_documento, notas.estudiantes.estado_civil_id_estado_civil, notas.estudiantes.ciudades_id_ciudad_nacimiento) values(".$documento1.",'".$nombre1."','".$apellido1."','".$pass1."',".$programa1.",".$tipoDocumento1.",".$estado_civil1.",".$ciudad1.")");
+
+        //Validacion para saber si el registro se ejecuto correctamente
+        if($in){
+            echo '<button type="button" class="btn btn-primary"><a class="nav-link" href="docente.php">Subir Cambios</a></button>';
+            //header("Location: ../docente.php");
+        }else{
+            echo "Erroooooooooooooooooooooooooooooooor";
+        }
+        $mysql->desconectar();//Desconexion 
+    }else{
+        $url='tu/url';
+echo '<meta http-equiv=refresh content="1; '.$url.'">';die('<script type="text/javascript">window.location=\''.$url.'\';</script‌​>');
+    }                                      
+        
 }else{
     //Docentes
     if( !empty($_POST['tipo_documento2']) && !empty($_POST['estado_civil2']) && !empty($_POST['ciudad2']) && !empty($_POST['documento2']) && !empty($_POST['nombre2']) && !empty($_POST['apellido2']) && !empty($_POST['contrasenna2'])){

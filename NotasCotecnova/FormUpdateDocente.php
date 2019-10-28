@@ -1,24 +1,3 @@
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Formulario Editar Docente</title>
-    <meta name="description" content="Notas COTECNOVA">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Icono de la pagina-->
-    <link rel="apple-touch-icon" href="images/icon2.png">
-    <link rel="shortcut icon" href="images/icon2.png">
-<!-- CSS de la pagina-->
-    <script src="js/jquery.js"></script>
-    <script src="js/datatables.js"></script>
-    <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.css">
-    <link rel="stylesheet" href="fontawesome-free-5.11.2-web/css/all.css">
-    <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <LINK REL=StyleSheet HREF="css/style_1.css" TYPE="text/css" MEDIA=screen>
-    <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/tail.select.css">
-    
-</head>  
-    
     <!-- Buscar Docente -->
     <div class="card-body">
         <div id="editar2" class="form-inline md-form mr-auto mb-4" >
@@ -91,38 +70,41 @@
     <div class="card-body">
     <!-- Inicio de formulario de edicion de docentes -->
         <form class="form-inline" action="controlador/Update.php" method="POST">
-            <div class="form-group" style="width: 100%;">
+            <div class="form-group" style="width: 100%; margin-bottom: 1%;">
                 <label>Nombres</label>
                 <input type="text" class="form-control" id="nombre2" name="nombre2" style="width: 100%;"  value="<?php echo $nombre_d ?>" placeholder="Ingrese nombre o  nombres">
             </div>
-            <div class="form-group" style="width: 100%;">
+            <div class="form-group" style="width: 100%; margin-bottom: 1%;">
                 <label>Apellidos</label>
                 <input type="text" class="form-control" id="apellido2" name="apellido2" style="width: 100%;" value="<?php echo $apellido_d ?>" placeholder="Ingrese apellido o apellidos">
             </div>
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">Estado Civil</label>
-                <select name="estado_civil2" class="form-control" id="estado_civil2" data-live-search="true" >
+            <div class="form-group" style="width: 100%; margin-bottom: 1%;">
+                <label for="exampleFormControlSelect1" style="width: 100%; text-align: left; justify-content: left; align-content: left; align-items: left;">Estado Civil</label>
+                <select name="estado_civil2" class="form-control" id="estado_civil2" data-live-search="true" style="width: 100%;">
                     <option value="<?php echo $id_estado_d ?>" selected ><?php echo $estado_d?> </option>
                     <?php
                     //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
                     while($resultado = mysqli_fetch_assoc($selectEstadoCivil)){
-                    ?>
+                        if($resultado['estado_civil']!=$estado_d){
+                        ?>
                 <!-- En el value y el la opcion de la seleccion se imprimen los resultados de la consulta -->
-                    <option value="<?php echo $id_estado_d ?>" ><?php echo $estado_d ?></option>
-            <?php   }   ?>
+                    <option value="<?php echo $resultado['id_estado_civil'] ?>" ><?php  echo $resultado['estado_civil'] ?></option>
+            <?php       }   
+                    }   ?>
                 </select>
             </div>
          
-            <div class="form-group">
-                <label>Ciudad de nacimiento</label>
-                <select name="ciudad2" class="form-control" id="ciudad2" data-live-search="true" >
+            <div class="form-group" style="width: 100%; margin-bottom: 1%;">
+                <label style="width: 100%; text-align: left; justify-content: left; align-content: left; align-items: left;">Ciudad de nacimiento</label>
+                <select name="ciudad2" class="form-control" id="ciudad2" data-live-search="true" style="width: 100%;" >
                     <option value="<?php echo $id_ciudad_d ?>"  selected ><?php echo $ciudad_d ?> </option>
-                    <?php
-                    //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
-                    while($resultado = mysqli_fetch_assoc($selectCiudades)){
-                    ?>
-               
-            <?php   }   ?>
+                    <?php 
+                        //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
+                        while($resultado = mysqli_fetch_assoc($selectCiudades)){
+                        ?>
+                    <!-- En el value y el la opcion de la seleccion se imprimen los resultados de la consulta -->
+                        <option value="<?php echo $resultado['id_ciudad_nacimiento'] ?>" ><?php echo $resultado['ciudad_nacimiento'] ?></option>
+                <?php   }   ?>
                 </select>
             </div>  
             <div class="form-group">
@@ -138,13 +120,3 @@
     }if($cont==$cont2){
         echo 'No hay registros';
     }?>
-    <script src="bootstrap-4.3.1-dist/js/jquery-3_4_1.js"></script>
-    
-    <script src="bootstrap-4.3.1-dist/js/popper.min.js"></script>
-    <script src="bootstrap-4.3.1-dist/js/bootstrap.js"></script>
-    
-    <script src="bootstrap-4.3.1-dist/js/jquery.matchHeight.min.js"></script> 
-    <script src="fontawesome-free-5.11.2-web/js/all.js"></script>        
-    <script src="js/selectores.js"></script>
-    <script src="assets/js/main.js"></script>
-    <script src="bootstrap-4.3.1-dist/js/tail.select.js"></script>
