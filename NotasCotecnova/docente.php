@@ -307,7 +307,7 @@
                                             <button type="button" id="enviar1" name="enviar1" onclick="return valiForm1()" class="btn btn-primary">Submit</button>
                                         </div>
                                         <p id="mensaje1" style="text-align:center;background:rgba(255,0,0,0.3);margin: 0;"></p>
-                                    </div> 
+                                    </div><!-- /.crear1 -->
                                     <script type="text/javascript">
                                         function valiForm1(){
                                             var tipo_documento1 = document.getElementById('tipo_documento1').value;
@@ -321,6 +321,12 @@
                                             var contrasenna1 = document.getElementById('contrasenna1').value;
                                             var cont = 0;
                                             
+                                            if(tipo_documento1 == "" ){
+                                                cont=cont+1;
+                                                document.getElementById('TipDoc1').innerHTML='Tipo de documento de identidad vacio'; 
+                                            }else{
+                                                document.getElementById('TipDoc1').innerHTML='';
+                                            }
                                             if( nombre1 == null || nombre1.length == 0 || /^\s+$/.test(nombre1) ) {
                                                 cont=cont+1;
                                                 document.getElementById('Nom1').innerHTML='Campo Nombre vacio'; 
@@ -386,7 +392,7 @@
                                             }
                                         }   
                                     </script>
-                                </div>
+                                </div><!-- /.Card body -->
                             </div> <!-- /.card -->
                         </div>  <!-- /.col-lg-12 -->
                     </div>
@@ -527,36 +533,40 @@
                                     <h4 class="box-title">CREAR DOCENTE </h4>
                                 </div>
                                 <div class="card-body">
-                                    <form action="controlador/inserts.php" method="POST">
+                                    <div name="crear2">
                                         <div class="form-group">
                                             <label>Tipo de Documento</label>
                                             <select name="tipo_documento2" class="form-control" id="tipo_documento2">
-                                                <option disabled selected>Seleccione tipo de documento de identidad</option>
+                                                <option disabled selected value="">Seleccione tipo de documento de identidad</option>
                                                 <?php 
                                                 //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
                                                 while($resultado = mysqli_fetch_assoc($selectTipoDocumento2)){
                                                 ?>
                                             <!-- En el value y el la opcion de la seleccion se imprimen los resultados de la consulta -->
                                                 <option value="<?php echo $resultado['id_tipo_documento'] ?>"><?php echo $resultado['tipo_documento'] ?></option>
-                                        <?php   }   ?>
+                                        <?php   }   ?> 
                                             </select>
                                         </div>
+                                        <p id="TipDoc2" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <label>Numero de documento</label>
                                             <input type="text" class="form-control" id="documento2" name="documento2" placeholder="Ingrese Numero de identidad">
                                         </div>
+                                        <p id="Doc2" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <label>Nombres</label>
                                             <input type="text" class="form-control" id="nombre2" name="nombre2" placeholder="Ingrese nombre o  nombres">
                                         </div>
+                                        <p id="Nom2" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <label>Apellidos</label>
                                             <input type="text" class="form-control" id="apellido2" name="apellido2" placeholder="Ingrese apellido o apellidos">
                                         </div>
+                                        <p id="Ape2" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <label>Ciudad de nacimiento</label>
                                             <select name="ciudad2" class="form-control" id="ciudad2" data-live-search="true" >
-                                                <option disabled selected >Seleccione la ciudad de nacimiento</option>
+                                                <option disabled selected value="">Seleccione la ciudad de nacimiento</option>
                                                 <?php 
                                                 //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
                                                 while($resultado = mysqli_fetch_assoc($selectCiudades2)){
@@ -566,10 +576,11 @@
                                         <?php   }   ?>
                                             </select>
                                         </div>
+                                        <p id="Ciu2" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">Estado Civil</label>
                                             <select name="estado_civil2" class="form-control" id="estado_civil2" data-live-search="true" >
-                                                <option disabled selected >Seleccione Estado Civil</option>
+                                                <option disabled selected value="">Seleccione Estado Civil</option>
                                                 <?php 
                                                 //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
                                                 while($resultado = mysqli_fetch_assoc($selectEstadoCivil2)){
@@ -578,16 +589,94 @@
                                                 <option value="<?php echo $resultado['id_estado_civil'] ?>" ><?php echo $resultado['estado_civil'] ?></option>
                                         <?php   }   ?>
                                             </select>
-                                        </div>                                        
+                                        </div>
+                                        <p id="EstCivil2" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <label>Contraseña de docente</label>
-                                            <input type="password" class="form-control" id="formGroupExampleInput2" name="contrasenna2" placeholder="Ingrese una contraseña para el docente">
+                                            <input type="password" class="form-control" id="contrasenna2" name="contrasenna2" placeholder="Ingrese una contraseña para el docente">
                                         </div>
+                                        <p id="Contra2" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
-                                            <button type="submit" id="enviar2" name="enviar2" class="btn btn-primary">Submit</button>
+                                            <button type="button" id="enviar2" name="enviar2" onclick="return valiForm2()"  class="btn btn-primary">Submit</button>
                                         </div>
-                                    </form> 
-                                </div>                                
+                                        <p id="mensaje2" style="text-align:center;background:rgba(255,0,0,0.3);margin: 0;"></p>
+                                    </div>
+                                    <script type="text/javascript">
+                                        function valiForm2(){
+                                            var tipo_documento2 = document.getElementById('tipo_documento2').value;
+                                            var documento2 = document.getElementById('documento2').value;
+                                            var nombre2 = document.getElementById('nombre2').value;
+                                            var apellido2 = document.getElementById('apellido2').value;
+                                            var ciudad2 = document.getElementById('ciudad2').value;
+                                            var estado_civil2 = document.getElementById('estado_civil2').value;
+                                            //var departamento2 = document.getElementById('departamento2').value;
+                                            //var programa2 = document.getElementById('programa2').value;
+                                            var contrasenna2 = document.getElementById('contrasenna2').value;
+                                            
+                                            var cont = 0;
+                                            if(tipo_documento2 == "" || tipo_documento2 == null){
+                                                cont=cont+1;
+                                                document.getElementById('TipDoc2').innerHTML='Tipo de documento de identidad vacio'; 
+                                            }else{
+                                                document.getElementById('TipDoc2').innerHTML='';
+                                            }
+                                            if( nombre2 == null || nombre2.length == 0 || /^\s+$/.test(nombre2) ) {
+                                                cont=cont+1;
+                                                document.getElementById('Nom2').innerHTML='Campo Nombre vacio'; 
+                                            }else{
+                                                document.getElementById('Nom2').innerHTML='';                                   
+                                            }
+                                            if(documento2 == "" ){
+                                                cont=cont+1;
+                                                document.getElementById('Doc2').innerHTML='Campo documento de identidad vacio'; 
+                                            }else{
+                                                document.getElementById('Doc2').innerHTML='';
+                                            }
+                                            if(apellido2 == "" ){
+                                                cont=cont+1;
+                                                document.getElementById('Ape2').innerHTML='Campo apellido vacio';    
+                                            }else{
+                                                document.getElementById('Ape2').innerHTML='';
+                                            }
+                                            if(estado_civil2 == "" || estado_civil2 == null){
+                                                cont=cont+1;
+                                                document.getElementById('EstCivil2').innerHTML='El estado civil no a sido seleccionado';
+                                            }else{
+                                                document.getElementById('EstCivil2').innerHTML='';
+                                            }
+                                            
+                                            if(ciudad2 == "" || ciudad2 == null ){
+                                                cont=cont+1;
+                                                document.getElementById('Ciu2').innerHTML='La ciudad no a sido seleccionada';  
+                                            }else{
+                                                document.getElementById('Ciu2').innerHTML='';
+                                            }
+                                            
+                                            if(contrasenna2 == "" ){
+                                                cont=cont+1;
+                                                document.getElementById('Contra2').innerHTML='No ha ingresado la contraseña'; 
+                                            }else{
+                                                document.getElementById('Contra2').innerHTML='';
+                                            }
+                                            console.log(cont);
+                                            if (cont===0) {
+                                                document.getElementById('mensaje2').innerHTML='Datos registrados';
+                                                var xhttp = new XMLHttpRequest();
+                                                xhttp.onreadystatechange = function() {
+                                                    //Si 4 = se proceso y ya se recibieron los datos y 200 = se enviaron los datos correctamente
+                                                    if (xhttp.readyState == 4 && xhttp.status == 200){
+                                                        document.getElementById("crear2").innerHTML = xhttp.responseText;//obtener los datos de respuesta como una cadena
+                                                    }
+                                                };
+                                                xhttp.open("POST", "controlador/inserts.php", true);//Realiza la petición de apertura de comunicación con método POST.
+                                                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//Añade un par cabecera – valor a la cabecera HTTP. Necesario para pasar datos por POST.
+                                                xhttp.send("tipo_documento2="+tipo_documento2+"&documento2="+documento2+"&nombre2="+nombre2+"&apellido2="+apellido2+"&estado_civil2="+estado_civil2+"&ciudad2="+ciudad2+"&contrasenna2="+contrasenna2+"");//Envia la peticion al servidor
+                                            }else{
+                                                document.getElementById('mensaje2').innerHTML='Datos no registrados';
+                                            }
+                                        }   
+                                    </script>
+                                </div><!-- /.Card body -->                                
                             </div> <!-- /.card -->
                         </div>  <!-- /.col-lg-12 -->
                     </div>
