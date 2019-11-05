@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="fontawesome-free-5.11.2-web/css/all.css">
     <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <LINK REL=StyleSheet HREF="css/style_1.css" TYPE="text/css" MEDIA=screen>
+    <LINK REL=StyleSheet HREF="css/datatables.css" TYPE="text/css" MEDIA=screen>
     <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/tail.select.css">
     
 </head>
@@ -162,7 +162,7 @@
                                 </div>
                                 <div class="card-body--">
                                     <div class="table-stats order-table ov-h">
-                                        <table class="table" id="tabla" style="width:100%">
+                                        <table class="table" id="tabla" style="width:100% border">
                                             <thead>
                                                 <tr>
                                                     <th >Documento de identidad</th>
@@ -806,10 +806,27 @@
                                     <h4 class="box-title">EDITAR NOTAS </h4>
                                 </div>
                                 <div class="card-body">
-                                    <form class="form-inline md-form mr-auto mb-4" ><!-- action="#" method="POST" -->
-                                        <input name="buscar32" class="form-control col-md-8" type="text" placeholder="Ingrese documento a buscar" aria-label="Search">
-                                        <button  class="btn aqua-gradient btn-rounded btn-sm my-1" type="submit">Buscar</button>
-                                    </form> 
+                                    <div id="editar3" class="form-inline md-form mr-auto mb-4" > 
+                                        <input name="buscar13" id="buscar12" type="text" class="form-control col-md-8"  placeholder="Ingrese documento a buscar" >
+                                        <span >
+                                            <button name="enviar13" class="btn aqua-gradient btn-rounded btn-sm my-1" type="button" onclick="loadLog3()">Enviar</button>
+                                        </span>
+                                    </div>
+                                    <script>
+                                        function loadLog3(){
+                                            var buscar13= document.getElementById('buscar13').value;
+                                            var xhttp = new XMLHttpRequest();
+                                            xhttp.onreadystatechange = function() {
+                                                //Si 4 = se proceso y ya se recibieron los datos y 200 = se enviaron los datos correctamente
+                                                if (xhttp.readyState == 4 && xhttp.status == 200){
+                                                    document.getElementById("editar1").innerHTML = xhttp.responseText;//obtener los datos de respuesta como una cadena
+                                                }
+                                            };
+                                            xhttp.open("POST", "FormUpdateEstudiante.php", true);//Realiza la petición de apertura de comunicación con método POST.
+                                            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//Añade un par cabecera – valor a la cabecera HTTP. Necesario para pasar datos por POST.
+                                            xhttp.send("buscar12="+buscar12+"");//Envia la peticion al servidor
+                                        }
+                                    </script>                                     
                                 </div>                                
                             </div> <!-- /.card -->
                         </div>  <!-- /.col-lg-12 -->

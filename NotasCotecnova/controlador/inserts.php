@@ -73,15 +73,35 @@ echo '<meta http-equiv=refresh content="1; '.$url.'">';die('<script type="text/j
         }
         $mysql->desconectar();//Desconexion 
     }else{
-        //Notas
-        if(!empty($_POST['fechanota']) && !empty($_POST['nota1']) && !empty($_POST['nota2']) && !empty($_POST['nota3']) && !empty($_POST['documento21']) && !empty($_POST['documento11'])){
+        
+//******************************************************************************* Notas ***************************************************************************
+        if(!empty($_POST['fechanota']) && !empty($_POST['documento21']) && !empty($_POST['documento11'])){
             require_once '../modelo/MySQL.php'; //se llama la pagina donde se encuentra la conexion para la base de datos
             //declaracion de variables
             //Variables de la tabla estudiantes 
             $fechanota = $_POST['fechanota'];
-            $nota1 = $_POST['nota1'];
-            $nota2 = $_POST['nota2'];
-            $nota3 = $_POST['nota3'];
+            //Verificacion por si alguna nota fue ingresada
+            //Esta verificacion lo que hace s que verifica si alguna de las notas han sido ingresadas, 
+            //para definir la variable de la nota como 0 si no se ingreso ninguna nota
+            
+            if(empty($_POST['nota1'])){//Verificacion par la nota 1
+                $nota1=0;
+            }else{
+                $nota1 = $_POST['nota1'];
+            }
+            
+            if(empty($_POST['nota2'])){//Verificacion par la nota 1
+                $nota2=0;
+            }else{
+                $nota2 = $_POST['nota2'];
+            }
+            
+            if(empty($_POST['nota3'])){//Verificacion par la nota 1
+                $nota3=0;
+            }else{
+                $nota3 = $_POST['nota3'];
+            }
+            
             $notafinal = ($nota1*0.35) + ($nota2*0.35) + ($nota3*0.30);
             //LLaves foraneas               
             $documento21 = $_POST['documento21'];
