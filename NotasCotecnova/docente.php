@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <LINK REL=StyleSheet HREF="css/datatables.css" TYPE="text/css" MEDIA=screen>
     <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/tail.select.css">
-    
 </head>
 
 <body>
@@ -102,6 +101,7 @@
 //Select para hacer la consulta de los estudiantes, para mostrar la info en la grid de estudiantes
         $estudiantes = $mysql->efectuarConsulta("SELECT notas.estudiantes.id, notas.estudiantes.nombres, notas.estudiantes.apellidos, notas.estudiantes.documento_de_identificacion, notas.programas.Programa_nombre FROM notas.estudiantes INNER JOIN notas.programas ON notas.programas.id_Programas=notas.estudiantes.Programas_id_Programas");
         $estudiantes2 = $mysql->efectuarConsulta("SELECT notas.estudiantes.estado_estudiantes, notas.estudiantes.id, notas.estudiantes.nombres, notas.estudiantes.apellidos, notas.estudiantes.documento_de_identificacion, notas.programas.Programa_nombre FROM notas.estudiantes INNER JOIN notas.programas ON notas.programas.id_Programas=notas.estudiantes.Programas_id_Programas");
+        
         $estudiantes_id = $mysql->efectuarConsulta("SELECT notas.estudiantes.id, notas.estudiantes.documento_de_identificacion FROM notas.estudiantes ");
 //Select para hacer la consulta de los notas, para mostrar la info en la grid de notas
         $notas = $mysql->efectuarConsulta("SELECT notas.estudiantes.nombres AS nombreE, notas.estudiantes.apellidos AS apellidoE, notas.docentes.nombres AS nombreD, notas.docentes.apellidos AS apellidoD, notas.notas.nota1, notas.notas.nota2, notas.notas.nota3, notas.notas.nota_final, notas.notas.fecha_hora_actualizacion FROM notas.notas INNER JOIN notas.estudiantes ON notas.notas.estudiantes_id=notas.estudiantes.id INNER JOIN notas.docentes ON notas.notas.docentes_id=notas.docentes.id");
@@ -138,6 +138,12 @@
                                 </div>
                                 <div class="card-body--">
                                     <h2 class="box-title text-center">Aqui podra gestionar su trabajo, seleccione una de las opciones a su izquierda y empiece <br></h2>
+                                    <div id="chart-container" style="width: 100%; height: auto;">
+                                        <canvas id="graphCanvas"></canvas>
+                                    </div>
+                                    <div id="chart-container2" style="width: 100%; height: auto;">
+                                        <canvas id="graphCanvas2"></canvas>
+                                    </div>
                                 </div>
                                 <br>
                             </div> <!-- /.card -->
@@ -931,6 +937,7 @@
             <!-- .animated -->
         </div>
         <!-- /.content33 -->
+        
         <div class="clearfix"></div>
         <!-- Footer -->
         <footer class="site-footer">
@@ -955,10 +962,99 @@
     <script src="bootstrap-4.3.1-dist/js/bootstrap.js"></script>
     
     <script src="bootstrap-4.3.1-dist/js/jquery.matchHeight.min.js"></script> 
-    <script src="fontawesome-free-5.11.2-web/js/all.js"></script>        
+    <script src="fontawesome-free-5.11.2-web/js/all.js"></script>    
+    <script src="js/Chart.js"></script>
     <script src="js/selectores.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="bootstrap-4.3.1-dist/js/tail.select.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            showGraph();
+            showGraph2();
+        });
+
+
+        function showGraph()
+        {
+            {
+                $.post("controlador/Grafico.php",
+                function (data)
+                {
+                    console.log(data);
+                    var Programa_nombre = [];
+                    var Cantidad = [];
+                    
+                    for (var i in data) {
+                        Programa_nombre.push(data[i].Programa_nombre);
+                        Cantidad.push(data[i].Cantidad);
+                    }
+                    
+                    var chartdata = {
+                        labels: Programa_nombre,
+                        datasets: [
+                            {
+                                label: 'Estudiantes',
+                                backgroundColor: '#3e95cd',
+                                borderColor: '#46d5f1',
+                                hoverBackgroundColor: '#CCCCCC',
+                                hoverBorderColor: '#666666',
+                                data: Cantidad
+                            }
+                        ]
+                    };
+
+                    var graphTarget = $("#graphCanvas");
+
+                    var barGraph = new Chart(graphTarget, {
+                        type: 'doughnut',
+                        data: chartdata
+                    });
+                    
+                });
+            }
+        }
+        
+        function showGraph2()
+        {
+            {
+                $.post("controlador/Grafico2.php",
+                function (data2)
+                {
+                //----------------------------
+                    console.log(data2);
+                    var Nota = [];
+                    var Cantidad2 = [];
+                    
+                    for (var j in data2) {
+                        Nota.push(data2[j].Nota);
+                        Cantidad2.push(data2[j].Cantidad2);
+                    }
+                    
+                    var chartdata = {
+                        labels: Nota,
+                        datasets: [
+                            {
+                                label: 'Notas',
+                                backgroundColor: '#3e95cd',
+                                borderColor: '#46d5f1',
+                                hoverBackgroundColor: '#CCCCCC',
+                                hoverBorderColor: '#666666',
+                                data: Cantidad2
+                            }
+                        ]
+                    };
+
+                    var graphTarget = $("#graphCanvas2");
+
+                    var barGraph = new Chart(graphTarget, {
+                        type: 'bar',
+                        data: chartdata
+                    });
+                });
+            }
+        }
+    </script>
     <script>
         $(document).ready(function() {
             $('#tabla').DataTable( {
