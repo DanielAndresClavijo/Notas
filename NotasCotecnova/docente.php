@@ -405,6 +405,50 @@
                 <div class="orders">
                     <div class="row">
                         <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="box-title">EDITAR ESTUDIANTE </h4>
+                                </div>  
+                                <div class="card-body">
+                                    <div id="editar1" class="form-inline md-form mr-auto mb-4" > 
+                                        <input name="buscar12" id="buscar12" type="text" class="form-control col-md-8"  placeholder="Ingrese documento a buscar" >
+                                        <span >
+                                            <button name="enviar12" class="btn aqua-gradient btn-rounded btn-sm my-1" type="button" onclick="loadLog1()">Enviar</button>
+                                        </span>
+                                    </div>
+                                    <script>
+                                        function loadLog1(){
+                                            var buscar12= document.getElementById('buscar12').value;
+                                            var xhttp = new XMLHttpRequest();
+                                            xhttp.onreadystatechange = function() {
+                                                //Si 4 = se proceso y ya se recibieron los datos y 200 = se enviaron los datos correctamente
+                                                if (xhttp.readyState == 4 && xhttp.status == 200){
+                                                    document.getElementById("editar1").innerHTML = xhttp.responseText;//obtener los datos de respuesta como una cadena
+                                                }
+                                            };
+                                            xhttp.open("POST", "FormUpdateEstudiante.php", true);//Realiza la petición de apertura de comunicación con método POST.
+                                            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//Añade un par cabecera – valor a la cabecera HTTP. Necesario para pasar datos por POST.
+                                            xhttp.send("buscar12="+buscar12+"");//Envia la peticion al servidor
+                                        }
+                                    </script>                                     
+                                </div> 
+                            </div> <!-- /.card -->
+                        </div>  <!-- /.col-lg-12 -->
+                    </div>
+                </div>
+                <!-- /.orders -->
+            </div>
+            <!-- .animated -->
+        </div>
+        <!-- /.content 12 -->
+        <!-- Content 13 Eliminar informacion Estudiante-->
+        <div class="content" id="content13" style="display:none;">
+            <!-- Animated -->
+            <div class="animated fadeIn">
+                <!-- Orders -->
+                <div class="orders">
+                    <div class="row">
+                        <div class="col-xl-12">
                             <div class="card" style="display: show;">
                                 <div class="card-body">
                                     <h4 class="box-title">ELIMINAR ESTUDIANTES</h4>
@@ -419,7 +463,7 @@
                                                     <th>Apellidos</th>
                                                     <th>Programa </th>
                                                     <th text-align: center  >Estado</th>
-                                                    
+
                                                 </tr>
                                             </thead>
                                             <?php
@@ -431,7 +475,7 @@
                                                     <td><span class="name"><?php echo $consulta['nombres'] ?></span> </td>
                                                     <td><span class="name"><?php echo $consulta['apellidos'] ?></span></td>
                                                     <td><span class="name"><?php echo $consulta['Programa_nombre'] ?></span></td>
-                                                     
+
                                                         <?php
                                       
                                                        if($consulta['estado_estudiantes']==0){
@@ -468,51 +512,23 @@
                                                        }
                                                         
                                                         ?>
-                                                        
-                                                        
-                                                      
+
+
+
                                                 </tr>
                                             </tbody>
                                             <?php
                                             }
                                             ?>
                                         </table>
-                                     
+
                                     </div> <!-- /.table-stats -->
                                 </div>
-                               
+
                             </div> <!-- /.card -->
                         </div>  <!-- /.col-lg-12 -->
                     </div>
                 </div>
-                <!-- /.orders -->
-            </div>
-            <!-- .animated -->
-        </div>
-        <!-- /.content 12 -->
-        <!-- Content 13 Eliminar informacion Estudiante-->
-        <div class="content" id="content13" style="display:none;">
-            <!-- Animated -->
-            <div class="animated fadeIn">
-                <!-- Orders -->
-                <div class="orders">
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="box-title">ELIMINAR ESTUDIANTE </h4>
-                                </div>
-                                <div class="card-body">
-                                    <form class="form-inline md-form mr-auto mb-4" ><!-- action="#" method="POST" -->
-                                        <input name="buscar13" class="form-control col-md-8" type="text" placeholder="Ingrese documento a buscar" aria-label="Search">
-                                        <button  class="btn aqua-gradient btn-rounded btn-sm my-1" type="submit">Buscar</button>
-                                    </form> 
-                                </div>
-                            </div> <!-- /.card -->
-                        </div>  <!-- /.col-lg-12 -->
-                    </div>
-                </div>
-                <!-- /.orders -->
             </div>
             <!-- .animated -->
         </div>
