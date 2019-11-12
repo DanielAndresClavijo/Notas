@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.8.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-10-2019 a las 17:32:47
--- Versión del servidor: 10.1.25-MariaDB
--- Versión de PHP: 7.1.7
+-- Tiempo de generación: 13-11-2019 a las 00:21:06
+-- Versión del servidor: 10.1.31-MariaDB
+-- Versión de PHP: 5.6.35
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -1203,6 +1203,7 @@ CREATE TABLE `docentes` (
   `nombres` varchar(45) DEFAULT NULL,
   `apellidos` varchar(45) DEFAULT NULL,
   `contrasenna` varchar(100) DEFAULT NULL,
+  `estado_docentes` int(11) NOT NULL,
   `ciudades_id_ciudad_nacimiento` int(10) UNSIGNED NOT NULL,
   `tipo_documento_id_tipo_documento` int(10) UNSIGNED NOT NULL,
   `estado_civil_id_estado_civil` int(10) UNSIGNED NOT NULL
@@ -1212,8 +1213,10 @@ CREATE TABLE `docentes` (
 -- Volcado de datos para la tabla `docentes`
 --
 
-INSERT INTO `docentes` (`id`, `numero_de_identificacion`, `nombres`, `apellidos`, `contrasenna`, `ciudades_id_ciudad_nacimiento`, `tipo_documento_id_tipo_documento`, `estado_civil_id_estado_civil`) VALUES
-(1, 11111, 'Administrador', 'Admin', 'bf86c75b92752bfb1439b3a5233500ce', 1, 1, 1);
+INSERT INTO `docentes` (`id`, `numero_de_identificacion`, `nombres`, `apellidos`, `contrasenna`, `estado_docentes`, `ciudades_id_ciudad_nacimiento`, `tipo_documento_id_tipo_documento`, `estado_civil_id_estado_civil`) VALUES
+(1, 11111, 'danieo', 'Admin', 'bf86c75b92752bfb1439b3a5233500ce', 0, 1, 1, 1),
+(8, 12, 'asdf', 'fewqrt', '202cb962ac59075b964b07152d234b70', 0, 1, 1, 1),
+(9, 123, 'qwe', 'qwer', '202cb962ac59075b964b07152d234b70', 0, 1, 2, 8);
 
 -- --------------------------------------------------------
 
@@ -1253,6 +1256,7 @@ CREATE TABLE `estudiantes` (
   `nombres` varchar(45) DEFAULT NULL,
   `apellidos` varchar(45) DEFAULT NULL,
   `contrasenna` varchar(100) DEFAULT NULL,
+  `estado_estudiantes` int(10) UNSIGNED NOT NULL,
   `Programas_id_Programas` int(11) DEFAULT NULL,
   `tipo_documento_id_tipo_documento` int(10) UNSIGNED NOT NULL,
   `estado_civil_id_estado_civil` int(10) UNSIGNED NOT NULL,
@@ -1263,9 +1267,12 @@ CREATE TABLE `estudiantes` (
 -- Volcado de datos para la tabla `estudiantes`
 --
 
-INSERT INTO `estudiantes` (`id`, `documento_de_identificacion`, `nombres`, `apellidos`, `contrasenna`, `Programas_id_Programas`, `tipo_documento_id_tipo_documento`, `estado_civil_id_estado_civil`, `ciudades_id_ciudad_nacimiento`) VALUES
-(1, 1007374964, 'sletsen', 'duque', '81dc9bdb52d04dc20036dbd8313ed055', 2, 1, 1, 657),
-(2, 1004753326, 'Juan Sebastian', 'Bayer', '202cb962ac59075b964b07152d234b70', 2, 1, 1, 657);
+INSERT INTO `estudiantes` (`id`, `documento_de_identificacion`, `nombres`, `apellidos`, `contrasenna`, `estado_estudiantes`, `Programas_id_Programas`, `tipo_documento_id_tipo_documento`, `estado_civil_id_estado_civil`, `ciudades_id_ciudad_nacimiento`) VALUES
+(1, 1007374964, 'sletsen', 'duque', 'ec6a6536ca304edf844d1d248a4f08dc', 1, 2, 1, 1, 657),
+(2, 1004753326, 'Juan Sebastian', 'Bayer', '202cb962ac59075b964b07152d234b70', 1, 2, 1, 1, 657),
+(3, 12345, 'prueba', 'prueba', 'b0baee9d279d34fa1dfd71aadb908c3f', 1, 1, 1, 1, 1),
+(4, 123, 'Hector', 'sdfh', 'a5c9a3b44aaf44217da5dcc997765b1f', 0, 2, 1, 8, 1),
+(5, 1234, 'gwerg', 'wergh', '81dc9bdb52d04dc20036dbd8313ed055', 0, 3, 1, 8, 1);
 
 -- --------------------------------------------------------
 
@@ -1419,36 +1426,43 @@ ALTER TABLE `tipo_documento`
 --
 ALTER TABLE `ciudades`
   MODIFY `id_ciudad_nacimiento` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1101;
+
 --
 -- AUTO_INCREMENT de la tabla `departamentos`
 --
 ALTER TABLE `departamentos`
   MODIFY `id_departamento_nacimiento` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+
 --
 -- AUTO_INCREMENT de la tabla `docentes`
 --
 ALTER TABLE `docentes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT de la tabla `estado_civil`
 --
 ALTER TABLE `estado_civil`
   MODIFY `id_estado_civil` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT de la tabla `estudiantes`
 --
 ALTER TABLE `estudiantes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT de la tabla `notas`
 --
 ALTER TABLE `notas`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT de la tabla `tipo_documento`
 --
 ALTER TABLE `tipo_documento`
   MODIFY `id_tipo_documento` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- Restricciones para tablas volcadas
 --
