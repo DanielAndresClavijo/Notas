@@ -1,4 +1,3 @@
-
     <!-- Buscar Estudiante -->
     <div class="card-body">
         <div id="editar1" class="form-inline md-form mr-auto mb-4" > 
@@ -50,13 +49,17 @@
 //Select para hacer la consulta del Estado Civil para los estudiantes, para mostrar la info en los selects de los formularios
         $selectEstadoCivil = $mysql->efectuarConsulta("SELECT notas.estado_civil.id_estado_civil, notas.estado_civil.estado_civil FROM notas.estado_civil");
 //Select para hacer la consulta de los Programas, para mostrar la info en los selects de los formularios
-        $selectPrograma = $mysql->efectuarConsulta("SELECT notas.programas.id_Programas, notas.programas.Programa_nombre FROM notas.programas");           
+        $selectPrograma = $mysql->efectuarConsulta("SELECT notas.programas.id_Programas, notas.programas.Programa_nombre FROM notas.programas"); 
+        $estadoE = $mysql->efectuarConsulta("SELECT notas.estudiantes.estado_estudiantes FROM notas.estudiantes where notas.estudiantes.documento_de_identificacion = ".$id."");//Consulta para mostrar el estado
         $mysql->desconectar();//desconexion de la conexion con elo servidor 
-      
+        
+        while ($a= mysqli_fetch_assoc($estadoE)){
+           $b= $a['estado_estudiantes'];
+        }
     if(!empty($_POST['buscar12'])){
     //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
         while($resultado = mysqli_fetch_assoc($estudiantes_id)){
-            if($_POST['buscar12']== $resultado['documento_de_identificacion']){
+            if($_POST['buscar12']== $resultado['documento_de_identificacion'] && $b == '0'){
                 while($resultado = mysqli_fetch_assoc($id_estudiantes)){
                     $nombre_e=$resultado['nombres'];
                     $apellido_e=$resultado['apellidos'];

@@ -37,7 +37,7 @@
                         <ul class="sub-menu children dropdown-menu"> 
                             <li onclick="return change11(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Crear</p></li>
                             <li onclick="return change12(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Editar</p></li>
-                            <li onclick="return change13(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Eliminar</p></li>
+                            <li onclick="return change13(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Habilitar/Inhabilitar</p></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown" onclick="return OcultarAviso(this)">
@@ -47,7 +47,7 @@
                         <ul class="sub-menu children dropdown-menu">
                             <li onclick="return change21(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Crear</p></li>
                             <li onclick="return change22(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Editar</p></li>
-                            <li onclick="return change23(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Eliminar</p></li>
+                            <li onclick="return change23(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Habilitar/Inhabilitar</p></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown" onclick="return OcultarAviso(this)">
@@ -57,7 +57,7 @@
                         <ul class="sub-menu children dropdown-menu">
                             <li onclick="return change31(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Crear</p></li>
                             <li onclick="return change32(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Editar</p></li>
-                            <li onclick="return change33(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Eliminar</p></li>
+                            <li onclick="return change33(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Habilitar/Inhabilitar</p></li>
                         </ul>
                     </li>
                 </ul><!-- /.navbar-nav -->
@@ -96,10 +96,11 @@
         $mysql = new MySQL(); //se declara un nuevo array
         $mysql->conectar();//Conexion a la base de datos
 //Select para hacer la consulta de los docentes, para mostrar la info en la grid de docentes
-        $docentes = $mysql->efectuarConsulta("SELECT notas.docentes.id, notas.docentes.nombres, notas.docentes.apellidos, notas.docentes.numero_de_identificacion FROM notas.docentes");
+        $docentes = $mysql->efectuarConsulta("SELECT notas.docentes.estado_docentes, notas.docentes.id, notas.docentes.nombres, notas.docentes.apellidos, notas.docentes.numero_de_identificacion FROM notas.docentes");
+        $docentes2 = $mysql->efectuarConsulta("SELECT notas.docentes.estado_docentes, notas.docentes.id, notas.docentes.nombres, notas.docentes.apellidos, notas.docentes.numero_de_identificacion FROM notas.docentes");
         $docentes_id = $mysql->efectuarConsulta("SELECT notas.docentes.id, notas.docentes.numero_de_identificacion FROM notas.docentes");
 //Select para hacer la consulta de los estudiantes, para mostrar la info en la grid de estudiantes
-        $estudiantes = $mysql->efectuarConsulta("SELECT notas.estudiantes.id, notas.estudiantes.nombres, notas.estudiantes.apellidos, notas.estudiantes.documento_de_identificacion, notas.programas.Programa_nombre FROM notas.estudiantes INNER JOIN notas.programas ON notas.programas.id_Programas=notas.estudiantes.Programas_id_Programas");
+        $estudiantes = $mysql->efectuarConsulta("SELECT notas.estudiantes.estado_estudiantes, notas.estudiantes.id, notas.estudiantes.nombres, notas.estudiantes.apellidos, notas.estudiantes.documento_de_identificacion, notas.programas.Programa_nombre FROM notas.estudiantes INNER JOIN notas.programas ON notas.programas.id_Programas=notas.estudiantes.Programas_id_Programas");
         $estudiantes2 = $mysql->efectuarConsulta("SELECT notas.estudiantes.estado_estudiantes, notas.estudiantes.id, notas.estudiantes.nombres, notas.estudiantes.apellidos, notas.estudiantes.documento_de_identificacion, notas.programas.Programa_nombre FROM notas.estudiantes INNER JOIN notas.programas ON notas.programas.id_Programas=notas.estudiantes.Programas_id_Programas");
         
         $estudiantes_id = $mysql->efectuarConsulta("SELECT notas.estudiantes.id, notas.estudiantes.documento_de_identificacion FROM notas.estudiantes ");
@@ -181,6 +182,7 @@
                                             <tbody>
                                             <?php
                                             while ($consulta= mysqli_fetch_assoc($estudiantes)){
+                                                if($consulta['estado_estudiantes']==='0'){
                                             ?>
                                             
                                                 <tr>
@@ -191,6 +193,7 @@
                                                 </tr>
                                             
                                             <?php
+                                                }
                                             }
                                             ?>
                                             </tbody>
@@ -490,11 +493,11 @@
                                                             <div id="editar111" class="form-inline md-form mr-auto mb-4" > 
                                                                 <input name="docest" id="docest" type="text" class="form-control col-md-8" value="<?php echo $consulta['documento_de_identificacion'] ?>"  disabled hidden>  
                                                                 <span >
-                                                                    <button name="eliminar1" class="btn aqua-gradient btn-rounded btn-sm my-1" type="button" onclick="loadLog111()">Eliminar</button>
+                                                                    <button name="inhabilitar" type="button" onclick="loadLog11()">Inhabilitar</button>
                                                                 </span>
                                                             </div>
                                                             <script>
-                                                                function loadLog111(){
+                                                                function loadLog11(){
                                                                     var docest= document.getElementById('docest').value;
                                                                     var xhttp = new XMLHttpRequest();
                                                                     xhttp.onreadystatechange = function() {
@@ -503,7 +506,7 @@
                                                                             document.getElementById("editar111").innerHTML = xhttp.responseText;//obtener los datos de respuesta como una cadena
                                                                         }
                                                                     };
-                                                                    xhttp.open("POST", "controlador/estado.php", true);//Realiza la petición de apertura de comunicación con método POST.
+                                                                    xhttp.open("POST", "controlador/inhabilitar.php", true);//Realiza la petición de apertura de comunicación con método POST.
                                                                     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//Añade un par cabecera – valor a la cabecera HTTP. Necesario para pasar datos por POST.
                                                                     xhttp.send("docest="+docest+"");//Envia la peticion al servidor
                                                                 }
@@ -513,7 +516,31 @@
                                                         
                                                        } else {
                                                            
-                                                       echo '<td ><input type="button" value="habilitar" name="habilitar1" /></td>';
+                                                        ?>
+                                                        <td >
+                                                            <div id="editar112" class="form-inline md-form mr-auto mb-4" > 
+                                                                <input name="docest" id="docest2" type="text" class="form-control col-md-8" value="<?php echo $consulta['documento_de_identificacion'] ?>"  disabled hidden>  
+                                                                <span >
+                                                                    <button name="habilitar"  type="button" onclick="loadLog112()">Habilitar</button>
+                                                                </span>
+                                                            </div>
+                                                            <script>
+                                                                function loadLog112(){
+                                                                    var docest2= document.getElementById('docest2').value;
+                                                                    var xhttp = new XMLHttpRequest();
+                                                                    xhttp.onreadystatechange = function() {
+                                                                        //Si 4 = se proceso y ya se recibieron los datos y 200 = se enviaron los datos correctamente
+                                                                        if (xhttp.readyState == 4 && xhttp.status == 200){
+                                                                            document.getElementById("editar112").innerHTML = xhttp.responseText;//obtener los datos de respuesta como una cadena
+                                                                        }
+                                                                    };
+                                                                    xhttp.open("POST", "controlador/habilitar.php", true);//Realiza la petición de apertura de comunicación con método POST.
+                                                                    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//Añade un par cabecera – valor a la cabecera HTTP. Necesario para pasar datos por POST.
+                                                                    xhttp.send("docest2="+docest2+"");//Envia la peticion al servidor
+                                                                }
+                                                            </script>
+                                                        </td>
+                                                        <?php
                                                    
                                                        }
                                                         
@@ -553,7 +580,7 @@
                                 </div>
                                 <div class="card-body--">
                                     <div class="table-stats order-table ov-h">
-                                        <table class="table" id="tabla" style="width:100%">
+                                        <table class="table" id="tabla2" style="width:100% border">
                                             <thead>
                                                 <tr>
                                                     <th>Numero de documento</th>
@@ -561,19 +588,22 @@
                                                     <th>apellidos</th>
                                                 </tr>
                                             </thead>
+                                            <tbody>
                                             <?php
                                             while ($consulta= mysqli_fetch_assoc($docentes)){
+                                                if($consulta['estado_docentes']==='0'){
                                             ?>
-                                            <tbody>
                                                 <tr>
                                                     <td class="serial"><?php echo $consulta['numero_de_identificacion'] ?></td>
                                                     <td> <span class="name"><?php echo $consulta['nombres'] ?></span> </td>
                                                     <td><span class="name"><?php echo $consulta['apellidos'] ?></span></td>
                                                 </tr>
-                                            </tbody>
+                                            
                                             <?php
+                                                }
                                             }
                                             ?>
+                                            </tbody>
                                         </table>
                                     </div> <!-- /.table-stats -->
                                 </div>
@@ -725,11 +755,98 @@
                                 <div class="card-body">
                                     <h4 class="box-title">ELIMINAR DOCENTE </h4>
                                 </div>
-                                <div class="card-body">
-                                    <form class="form-inline md-form mr-auto mb-4" ><!-- action="#" method="POST" -->
-                                        <input name="buscar23" class="form-control col-md-8" type="text" placeholder="Ingrese documento a buscar" aria-label="Search">
-                                        <button  class="btn aqua-gradient btn-rounded btn-sm my-1" type="submit">Buscar</button>
-                                    </form> 
+                                <div class="card-body--">
+                                    <div class="table-stats order-table ov-h">
+                                        <table class="table ">
+                                            <thead>
+                                                <tr>
+                                                    <th class="name">Documento de identidad</th>
+                                                    <th>Nombres</th>
+                                                    <th>Apellidos</th>
+                                                    <th text-align: center  >Estado</th>
+
+                                                </tr>
+                                            </thead>
+                                            <?php
+                                            while ($consulta= mysqli_fetch_assoc($docentes2)){
+                                            ?>
+                                            <tbody>
+                                                <tr>
+                                                    <td><span class="name"><?php echo $consulta['numero_de_identificacion'] ?></span> </td>
+                                                    <td><span class="name"><?php echo $consulta['nombres'] ?></span> </td>
+                                                    <td><span class="name"><?php echo $consulta['apellidos'] ?></span></td>
+
+                                                        <?php
+                                      
+                                                       if($consulta['estado_docentes']==0){
+                                                           ?>
+                                                        <td >
+                                                            <div id="editar222" class="form-inline md-form mr-auto mb-4" > 
+                                                                <input name="docdoc" id="docdoc" type="text" class="form-control col-md-8" value="<?php echo $consulta['numero_de_identificacion'] ?>"  disabled hidden>  
+                                                                <span >
+                                                                    <button name="inhabilitar" type="button" onclick="loadLog222()">Inhabilitar</button>
+                                                                </span>
+                                                            </div>
+                                                            <script>
+                                                                function loadLog222(){
+                                                                    var docdoc = document.getElementById('docdoc').value;
+                                                                    var xhttp = new XMLHttpRequest();
+                                                                    xhttp.onreadystatechange = function() {
+                                                                        //Si 4 = se proceso y ya se recibieron los datos y 200 = se enviaron los datos correctamente
+                                                                        if (xhttp.readyState == 4 && xhttp.status == 200){
+                                                                            document.getElementById("editar222").innerHTML = xhttp.responseText;//obtener los datos de respuesta como una cadena
+                                                                        }
+                                                                    };
+                                                                    xhttp.open("POST", "controlador/inhabilitar.php", true);//Realiza la petición de apertura de comunicación con método POST.
+                                                                    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//Añade un par cabecera – valor a la cabecera HTTP. Necesario para pasar datos por POST.
+                                                                    xhttp.send("docdoc="+docdoc+"");//Envia la peticion al servidor
+                                                                }
+                                                            </script>
+                                                        </td>
+                                                        <?php
+                                                        
+                                                       } else {
+                                                           
+                                                        ?>
+                                                        <td >
+                                                            <div id="editar223" class="form-inline md-form mr-auto mb-4" > 
+                                                                <input name="docdoc2" id="docdoc2" type="text" class="form-control col-md-8" value="<?php echo $consulta['numero_de_identificacion'] ?>"  disabled hidden>  
+                                                                <span >
+                                                                    <button name="habilitar"  type="button" onclick="loadLog223()">Habilitar</button>
+                                                                </span>
+                                                            </div>
+                                                            <script>
+                                                                function loadLog223(){
+                                                                    var docdoc2= document.getElementById('docdoc2').value;
+                                                                    var xhttp = new XMLHttpRequest();
+                                                                    xhttp.onreadystatechange = function() {
+                                                                        //Si 4 = se proceso y ya se recibieron los datos y 200 = se enviaron los datos correctamente
+                                                                        if (xhttp.readyState == 4 && xhttp.status == 200){
+                                                                            document.getElementById("editar223").innerHTML = xhttp.responseText;//obtener los datos de respuesta como una cadena
+                                                                        }
+                                                                    };
+                                                                    xhttp.open("POST", "controlador/habilitar.php", true);//Realiza la petición de apertura de comunicación con método POST.
+                                                                    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//Añade un par cabecera – valor a la cabecera HTTP. Necesario para pasar datos por POST.
+                                                                    xhttp.send("docdoc2="+docdoc2+"");//Envia la peticion al servidor
+                                                                }
+                                                            </script>
+                                                        </td>
+                                                        <?php
+                                                   
+                                                       }
+                                                        
+                                                        ?>
+
+
+
+                                                </tr>
+                                            </tbody>
+                                            <?php
+                                            }
+                                            ?>
+                                        </table>
+
+                                    </div> <!-- /.table-stats -->
                                 </div>                                
                             </div> <!-- /.card -->
                         </div>  <!-- /.col-lg-12 -->
@@ -754,7 +871,7 @@
                                 </div>
                                 <div class="card-body--">
                                     <div class="table-stats order-table ov-h">
-                                        <table class="table ">
+                                        <table class="table" id="tabla3">
                                             <thead>
                                                 <tr>
                                                     <th>Nombre de estudiante</th>
@@ -1055,10 +1172,19 @@
             }
         }
     </script>
+   
     <script>
         $(document).ready(function() {
             $('#tabla').DataTable( {
-                "order": [[ 3, "asc" ]]
+                "order": [[1, "asc" ]]
+            } );
+            
+            $('#tabla2').DataTable( {
+                "order": [[ 1, "asc" ]]
+            } );
+            
+            $('#tabla3').DataTable( {
+                "order": [[ 0, "asc" ]]
             } );
         } );
     </script>

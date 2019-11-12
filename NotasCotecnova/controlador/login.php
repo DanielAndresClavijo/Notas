@@ -1,4 +1,5 @@
 <?php
+echo 'Hola mundo';
 if(isset($_POST['txtcc']) && !empty($_POST['txtcc']) && isset($_POST['txtpass']) && !empty($_POST['txtpass'])){
 
     

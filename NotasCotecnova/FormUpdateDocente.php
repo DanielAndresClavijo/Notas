@@ -31,6 +31,7 @@
         require_once 'modelo/MySQL.php'; //se llama la pagina donde se encuentra la conexion para la base de datos
         $id = $_POST['buscar22'];
         $cont=0;$cont2=0;//Contador para saber si no hay registro
+        
         $mysql = new MySQL(); //se declara un nuevo array
         $mysql->conectar();//Conexion a la base de datos
         //Select para hacer la consulta de los docentes, para mostrar la info en la grid de docentes
@@ -47,12 +48,15 @@
         $selectEstadoCivil = $mysql->efectuarConsulta("SELECT notas.estado_civil.id_estado_civil, notas.estado_civil.estado_civil FROM notas.estado_civil");
 //Select para hacer la consulta de los Programas, para mostrar la info en los selects de los formularios
         $selectPrograma = $mysql->efectuarConsulta("SELECT notas.programas.id_Programas, notas.programas.Programa_nombre FROM notas.programas");
+        $estadoD = $mysql->efectuarConsulta("SELECT notas.docentes.estado_docentes FROM notas.docentes where notas.docentes.numero_de_identificacion = ".$id."");//Consulta para mostrar el estado
         $mysql->desconectar();//desconexion de la conexion con elo servidor
-
+        while ($a= mysqli_fetch_assoc($estadoE)){//Obtener el estado del docente
+           $b= $a['estado_estudiantes'];
+        }
     if( !empty($_POST['buscar22'])){
     //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
         while($resultado = mysqli_fetch_assoc($docentes_id)){
-            if($_POST['buscar22']== $resultado['numero_de_identificacion']){
+            if($_POST['buscar22']== $resultado['numero_de_identificacion'] && $b == '0'){
                 while($resultado = mysqli_fetch_assoc($docentes)){
                     $tipo_documento_d=$resultado['tipo_documento'];
                     $id_tipo_documento_d=$resultado['id_tipo_documento'];
