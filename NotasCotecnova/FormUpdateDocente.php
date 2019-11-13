@@ -50,8 +50,8 @@
         $selectPrograma = $mysql->efectuarConsulta("SELECT notas.programas.id_Programas, notas.programas.Programa_nombre FROM notas.programas");
         $estadoD = $mysql->efectuarConsulta("SELECT notas.docentes.estado_docentes FROM notas.docentes where notas.docentes.numero_de_identificacion = ".$id."");//Consulta para mostrar el estado
         $mysql->desconectar();//desconexion de la conexion con elo servidor
-        while ($a= mysqli_fetch_assoc($estadoE)){//Obtener el estado del docente
-           $b= $a['estado_estudiantes'];
+        while ($a= mysqli_fetch_assoc($estadoD)){//Obtener el estado del docente
+           $b= $a['estado_docentes'];
         }
     if( !empty($_POST['buscar22'])){
     //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento

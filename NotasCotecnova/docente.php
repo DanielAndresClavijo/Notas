@@ -98,14 +98,16 @@
 //Select para hacer la consulta de los docentes, para mostrar la info en la grid de docentes
         $docentes = $mysql->efectuarConsulta("SELECT notas.docentes.estado_docentes, notas.docentes.id, notas.docentes.nombres, notas.docentes.apellidos, notas.docentes.numero_de_identificacion FROM notas.docentes");
         $docentes2 = $mysql->efectuarConsulta("SELECT notas.docentes.estado_docentes, notas.docentes.id, notas.docentes.nombres, notas.docentes.apellidos, notas.docentes.numero_de_identificacion FROM notas.docentes");
-        $docentes_id = $mysql->efectuarConsulta("SELECT notas.docentes.id, notas.docentes.numero_de_identificacion FROM notas.docentes");
+        $docentes_id = $mysql->efectuarConsulta("SELECT notas.docentes.estado_docentes, notas.docentes.id, notas.docentes.numero_de_identificacion FROM notas.docentes");
 //Select para hacer la consulta de los estudiantes, para mostrar la info en la grid de estudiantes
         $estudiantes = $mysql->efectuarConsulta("SELECT notas.estudiantes.estado_estudiantes, notas.estudiantes.id, notas.estudiantes.nombres, notas.estudiantes.apellidos, notas.estudiantes.documento_de_identificacion, notas.programas.Programa_nombre FROM notas.estudiantes INNER JOIN notas.programas ON notas.programas.id_Programas=notas.estudiantes.Programas_id_Programas");
         $estudiantes2 = $mysql->efectuarConsulta("SELECT notas.estudiantes.estado_estudiantes, notas.estudiantes.id, notas.estudiantes.nombres, notas.estudiantes.apellidos, notas.estudiantes.documento_de_identificacion, notas.programas.Programa_nombre FROM notas.estudiantes INNER JOIN notas.programas ON notas.programas.id_Programas=notas.estudiantes.Programas_id_Programas");
         
-        $estudiantes_id = $mysql->efectuarConsulta("SELECT notas.estudiantes.id, notas.estudiantes.documento_de_identificacion FROM notas.estudiantes ");
+        $estudiantes_id = $mysql->efectuarConsulta("SELECT notas.estudiantes.estado_estudiantes, notas.estudiantes.id, notas.estudiantes.documento_de_identificacion FROM notas.estudiantes ");
 //Select para hacer la consulta de los notas, para mostrar la info en la grid de notas
-        $notas = $mysql->efectuarConsulta("SELECT notas.estudiantes.nombres AS nombreE, notas.estudiantes.apellidos AS apellidoE, notas.docentes.nombres AS nombreD, notas.docentes.apellidos AS apellidoD, notas.notas.nota1, notas.notas.nota2, notas.notas.nota3, notas.notas.nota_final, notas.notas.fecha_hora_actualizacion FROM notas.notas INNER JOIN notas.estudiantes ON notas.notas.estudiantes_id=notas.estudiantes.id INNER JOIN notas.docentes ON notas.notas.docentes_id=notas.docentes.id");
+        $notas = $mysql->efectuarConsulta("SELECT notas.docentes.estado_docentes, notas.estudiantes.estado_estudiantes, notas.notas.estado_notas, notas.estudiantes.nombres AS nombreE, notas.estudiantes.apellidos AS apellidoE, notas.docentes.nombres AS nombreD, notas.docentes.apellidos AS apellidoD, notas.notas.nota1, notas.notas.nota2, notas.notas.nota3, notas.notas.nota_final, notas.notas.fecha_hora_actualizacion FROM notas.notas INNER JOIN notas.estudiantes ON notas.notas.estudiantes_id=notas.estudiantes.id INNER JOIN notas.docentes ON notas.notas.docentes_id=notas.docentes.id");
+        $notas3 = $mysql->efectuarConsulta("SELECT notas.notas.id, notas.notas.estado_notas, notas.estudiantes.nombres AS nombreE, notas.estudiantes.apellidos AS apellidoE, notas.docentes.nombres AS nombreD, notas.docentes.apellidos AS apellidoD, notas.notas.nota1, notas.notas.nota2, notas.notas.nota3, notas.notas.nota_final, notas.notas.fecha_hora_actualizacion FROM notas.notas INNER JOIN notas.estudiantes ON notas.notas.estudiantes_id=notas.estudiantes.id INNER JOIN notas.docentes ON notas.notas.docentes_id=notas.docentes.id");
+        $notas31 = $mysql->efectuarConsulta("SELECT notas.notas.id, notas.notas.estado_notas, notas.estudiantes.nombres AS nombreE, notas.estudiantes.apellidos AS apellidoE, notas.docentes.nombres AS nombreD, notas.docentes.apellidos AS apellidoD, notas.notas.nota1, notas.notas.nota2, notas.notas.nota3, notas.notas.nota_final, notas.notas.fecha_hora_actualizacion FROM notas.notas INNER JOIN notas.estudiantes ON notas.notas.estudiantes_id=notas.estudiantes.id INNER JOIN notas.docentes ON notas.notas.docentes_id=notas.docentes.id");
 //Select para hacer la consulta de las ciudades, para mostrar la info en los selects de los formularios
         $selectCiudades = $mysql->efectuarConsulta("SELECT notas.ciudades.id_ciudad_nacimiento, notas.ciudades.ciudad_nacimiento FROM notas.ciudades");
 //Select para hacer la consulta de las ciudades, para mostrar la info en los selects de los formularios
@@ -123,7 +125,12 @@
 //Select para hacer la consulta de los Programas, para mostrar la info en los selects de los formularios
         $selectPrograma = $mysql->efectuarConsulta("SELECT notas.programas.id_Programas, notas.programas.Programa_nombre FROM notas.programas");         
         $mysql->desconectar();//desconexion de la conexion con elo servidor 
-        
+        $id = array();
+        $i=0;
+        while ($consulta= mysqli_fetch_assoc($notas31)){
+            $id[$i] = $consulta['id'];
+            $i+=1;
+        }
         ?>
         <!-- Presentacion -->
         <div class="content" id="Presentacion" style="display: block;">
@@ -475,10 +482,11 @@
 
                                                 </tr>
                                             </thead>
+                                            <tbody>
                                             <?php
                                             while ($consulta= mysqli_fetch_assoc($estudiantes2)){
                                             ?>
-                                            <tbody>
+                                            
                                                 <tr>
                                                     <td><span class="name"><?php echo $consulta['documento_de_identificacion'] ?></span> </td>
                                                     <td><span class="name"><?php echo $consulta['nombres'] ?></span> </td>
@@ -549,10 +557,10 @@
 
 
                                                 </tr>
-                                            </tbody>
                                             <?php
                                             }
                                             ?>
+                                            </tbody>
                                         </table>
 
                                     </div> <!-- /.table-stats -->
@@ -767,10 +775,11 @@
 
                                                 </tr>
                                             </thead>
+                                            <tbody>
                                             <?php
                                             while ($consulta= mysqli_fetch_assoc($docentes2)){
                                             ?>
-                                            <tbody>
+                                            
                                                 <tr>
                                                     <td><span class="name"><?php echo $consulta['numero_de_identificacion'] ?></span> </td>
                                                     <td><span class="name"><?php echo $consulta['nombres'] ?></span> </td>
@@ -840,12 +849,12 @@
 
 
                                                 </tr>
-                                            </tbody>
+                                            
                                             <?php
                                             }
                                             ?>
                                         </table>
-
+                                        </tbody>
                                     </div> <!-- /.table-stats -->
                                 </div>                                
                             </div> <!-- /.card -->
@@ -885,11 +894,33 @@
                                             </thead>
                                             <?php
                                             while ($consulta= mysqli_fetch_assoc($notas)){
+                                                if($consulta['estado_notas']==='0'){
                                             ?>
                                             <tbody>
                                                 <tr>
+                                                    <?php 
+                                                    if($consulta['estado_estudiantes']==='1'){
+                                                    ?>
+                                                    <td class="name" style="color: red;"><?php echo $consulta['nombreE'] ?> <?php echo $consulta['apellidoE'] ?></td>
+                                                    <?php
+                                                    }else{
+                                                        ?>
                                                     <td class="name"><?php echo $consulta['nombreE'] ?> <?php echo $consulta['apellidoE'] ?></td>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                    
+                                                    <?php 
+                                                    if($consulta['estado_docentes']==='1'){
+                                                    ?>
                                                     <td> <span class="name"><?php echo $consulta['nombreD'] ?> <?php echo $consulta['apellidoD'] ?></span> </td>
+                                                    <?php
+                                                    }else{
+                                                        ?>
+                                                    <td class="name"><?php echo $consulta['nombreE'] ?> <?php echo $consulta['apellidoE'] ?></td>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                     <td> <span class="name"><?php echo $consulta['nota1'] ?></span></td>
                                                     <td> <span class="name"><?php echo $consulta['nota2'] ?></span></td>
                                                     <td> <span class="name"><?php echo $consulta['nota3'] ?></span></td>
@@ -898,6 +929,7 @@
                                                 </tr>
                                             </tbody>
                                             <?php
+                                                }
                                             }
                                             ?>
                                         </table>
@@ -933,10 +965,12 @@
                                                 <?php 
                                                 //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
                                                 while($resultado = mysqli_fetch_assoc($docentes_id)){
+                                                    if($resultado['estado_docentes']==='0'){
                                                 ?>
                                             <!-- En el value y el la opcion de la seleccion se imprimen los resultados de la consulta -->
                                                 <option value="<?php echo $resultado['id'] ?>"><?php echo $resultado['numero_de_identificacion'] ?></option>
-                                        <?php   }   ?>
+                                            <?php   } 
+                                                }   ?>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -946,10 +980,12 @@
                                                 <?php 
                                                 //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
                                                 while($resultado = mysqli_fetch_assoc($estudiantes_id)){
+                                                    if($resultado['estado_estudiantes']==='0'){
                                                 ?>
                                             <!-- En el value y el la opcion de la seleccion se imprimen los resultados de la consulta -->
                                                 <option value="<?php echo $resultado['id'] ?>"><?php echo $resultado['documento_de_identificacion'] ?></option>
-                                        <?php   }   ?>
+                                            <?php   }  
+                                                } ?>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -1038,12 +1074,109 @@
                                 <div class="card-body">
                                     <h4 class="box-title">ELIMINAR NOTAS </h4>
                                 </div>
-                                <div class="card-body">
-                                    <form class="form-inline md-form mr-auto mb-4" ><!-- action="#" method="POST" -->
-                                        <input name="buscar33" class="form-control col-md-8" type="text" placeholder="Ingrese documento a buscar" aria-label="Search">
-                                        <button  class="btn aqua-gradient btn-rounded btn-sm my-1" type="submit">Buscar</button>
-                                    </form> 
-                                </div>                                
+                                <div class="card-body--">
+                                    <div class="table-stats order-table ov-h">
+                                        <table class="table ">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nombre de estudiante</th>
+                                                    <th>Nombre del docente</th>
+                                                    <th>Nota1</th>
+                                                    <th>Nota2</th>
+                                                    <th>Nota3</th>
+                                                    <th>Nota final</th>
+                                                    <th>Fecha y hora<br>(Ultima actualizacion)</th>
+                                                    <th colspan="2">Estado</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+                                            while ($consulta= mysqli_fetch_assoc($notas3)){
+                                            ?>
+                                            
+                                                <tr>
+                                                    <td class="name"><?php echo $consulta['nombreE'] ?> <?php echo $consulta['apellidoE'] ?></td>
+                                                    <td> <span class="name"><?php echo $consulta['nombreD'] ?> <?php echo $consulta['apellidoD'] ?></span> </td>
+                                                    <td> <span class="name"><?php echo $consulta['nota1'] ?></span></td>
+                                                    <td> <span class="name"><?php echo $consulta['nota2'] ?></span></td>
+                                                    <td> <span class="name"><?php echo $consulta['nota3'] ?></span></td>
+                                                    <td> <span class="name"><?php echo $consulta['nota_final'] ?></span></td>
+                                                    <td><span class="name"><?php echo $consulta['fecha_hora_actualizacion'] ?></span></td>
+
+                                                        <?php
+                                      
+                                                        if($consulta['estado_notas']==0){
+                                                           ?>
+                                                        <td >
+                                                            <div id="editar333" class="form-inline md-form mr-auto mb-4" > 
+                                                                <input name="idnot" id="idnot" type="text" class="form-control col-md-8" value="<?php echo $consulta['id'] ?>"  disabled hidden>  
+                                                                <span >
+                                                                    <button name="inhabilitar" type="button" onclick="loadLog333()">Inhabilitar</button>
+                                                                </span>
+                                                            </div>
+                                                            <script>
+                                                                function loadLog333(){
+                                                                    var idnot = document.getElementById('idnot').value;
+                                                                    var xhttp = new XMLHttpRequest();
+                                                                    xhttp.onreadystatechange = function() {
+                                                                        //Si 4 = se proceso y ya se recibieron los datos y 200 = se enviaron los datos correctamente
+                                                                        if (xhttp.readyState == 4 && xhttp.status == 200){
+                                                                            document.getElementById("editar333").innerHTML = xhttp.responseText;//obtener los datos de respuesta como una cadena
+                                                                        }
+                                                                    };
+                                                                    xhttp.open("POST", "controlador/inhabilitar.php", true);//Realiza la petición de apertura de comunicación con método POST.
+                                                                    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//Añade un par cabecera – valor a la cabecera HTTP. Necesario para pasar datos por POST.
+                                                                    xhttp.send("idnot="+idnot+"");//Envia la peticion al servidor
+                                                                }
+                                                            </script>
+                                                        </td>
+                                                        <?php
+                                                        
+                                                       } else {
+                                                           
+                                                        ?>
+                                                        <td >
+                                                            <div id="editar334" class="form-inline md-form mr-auto mb-4" > 
+                                                                <input name="idnot2" id="idnot2" type="text" class="form-control col-md-8" value="<?php echo $consulta['id'] ?>"  disabled hidden>  
+                                                                <span >
+                                                                    <button name="habilitar"  type="button" onclick="loadLog334()">Habilitar</button>
+                                                                </span>
+                                                            </div>
+                                                            <script>
+                                                                function loadLog334(){
+                                                                    var idnot2= document.getElementById('idnot2').value;
+                                                                    var xhttp = new XMLHttpRequest();
+                                                                    xhttp.onreadystatechange = function() {
+                                                                        //Si 4 = se proceso y ya se recibieron los datos y 200 = se enviaron los datos correctamente
+                                                                        if (xhttp.readyState == 4 && xhttp.status == 200){
+                                                                            document.getElementById("editar334").innerHTML = xhttp.responseText;//obtener los datos de respuesta como una cadena
+                                                                        }
+                                                                    };
+                                                                    xhttp.open("POST", "controlador/habilitar.php", true);//Realiza la petición de apertura de comunicación con método POST.
+                                                                    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//Añade un par cabecera – valor a la cabecera HTTP. Necesario para pasar datos por POST.
+                                                                    xhttp.send("idnot2="+idnot2+"");//Envia la peticion al servidor
+                                                                }
+                                                            </script>
+                                                        </td>
+                                                        <?php
+                                                   
+                                                       }
+                                                        
+                                                        ?>
+
+
+
+                                                </tr>
+                                            
+                                            <?php
+                                            }
+                                            ?>
+                                            </tbody>
+                                        </table>
+
+                                    </div> <!-- /.table-stats -->
+                                </div>                               
                             </div> <!-- /.card -->
                         </div>  <!-- /.col-lg-12 -->
                     </div>
