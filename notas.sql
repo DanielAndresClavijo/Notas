@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-11-2019 a las 00:21:06
+-- Tiempo de generación: 13-11-2019 a las 17:39:44
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 5.6.35
 
@@ -1215,7 +1215,7 @@ CREATE TABLE `docentes` (
 
 INSERT INTO `docentes` (`id`, `numero_de_identificacion`, `nombres`, `apellidos`, `contrasenna`, `estado_docentes`, `ciudades_id_ciudad_nacimiento`, `tipo_documento_id_tipo_documento`, `estado_civil_id_estado_civil`) VALUES
 (1, 11111, 'danieo', 'Admin', 'bf86c75b92752bfb1439b3a5233500ce', 0, 1, 1, 1),
-(8, 12, 'asdf', 'fewqrt', '202cb962ac59075b964b07152d234b70', 0, 1, 1, 1),
+(8, 12, 'asdf', 'fewqrt', '202cb962ac59075b964b07152d234b70', 1, 1, 1, 1),
 (9, 123, 'qwe', 'qwer', '202cb962ac59075b964b07152d234b70', 0, 1, 2, 8);
 
 -- --------------------------------------------------------
@@ -1283,10 +1283,11 @@ INSERT INTO `estudiantes` (`id`, `documento_de_identificacion`, `nombres`, `apel
 CREATE TABLE `notas` (
   `id` int(10) UNSIGNED NOT NULL,
   `fecha_hora_actualizacion` datetime DEFAULT NULL,
-  `nota1` int(10) DEFAULT NULL,
-  `nota2` int(10) DEFAULT NULL,
-  `nota3` int(10) DEFAULT NULL,
-  `nota_final` int(10) DEFAULT NULL,
+  `nota1` float DEFAULT NULL,
+  `nota2` float DEFAULT NULL,
+  `nota3` float DEFAULT NULL,
+  `nota_final` float DEFAULT NULL,
+  `estado_notas` int(11) NOT NULL,
   `estudiantes_id` int(10) UNSIGNED NOT NULL,
   `docentes_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla para guardar informacion de las notas';
@@ -1295,9 +1296,9 @@ CREATE TABLE `notas` (
 -- Volcado de datos para la tabla `notas`
 --
 
-INSERT INTO `notas` (`id`, `fecha_hora_actualizacion`, `nota1`, `nota2`, `nota3`, `nota_final`, `estudiantes_id`, `docentes_id`) VALUES
-(1, '2019-10-02 10:09:00', 3, 3, 3, 3, 1, 1),
-(2, '2019-10-09 10:09:00', 3, 4, 4, 4, 2, 1);
+INSERT INTO `notas` (`id`, `fecha_hora_actualizacion`, `nota1`, `nota2`, `nota3`, `nota_final`, `estado_notas`, `estudiantes_id`, `docentes_id`) VALUES
+(1, '2019-10-02 10:09:00', 3, 3, 3, 3, 1, 1, 1),
+(2, '2019-10-09 10:09:00', 3, 4, 4, 4, 0, 2, 1);
 
 -- --------------------------------------------------------
 
