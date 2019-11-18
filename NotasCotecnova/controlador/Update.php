@@ -1,6 +1,6 @@
 <?php
 
-//Estudiantes
+//*************************************************************** Estudiantes ***************************************************************
 if( !empty($_POST['estado_civil1']) && !empty($_POST['ciudad1']) && !empty($_POST['programa1']) && !empty($_POST['nombre1']) && !empty($_POST['apellido1'])){
     require_once '../modelo/MySQL.php'; //se llama la pagina donde se encuentra la conexion para la base de datos
     //declaracion de variables
@@ -31,7 +31,7 @@ if( !empty($_POST['estado_civil1']) && !empty($_POST['ciudad1']) && !empty($_POS
     }
     $mysql->desconectar();//Desconexion 
 }else{
-    //Docentes
+//*************************************************************** Docentes ***************************************************************
     if( !empty($_POST['estado_civil2']) && !empty($_POST['ciudad2']) && !empty($_POST['nombre2']) && !empty($_POST['apellido2'])){
         require_once '../modelo/MySQL.php'; //se llama la pagina donde se encuentra la conexion para la base de datos
         //declaracion de variables
@@ -62,7 +62,7 @@ if( !empty($_POST['estado_civil1']) && !empty($_POST['ciudad1']) && !empty($_POS
         }
         $mysql->desconectar();//Desconexion 
     }else{
-        //Notas
+//*************************************************************** Notas ***************************************************************
         if(  !empty($_POST['fechanota']) && !empty($_POST['nota1']) && !empty($_POST['nota2']) && !empty($_POST['nota3']) && !empty($_POST['documento21']) && !empty($_POST['documento11'])){
             require_once '../modelo/MySQL.php'; //se llama la pagina donde se encuentra la conexion para la base de datos
             //declaracion de variables
@@ -84,10 +84,11 @@ if( !empty($_POST['estado_civil1']) && !empty($_POST['ciudad1']) && !empty($_POS
             //$id_documento21 = $mysql->efectuarConsulta("");
             
             //Variable para llamar el ingreso de usuario y entregarle el insert
-            $in = $mysql->EditarRegistros("insert into notas.notas (notas.notas.fecha_hora_actualizacion, notas.notas.nota1, notas.notas.nota2, notas.notas.nota3,notas.notas.nota_final, notas.notas.docentes_id, notas.notas.estudiantes_id) values('".$fechanota."',".$nota1.",".$nota2.",".$nota3.",".$notafinal.",".$documento21.",".$documento11.")");
+            $in3 = $mysql->EditarRegistros("UPDATE notas.notas SET notas.notas.fecha_hora_actualizacion='".$fechanota."',notas.notas.nota1='".$nota1."',notas.notas.nota2=".$nota2.",notas.notas.nota3=".$nota3.",notas.notas.nota_final=".$notafinal." where notas.docentes.numero_de_identificacion = ".$enviar2." ");
+            $in3 = $mysql->EditarRegistros("insert into notas.notas (notas.notas.fecha_hora_actualizacion, notas.notas.nota1, notas.notas.nota2, notas.notas.nota3,notas.notas.nota_final, notas.notas.docentes_id, notas.notas.estudiantes_id) values('".$fechanota."',".$nota1.",".$nota2.",".$nota3.",".$notafinal.",".$documento21.",".$documento11.")");
             
             //Validacion para saber si el registro se ejecuto correctamente
-            if($in){
+            if($in3){
                 echo "<script>alert('Datos registrados');
                 location.href = '../docente.php';
                 </script>";

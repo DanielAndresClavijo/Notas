@@ -1,6 +1,4 @@
 
-
-
 //Esta funcion es para ocultar el texto de los content cuando se minimiza el menu
 function ocultarmenus(  ){
     if(document.getElementById('not').style.display === "block"){

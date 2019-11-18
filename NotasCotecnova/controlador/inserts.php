@@ -17,18 +17,30 @@ if( !empty($_POST['tipo_documento1']) && !empty($_POST['estado_civil1']) && !emp
 
     $mysql = new MySQL(); //se declara un nuevo array
     $mysql->conectar();//Se conecta a la base de datos
-    
-    //Variable para llamar el ingreso de usuario y entregarle el insert
-    $in = $mysql->ingresoRegistro("insert into notas.estudiantes (notas.estudiantes.documento_de_identificacion, notas.estudiantes.nombres, notas.estudiantes.apellidos, notas.estudiantes.contrasenna,notas.estudiantes.Programas_id_Programas, notas.estudiantes.tipo_documento_id_tipo_documento, notas.estudiantes.estado_civil_id_estado_civil, notas.estudiantes.ciudades_id_ciudad_nacimiento) values(".$documento1.",'".$nombre1."','".$apellido1."','".$pass1."',".$programa1.",".$tipoDocumento1.",".$estado_civil1.",".$ciudad1.")");
-    
-    //Validacion para saber si el registro se ejecuto correctamente
-    if($in){
-        echo '<button type="button" class="btn btn-primary"><a class="nav-link" href="docente.php">Subir Cambios</a></button>';
-        //header("Location: ../docente.php");
-    }else{
-        echo "Erroooooooooooooooooooooooooooooooor";
+    $estudiantes = $mysql->efectuarConsulta("SELECT notas.estudiantes.id, notas.estudiantes.nombres, notas.estudiantes.apellidos, notas.estudiantes.documento_de_identificacion, notas.programas.Programa_nombre FROM notas.estudiantes INNER JOIN notas.programas ON notas.programas.id_Programas=notas.estudiantes.Programas_id_Programas");
+    $cont=0;
+    while ($consulta= mysqli_fetch_assoc($estudiantes)){
+        if($consulta['documento_de_identificacion']==$documento1){
+            $cont = 1;
+        }
     }
-    $mysql->desconectar();//Desconexion 
+    if($cont==0){
+        //Variable para llamar el ingreso de usuario y entregarle el insert
+        $in = $mysql->ingresoRegistro("insert into notas.estudiantes (notas.estudiantes.documento_de_identificacion, notas.estudiantes.nombres, notas.estudiantes.apellidos, notas.estudiantes.contrasenna,notas.estudiantes.Programas_id_Programas, notas.estudiantes.tipo_documento_id_tipo_documento, notas.estudiantes.estado_civil_id_estado_civil, notas.estudiantes.ciudades_id_ciudad_nacimiento) values(".$documento1.",'".$nombre1."','".$apellido1."','".$pass1."',".$programa1.",".$tipoDocumento1.",".$estado_civil1.",".$ciudad1.")");
+
+        //Validacion para saber si el registro se ejecuto correctamente
+        if($in){
+            echo '<button type="button" class="btn btn-primary"><a class="nav-link" href="docente.php">Subir Cambios</a></button>';
+            //header("Location: ../docente.php");
+        }else{
+            echo "Erroooooooooooooooooooooooooooooooor";
+        }
+        $mysql->desconectar();//Desconexion 
+    }else{
+        $url='tu/url';
+echo '<meta http-equiv=refresh content="1; '.$url.'">';die('<script type="text/javascript">window.location=\''.$url.'\';</script‌​>');
+    }                                      
+        
 }else{
     //Docentes
     if( !empty($_POST['tipo_documento2']) && !empty($_POST['estado_civil2']) && !empty($_POST['ciudad2']) && !empty($_POST['documento2']) && !empty($_POST['nombre2']) && !empty($_POST['apellido2']) && !empty($_POST['contrasenna2'])){
@@ -61,15 +73,35 @@ if( !empty($_POST['tipo_documento1']) && !empty($_POST['estado_civil1']) && !emp
         }
         $mysql->desconectar();//Desconexion 
     }else{
-        //Notas
-        if(!empty($_POST['fechanota']) && !empty($_POST['nota1']) && !empty($_POST['nota2']) && !empty($_POST['nota3']) && !empty($_POST['documento21']) && !empty($_POST['documento11'])){
+        
+//******************************************************************************* Notas ***************************************************************************
+        if(!empty($_POST['fechanota']) && !empty($_POST['documento21']) && !empty($_POST['documento11'])){
             require_once '../modelo/MySQL.php'; //se llama la pagina donde se encuentra la conexion para la base de datos
             //declaracion de variables
             //Variables de la tabla estudiantes 
             $fechanota = $_POST['fechanota'];
-            $nota1 = $_POST['nota1'];
-            $nota2 = $_POST['nota2'];
-            $nota3 = $_POST['nota3'];
+            //Verificacion por si alguna nota fue ingresada
+            //Esta verificacion lo que hace s que verifica si alguna de las notas han sido ingresadas, 
+            //para definir la variable de la nota como 0 si no se ingreso ninguna nota
+            
+            if(empty($_POST['nota1'])){//Verificacion par la nota 1
+                $nota1=0;
+            }else{
+                $nota1 = $_POST['nota1'];
+            }
+            
+            if(empty($_POST['nota2'])){//Verificacion par la nota 1
+                $nota2=0;
+            }else{
+                $nota2 = $_POST['nota2'];
+            }
+            
+            if(empty($_POST['nota3'])){//Verificacion par la nota 1
+                $nota3=0;
+            }else{
+                $nota3 = $_POST['nota3'];
+            }
+            
             $notafinal = ($nota1*0.35) + ($nota2*0.35) + ($nota3*0.30);
             //LLaves foraneas               
             $documento21 = $_POST['documento21'];

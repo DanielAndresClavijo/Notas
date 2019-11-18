@@ -16,9 +16,8 @@
     <link rel="stylesheet" href="fontawesome-free-5.11.2-web/css/all.css">
     <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <LINK REL=StyleSheet HREF="css/style_1.css" TYPE="text/css" MEDIA=screen>
+    <LINK REL=StyleSheet HREF="css/datatables.css" TYPE="text/css" MEDIA=screen>
     <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/tail.select.css">
-    
 </head>
 
 <body>
@@ -38,7 +37,7 @@
                         <ul class="sub-menu children dropdown-menu"> 
                             <li onclick="return change11(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Crear</p></li>
                             <li onclick="return change12(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Editar</p></li>
-                            <li onclick="return change13(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Eliminar</p></li>
+                            <li onclick="return change13(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Habilitar/Inhabilitar</p></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown" onclick="return OcultarAviso(this)">
@@ -48,7 +47,7 @@
                         <ul class="sub-menu children dropdown-menu">
                             <li onclick="return change21(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Crear</p></li>
                             <li onclick="return change22(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Editar</p></li>
-                            <li onclick="return change23(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Eliminar</p></li>
+                            <li onclick="return change23(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Habilitar/Inhabilitar</p></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown" onclick="return OcultarAviso(this)">
@@ -58,7 +57,7 @@
                         <ul class="sub-menu children dropdown-menu">
                             <li onclick="return change31(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Crear</p></li>
                             <li onclick="return change32(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Editar</p></li>
-                            <li onclick="return change33(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Eliminar</p></li>
+                            <li onclick="return change33(this);" style="cursor: pointer;"><i class="fa fa-table fa-li" style="margin-top: 3px;"></i><p style="font-size: 0.9em;">Habilitar/Inhabilitar</p></li>
                         </ul>
                     </li>
                 </ul><!-- /.navbar-nav -->
@@ -97,13 +96,18 @@
         $mysql = new MySQL(); //se declara un nuevo array
         $mysql->conectar();//Conexion a la base de datos
 //Select para hacer la consulta de los docentes, para mostrar la info en la grid de docentes
-        $docentes = $mysql->efectuarConsulta("SELECT notas.docentes.id, notas.docentes.nombres, notas.docentes.apellidos, notas.docentes.numero_de_identificacion FROM notas.docentes");
-        $docentes_id = $mysql->efectuarConsulta("SELECT notas.docentes.id, notas.docentes.numero_de_identificacion FROM notas.docentes");
+        $docentes = $mysql->efectuarConsulta("SELECT notas.docentes.estado_docentes, notas.docentes.id, notas.docentes.nombres, notas.docentes.apellidos, notas.docentes.numero_de_identificacion FROM notas.docentes");
+        $docentes2 = $mysql->efectuarConsulta("SELECT notas.docentes.estado_docentes, notas.docentes.id, notas.docentes.nombres, notas.docentes.apellidos, notas.docentes.numero_de_identificacion FROM notas.docentes");
+        $docentes_id = $mysql->efectuarConsulta("SELECT notas.docentes.estado_docentes, notas.docentes.id, notas.docentes.numero_de_identificacion FROM notas.docentes");
 //Select para hacer la consulta de los estudiantes, para mostrar la info en la grid de estudiantes
-        $estudiantes = $mysql->efectuarConsulta("SELECT notas.estudiantes.id, notas.estudiantes.nombres, notas.estudiantes.apellidos, notas.estudiantes.documento_de_identificacion, notas.programas.Programa_nombre FROM notas.estudiantes INNER JOIN notas.programas ON notas.programas.id_Programas=notas.estudiantes.Programas_id_Programas");
-        $estudiantes_id = $mysql->efectuarConsulta("SELECT notas.estudiantes.id, notas.estudiantes.documento_de_identificacion FROM notas.estudiantes ");
+        $estudiantes = $mysql->efectuarConsulta("SELECT notas.estudiantes.estado_estudiantes, notas.estudiantes.id, notas.estudiantes.nombres, notas.estudiantes.apellidos, notas.estudiantes.documento_de_identificacion, notas.programas.Programa_nombre FROM notas.estudiantes INNER JOIN notas.programas ON notas.programas.id_Programas=notas.estudiantes.Programas_id_Programas");
+        $estudiantes2 = $mysql->efectuarConsulta("SELECT notas.estudiantes.estado_estudiantes, notas.estudiantes.id, notas.estudiantes.nombres, notas.estudiantes.apellidos, notas.estudiantes.documento_de_identificacion, notas.programas.Programa_nombre FROM notas.estudiantes INNER JOIN notas.programas ON notas.programas.id_Programas=notas.estudiantes.Programas_id_Programas");
+        
+        $estudiantes_id = $mysql->efectuarConsulta("SELECT notas.estudiantes.estado_estudiantes, notas.estudiantes.id, notas.estudiantes.documento_de_identificacion FROM notas.estudiantes ");
 //Select para hacer la consulta de los notas, para mostrar la info en la grid de notas
-        $notas = $mysql->efectuarConsulta("SELECT notas.estudiantes.nombres AS nombreE, notas.estudiantes.apellidos AS apellidoE, notas.docentes.nombres AS nombreD, notas.docentes.apellidos AS apellidoD, notas.notas.nota1, notas.notas.nota2, notas.notas.nota3, notas.notas.nota_final, notas.notas.fecha_hora_actualizacion FROM notas.notas INNER JOIN notas.estudiantes ON notas.notas.estudiantes_id=notas.estudiantes.id INNER JOIN notas.docentes ON notas.notas.docentes_id=notas.docentes.id");
+        $notas = $mysql->efectuarConsulta("SELECT notas.docentes.estado_docentes, notas.estudiantes.estado_estudiantes, notas.notas.estado_notas, notas.estudiantes.nombres AS nombreE, notas.estudiantes.apellidos AS apellidoE, notas.docentes.nombres AS nombreD, notas.docentes.apellidos AS apellidoD, notas.notas.nota1, notas.notas.nota2, notas.notas.nota3, notas.notas.nota_final, notas.notas.fecha_hora_actualizacion FROM notas.notas INNER JOIN notas.estudiantes ON notas.notas.estudiantes_id=notas.estudiantes.id INNER JOIN notas.docentes ON notas.notas.docentes_id=notas.docentes.id");
+        $notas3 = $mysql->efectuarConsulta("SELECT notas.notas.id, notas.notas.estado_notas, notas.estudiantes.nombres AS nombreE, notas.estudiantes.apellidos AS apellidoE, notas.docentes.nombres AS nombreD, notas.docentes.apellidos AS apellidoD, notas.notas.nota1, notas.notas.nota2, notas.notas.nota3, notas.notas.nota_final, notas.notas.fecha_hora_actualizacion FROM notas.notas INNER JOIN notas.estudiantes ON notas.notas.estudiantes_id=notas.estudiantes.id INNER JOIN notas.docentes ON notas.notas.docentes_id=notas.docentes.id");
+        $notas31 = $mysql->efectuarConsulta("SELECT notas.notas.id, notas.notas.estado_notas, notas.estudiantes.nombres AS nombreE, notas.estudiantes.apellidos AS apellidoE, notas.docentes.nombres AS nombreD, notas.docentes.apellidos AS apellidoD, notas.notas.nota1, notas.notas.nota2, notas.notas.nota3, notas.notas.nota_final, notas.notas.fecha_hora_actualizacion FROM notas.notas INNER JOIN notas.estudiantes ON notas.notas.estudiantes_id=notas.estudiantes.id INNER JOIN notas.docentes ON notas.notas.docentes_id=notas.docentes.id");
 //Select para hacer la consulta de las ciudades, para mostrar la info en los selects de los formularios
         $selectCiudades = $mysql->efectuarConsulta("SELECT notas.ciudades.id_ciudad_nacimiento, notas.ciudades.ciudad_nacimiento FROM notas.ciudades");
 //Select para hacer la consulta de las ciudades, para mostrar la info en los selects de los formularios
@@ -121,7 +125,12 @@
 //Select para hacer la consulta de los Programas, para mostrar la info en los selects de los formularios
         $selectPrograma = $mysql->efectuarConsulta("SELECT notas.programas.id_Programas, notas.programas.Programa_nombre FROM notas.programas");         
         $mysql->desconectar();//desconexion de la conexion con elo servidor 
-        
+        $id = array();
+        $i=0;
+        while ($consulta= mysqli_fetch_assoc($notas31)){
+            $id[$i] = $consulta['id'];
+            $i+=1;
+        }
         ?>
         <!-- Presentacion -->
         <div class="content" id="Presentacion" style="display: block;">
@@ -137,6 +146,12 @@
                                 </div>
                                 <div class="card-body--">
                                     <h2 class="box-title text-center">Aqui podra gestionar su trabajo, seleccione una de las opciones a su izquierda y empiece <br></h2>
+                                    <div id="chart-container" style="width: 100%; height: auto;">
+                                        <canvas id="graphCanvas"></canvas>
+                                    </div>
+                                    <div id="chart-container2" style="width: 100%; height: auto;">
+                                        <canvas id="graphCanvas2"></canvas>
+                                    </div>
                                 </div>
                                 <br>
                             </div> <!-- /.card -->
@@ -162,7 +177,7 @@
                                 </div>
                                 <div class="card-body--">
                                     <div class="table-stats order-table ov-h">
-                                        <table class="table" id="tabla" style="width:100%">
+                                        <table class="table" id="tabla" style="width:100% border">
                                             <thead>
                                                 <tr>
                                                     <th >Documento de identidad</th>
@@ -174,6 +189,7 @@
                                             <tbody>
                                             <?php
                                             while ($consulta= mysqli_fetch_assoc($estudiantes)){
+                                                if($consulta['estado_estudiantes']==='0'){
                                             ?>
                                             
                                                 <tr>
@@ -184,6 +200,7 @@
                                                 </tr>
                                             
                                             <?php
+                                                }
                                             }
                                             ?>
                                             </tbody>
@@ -226,18 +243,22 @@
                                         <?php   }   ?>
                                             </select>                                            
                                         </div>
+                                        <p id="TipDoc1" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <label>Numero de documento</label>
                                             <input type="text" class="form-control" id="documento1" name="documento1" placeholder="Ingrese Numero de identidad">
                                         </div>
+                                        <p id="Doc1" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <label>Nombres</label>
                                             <input type="text" class="form-control" id="nombre1" name="nombre1" placeholder="Ingrese nombre o  nombres">
                                         </div>
+                                        <p id="Nom1" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <label>Apellidos</label>
                                             <input type="text" class="form-control" id="apellido1" name="apellido1" placeholder="Ingrese apellido o apellidos">
                                         </div>
+                                        <p id="Ape1" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">Estado Civil</label>
                                             <select name="estado_civil1" class="form-control" id="estado_civil1" data-live-search="true" >
@@ -251,6 +272,7 @@
                                         <?php   }   ?>
                                             </select>
                                         </div>
+                                        <p id="EstCivil1" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <label>Departamento de nacimiento</label>
                                             <select name="departamento1" class="tail-dropdown-search" id="departamento1" data-live-search="true" > 
@@ -264,6 +286,7 @@
                                         <?php   }   ?>
                                             </select>
                                         </div>
+                                        <p id="Depa1" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <label>Ciudad de nacimiento</label>
                                             <select name="ciudad1" class="tail-dropdown-search" id="ciudad1" data-live-search="true" >
@@ -277,6 +300,7 @@
                                         <?php   }   ?>
                                             </select>
                                         </div>
+                                        <p id="Ciu1" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <label>Programa que cursa</label>
                                             <select name="programa1" class="form-control" id="programa1" data-live-search="true" >
@@ -289,26 +313,17 @@
                                                 <option value="<?php echo $resultado['id_Programas'] ?>" ><?php echo $resultado['Programa_nombre'] ?></option>
                                         <?php   }   ?>
                                             </select>
-                                        </div>                                        
+                                        </div>
+                                        <p id="Program1" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <label>Contraseña de estudiante</label>
                                             <input type="password" class="form-control" id="contrasenna1" name="contrasenna1" placeholder="Ingrese una contraseña para el estudiante">
                                         </div>
-                                        <div>
-                                            <p id="TipDoc1" style="text-align:center;background:rgba(0,0,0,0.1);"></p>
-                                            <p id="Doc1" style="text-align:center;background:rgba(0,0,0,0.1);"></p>
-                                            <p id="Nom1" style="text-align:center;background:rgba(0,0,0,0.1);"></p>
-                                            <p id="Ape1" style="text-align:center;background:rgba(0,0,0,0.1);"></p>
-                                            <p id="EstCivil1" style="text-align:center;background:rgba(0,0,0,0.1);"></p>
-                                            <p id="Depa1" style="text-align:center;background:rgba(0,0,0,0.1);"></p>
-                                            <p id="Ciu1" style="text-align:center;background:rgba(0,0,0,0.1);"></p>
-                                            <p id="Program1" style="text-align:center;background:rgba(0,0,0,0.1);"></p>
-                                            <p id="Contra1" style="text-align:center;background:rgba(0,0,0,0.1);"></p>
-                                            <p id="mensaje1" style="text-align:center;background:rgba(0,0,0,0.1);"></p>
-                                        </div>
+                                        <p id="Contra1" style="text-align:center;background:rgba(0,0,0,0.1);margin: 0;"></p>
                                         <div class="form-group">
                                             <button type="button" id="enviar1" name="enviar1" onclick="return valiForm1()" class="btn btn-primary">Submit</button>
                                         </div>
+                                        <p id="mensaje1" style="text-align:center;background:rgba(255,0,0,0.3);margin: 0;"></p>
                                     </div> 
                                     <script type="text/javascript">
                                         function valiForm1(){
@@ -323,66 +338,51 @@
                                             var contrasenna1 = document.getElementById('contrasenna1').value;
                                             var cont = 0;
                                             
-                                            if(tipo_documento1 == ""){
+                                            if( nombre1 == null || nombre1.length == 0 || /^\s+$/.test(nombre1) ) {
                                                 cont=cont+1;
-                                                document.getElementById('TipDoc1').innerHTML='El tipo de Documento no a sido seleccionado ';
-                                                setTimeout(function() {document.getElementById('TipDoc1').innerHTML='';}, 5000);
+                                                document.getElementById('Nom1').innerHTML='Campo Nombre vacio'; 
                                             }else{
-                                                document.getElementById('TipDoc1').innerHTML='';
+                                                document.getElementById('Nom1').innerHTML='';                                   
                                             }
-                                            if(documento1 == ""){
+                                            if(documento1 == "" ){
                                                 cont=cont+1;
-                                                document.getElementById('Doc1').innerHTML='Campo documento de identidad vacio';    
-                                                setTimeout(function() {document.getElementById('Doc1').innerHTML='';}, 5000);
+                                                document.getElementById('Doc1').innerHTML='Campo documento de identidad vacio'; 
                                             }else{
                                                 document.getElementById('Doc1').innerHTML='';
                                             }
-                                            if(nombre1 == ""){
-                                                cont=cont+1;
-                                                document.getElementById('Nom1').innerHTML='Campo Nombre vacio';  
-                                                setTimeout(function() {document.getElementById('Nom1').innerHTML='';}, 5000);
-                                            }else{
-                                                document.getElementById('Nom1').innerHTML='';
-                                            }
-                                            if(apellido1 == ""){
+                                            if(apellido1 == "" ){
                                                 cont=cont+1;
                                                 document.getElementById('Ape1').innerHTML='Campo apellido vacio';    
-                                                setTimeout(function() {document.getElementById('Ape1').innerHTML='';}, 5000);
                                             }else{
                                                 document.getElementById('Ape1').innerHTML='';
                                             }
-                                            if(estado_civil1 == ""){
+                                            if(estado_civil1 == "" ){
                                                 cont=cont+1;
                                                 document.getElementById('EstCivil1').innerHTML='El estado civil no a sido seleccionado';
-                                                setTimeout(function() {document.getElementById('EstCivil1').innerHTML='';}, 5000);
                                             }else{
                                                 document.getElementById('EstCivil1').innerHTML='';
                                             }
-                                            if(departamento1 == ""){
+                                            if(departamento1 == "" ){
                                                 cont=cont+1;
                                                 document.getElementById('Depa1').innerHTML='El departamento no a sido seleccionado'; 
-                                                setTimeout(function() {document.getElementById('Depa1').innerHTML='';}, 5000);
                                             }else{
                                                 document.getElementById('Depa1').innerHTML='';
                                             }
-                                            if(ciudad1 == ""){
+                                            if(ciudad1 == "" ){
                                                 cont=cont+1;
                                                 document.getElementById('Ciu1').innerHTML='La ciudad no a sido seleccionada';  
-                                                setTimeout(function() {document.getElementById('Ciu1').innerHTML='';}, 5000);
                                             }else{
                                                 document.getElementById('Ciu1').innerHTML='';
                                             }
-                                            if(programa1 == ""){
+                                            if(programa1 == "" ){
                                                 cont=cont+1;
                                                 document.getElementById('Program1').innerHTML='El programa no a sido seleccionado';
-                                                setTimeout(function() {document.getElementById('Program1').innerHTML='';}, 5000);
                                             }else{
                                                 document.getElementById('Program1').innerHTML='';
                                             }
-                                            if(contrasenna1 == ""){
+                                            if(contrasenna1 == "" ){
                                                 cont=cont+1;
                                                 document.getElementById('Contra1').innerHTML='No ha ingresado la contraseña'; 
-                                                setTimeout(function() {document.getElementById('Contra1').innerHTML='';}, 5000);
                                             }else{
                                                 document.getElementById('Contra1').innerHTML='';
                                             }
@@ -400,7 +400,6 @@
                                                 xhttp.send("tipo_documento1="+tipo_documento1+"&documento1="+documento1+"&nombre1="+nombre1+"&apellido1="+apellido1+"&estado_civil1="+estado_civil1+"&departamento1="+departamento1+"&ciudad1="+ciudad1+"&programa1="+programa1+"&contrasenna1="+contrasenna1+"");//Envia la peticion al servidor
                                             }else{
                                                 document.getElementById('mensaje1').innerHTML='Datos no registrados';
-                                                setTimeout(function() {document.getElementById('mensaje1').innerHTML='';}, 5000);
                                             }
                                         }   
                                     </script>
@@ -466,21 +465,111 @@
                 <div class="orders">
                     <div class="row">
                         <div class="col-xl-12">
-                            <div class="card">
+                            <div class="card" style="display: show;">
                                 <div class="card-body">
-                                    <h4 class="box-title">ELIMINAR ESTUDIANTE </h4>
+                                    <h4 class="box-title">ELIMINAR ESTUDIANTES</h4>
                                 </div>
-                                <div class="card-body">
-                                    <form class="form-inline md-form mr-auto mb-4" ><!-- action="#" method="POST" -->
-                                        <input name="buscar13" class="form-control col-md-8" type="text" placeholder="Ingrese documento a buscar" aria-label="Search">
-                                        <button  class="btn aqua-gradient btn-rounded btn-sm my-1" type="submit">Buscar</button>
-                                    </form> 
+                                <div class="card-body--">
+                                    <div class="table-stats order-table ov-h">
+                                        <table class="table ">
+                                            <thead>
+                                                <tr>
+                                                    <th class="name">Documento de identidad</th>
+                                                    <th>Nombres</th>
+                                                    <th>Apellidos</th>
+                                                    <th>Programa </th>
+                                                    <th text-align: center  >Estado</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+                                            while ($consulta= mysqli_fetch_assoc($estudiantes2)){
+                                            ?>
+                                            
+                                                <tr>
+                                                    <td><span class="name"><?php echo $consulta['documento_de_identificacion'] ?></span> </td>
+                                                    <td><span class="name"><?php echo $consulta['nombres'] ?></span> </td>
+                                                    <td><span class="name"><?php echo $consulta['apellidos'] ?></span></td>
+                                                    <td><span class="name"><?php echo $consulta['Programa_nombre'] ?></span></td>
+
+                                                        <?php
+                                      
+                                                       if($consulta['estado_estudiantes']==0){
+                                                           ?>
+                                                        <td >
+                                                            <div id="editar111" class="form-inline md-form mr-auto mb-4" > 
+                                                                <input name="docest" id="docest" type="text" class="form-control col-md-8" value="<?php echo $consulta['documento_de_identificacion'] ?>"  disabled hidden>  
+                                                                <span >
+                                                                    <button name="inhabilitar" type="button" onclick="loadLog11()">Inhabilitar</button>
+                                                                </span>
+                                                            </div>
+                                                            <script>
+                                                                function loadLog11(){
+                                                                    var docest= document.getElementById('docest').value;
+                                                                    var xhttp = new XMLHttpRequest();
+                                                                    xhttp.onreadystatechange = function() {
+                                                                        //Si 4 = se proceso y ya se recibieron los datos y 200 = se enviaron los datos correctamente
+                                                                        if (xhttp.readyState == 4 && xhttp.status == 200){
+                                                                            document.getElementById("editar111").innerHTML = xhttp.responseText;//obtener los datos de respuesta como una cadena
+                                                                        }
+                                                                    };
+                                                                    xhttp.open("POST", "controlador/inhabilitar.php", true);//Realiza la petición de apertura de comunicación con método POST.
+                                                                    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//Añade un par cabecera – valor a la cabecera HTTP. Necesario para pasar datos por POST.
+                                                                    xhttp.send("docest="+docest+"");//Envia la peticion al servidor
+                                                                }
+                                                            </script>
+                                                        </td>
+                                                        <?php
+                                                        
+                                                       } else {
+                                                           
+                                                        ?>
+                                                        <td >
+                                                            <div id="editar112" class="form-inline md-form mr-auto mb-4" > 
+                                                                <input name="docest" id="docest2" type="text" class="form-control col-md-8" value="<?php echo $consulta['documento_de_identificacion'] ?>"  disabled hidden>  
+                                                                <span >
+                                                                    <button name="habilitar"  type="button" onclick="loadLog112()">Habilitar</button>
+                                                                </span>
+                                                            </div>
+                                                            <script>
+                                                                function loadLog112(){
+                                                                    var docest2= document.getElementById('docest2').value;
+                                                                    var xhttp = new XMLHttpRequest();
+                                                                    xhttp.onreadystatechange = function() {
+                                                                        //Si 4 = se proceso y ya se recibieron los datos y 200 = se enviaron los datos correctamente
+                                                                        if (xhttp.readyState == 4 && xhttp.status == 200){
+                                                                            document.getElementById("editar112").innerHTML = xhttp.responseText;//obtener los datos de respuesta como una cadena
+                                                                        }
+                                                                    };
+                                                                    xhttp.open("POST", "controlador/habilitar.php", true);//Realiza la petición de apertura de comunicación con método POST.
+                                                                    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//Añade un par cabecera – valor a la cabecera HTTP. Necesario para pasar datos por POST.
+                                                                    xhttp.send("docest2="+docest2+"");//Envia la peticion al servidor
+                                                                }
+                                                            </script>
+                                                        </td>
+                                                        <?php
+                                                   
+                                                       }
+                                                        
+                                                        ?>
+
+
+
+                                                </tr>
+                                            <?php
+                                            }
+                                            ?>
+                                            </tbody>
+                                        </table>
+
+                                    </div> <!-- /.table-stats -->
                                 </div>
+
                             </div> <!-- /.card -->
                         </div>  <!-- /.col-lg-12 -->
                     </div>
                 </div>
-                <!-- /.orders -->
             </div>
             <!-- .animated -->
         </div>
@@ -499,7 +588,7 @@
                                 </div>
                                 <div class="card-body--">
                                     <div class="table-stats order-table ov-h">
-                                        <table class="table" id="tabla" style="width:100%">
+                                        <table class="table" id="tabla2" style="width:100% border">
                                             <thead>
                                                 <tr>
                                                     <th>Numero de documento</th>
@@ -507,19 +596,22 @@
                                                     <th>apellidos</th>
                                                 </tr>
                                             </thead>
+                                            <tbody>
                                             <?php
                                             while ($consulta= mysqli_fetch_assoc($docentes)){
+                                                if($consulta['estado_docentes']==='0'){
                                             ?>
-                                            <tbody>
                                                 <tr>
                                                     <td class="serial"><?php echo $consulta['numero_de_identificacion'] ?></td>
                                                     <td> <span class="name"><?php echo $consulta['nombres'] ?></span> </td>
                                                     <td><span class="name"><?php echo $consulta['apellidos'] ?></span></td>
                                                 </tr>
-                                            </tbody>
+                                            
                                             <?php
+                                                }
                                             }
                                             ?>
+                                            </tbody>
                                         </table>
                                     </div> <!-- /.table-stats -->
                                 </div>
@@ -671,11 +763,99 @@
                                 <div class="card-body">
                                     <h4 class="box-title">ELIMINAR DOCENTE </h4>
                                 </div>
-                                <div class="card-body">
-                                    <form class="form-inline md-form mr-auto mb-4" ><!-- action="#" method="POST" -->
-                                        <input name="buscar23" class="form-control col-md-8" type="text" placeholder="Ingrese documento a buscar" aria-label="Search">
-                                        <button  class="btn aqua-gradient btn-rounded btn-sm my-1" type="submit">Buscar</button>
-                                    </form> 
+                                <div class="card-body--">
+                                    <div class="table-stats order-table ov-h">
+                                        <table class="table ">
+                                            <thead>
+                                                <tr>
+                                                    <th class="name">Documento de identidad</th>
+                                                    <th>Nombres</th>
+                                                    <th>Apellidos</th>
+                                                    <th text-align: center  >Estado</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+                                            while ($consulta= mysqli_fetch_assoc($docentes2)){
+                                            ?>
+                                            
+                                                <tr>
+                                                    <td><span class="name"><?php echo $consulta['numero_de_identificacion'] ?></span> </td>
+                                                    <td><span class="name"><?php echo $consulta['nombres'] ?></span> </td>
+                                                    <td><span class="name"><?php echo $consulta['apellidos'] ?></span></td>
+
+                                                        <?php
+                                      
+                                                       if($consulta['estado_docentes']==0){
+                                                           ?>
+                                                        <td >
+                                                            <div id="editar222" class="form-inline md-form mr-auto mb-4" > 
+                                                                <input name="docdoc" id="docdoc" type="text" class="form-control col-md-8" value="<?php echo $consulta['numero_de_identificacion'] ?>"  disabled hidden>  
+                                                                <span >
+                                                                    <button name="inhabilitar" type="button" onclick="loadLog222()">Inhabilitar</button>
+                                                                </span>
+                                                            </div>
+                                                            <script>
+                                                                function loadLog222(){
+                                                                    var docdoc = document.getElementById('docdoc').value;
+                                                                    var xhttp = new XMLHttpRequest();
+                                                                    xhttp.onreadystatechange = function() {
+                                                                        //Si 4 = se proceso y ya se recibieron los datos y 200 = se enviaron los datos correctamente
+                                                                        if (xhttp.readyState == 4 && xhttp.status == 200){
+                                                                            document.getElementById("editar222").innerHTML = xhttp.responseText;//obtener los datos de respuesta como una cadena
+                                                                        }
+                                                                    };
+                                                                    xhttp.open("POST", "controlador/inhabilitar.php", true);//Realiza la petición de apertura de comunicación con método POST.
+                                                                    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//Añade un par cabecera – valor a la cabecera HTTP. Necesario para pasar datos por POST.
+                                                                    xhttp.send("docdoc="+docdoc+"");//Envia la peticion al servidor
+                                                                }
+                                                            </script>
+                                                        </td>
+                                                        <?php
+                                                        
+                                                       } else {
+                                                           
+                                                        ?>
+                                                        <td >
+                                                            <div id="editar223" class="form-inline md-form mr-auto mb-4" > 
+                                                                <input name="docdoc2" id="docdoc2" type="text" class="form-control col-md-8" value="<?php echo $consulta['numero_de_identificacion'] ?>"  disabled hidden>  
+                                                                <span >
+                                                                    <button name="habilitar"  type="button" onclick="loadLog223()">Habilitar</button>
+                                                                </span>
+                                                            </div>
+                                                            <script>
+                                                                function loadLog223(){
+                                                                    var docdoc2= document.getElementById('docdoc2').value;
+                                                                    var xhttp = new XMLHttpRequest();
+                                                                    xhttp.onreadystatechange = function() {
+                                                                        //Si 4 = se proceso y ya se recibieron los datos y 200 = se enviaron los datos correctamente
+                                                                        if (xhttp.readyState == 4 && xhttp.status == 200){
+                                                                            document.getElementById("editar223").innerHTML = xhttp.responseText;//obtener los datos de respuesta como una cadena
+                                                                        }
+                                                                    };
+                                                                    xhttp.open("POST", "controlador/habilitar.php", true);//Realiza la petición de apertura de comunicación con método POST.
+                                                                    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//Añade un par cabecera – valor a la cabecera HTTP. Necesario para pasar datos por POST.
+                                                                    xhttp.send("docdoc2="+docdoc2+"");//Envia la peticion al servidor
+                                                                }
+                                                            </script>
+                                                        </td>
+                                                        <?php
+                                                   
+                                                       }
+                                                        
+                                                        ?>
+
+
+
+                                                </tr>
+                                            
+                                            <?php
+                                            }
+                                            ?>
+                                        </table>
+                                        </tbody>
+                                    </div> <!-- /.table-stats -->
                                 </div>                                
                             </div> <!-- /.card -->
                         </div>  <!-- /.col-lg-12 -->
@@ -700,7 +880,7 @@
                                 </div>
                                 <div class="card-body--">
                                     <div class="table-stats order-table ov-h">
-                                        <table class="table ">
+                                        <table class="table" id="tabla3">
                                             <thead>
                                                 <tr>
                                                     <th>Nombre de estudiante</th>
@@ -714,11 +894,33 @@
                                             </thead>
                                             <?php
                                             while ($consulta= mysqli_fetch_assoc($notas)){
+                                                if($consulta['estado_notas']==='0'){
                                             ?>
                                             <tbody>
                                                 <tr>
+                                                    <?php 
+                                                    if($consulta['estado_estudiantes']==='1'){
+                                                    ?>
+                                                    <td class="name" style="color: red;"><?php echo $consulta['nombreE'] ?> <?php echo $consulta['apellidoE'] ?></td>
+                                                    <?php
+                                                    }else{
+                                                        ?>
                                                     <td class="name"><?php echo $consulta['nombreE'] ?> <?php echo $consulta['apellidoE'] ?></td>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                    
+                                                    <?php 
+                                                    if($consulta['estado_docentes']==='1'){
+                                                    ?>
                                                     <td> <span class="name"><?php echo $consulta['nombreD'] ?> <?php echo $consulta['apellidoD'] ?></span> </td>
+                                                    <?php
+                                                    }else{
+                                                        ?>
+                                                    <td class="name"><?php echo $consulta['nombreE'] ?> <?php echo $consulta['apellidoE'] ?></td>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                     <td> <span class="name"><?php echo $consulta['nota1'] ?></span></td>
                                                     <td> <span class="name"><?php echo $consulta['nota2'] ?></span></td>
                                                     <td> <span class="name"><?php echo $consulta['nota3'] ?></span></td>
@@ -727,6 +929,7 @@
                                                 </tr>
                                             </tbody>
                                             <?php
+                                                }
                                             }
                                             ?>
                                         </table>
@@ -762,10 +965,12 @@
                                                 <?php 
                                                 //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
                                                 while($resultado = mysqli_fetch_assoc($docentes_id)){
+                                                    if($resultado['estado_docentes']==='0'){
                                                 ?>
                                             <!-- En el value y el la opcion de la seleccion se imprimen los resultados de la consulta -->
                                                 <option value="<?php echo $resultado['id'] ?>"><?php echo $resultado['numero_de_identificacion'] ?></option>
-                                        <?php   }   ?>
+                                            <?php   } 
+                                                }   ?>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -775,10 +980,12 @@
                                                 <?php 
                                                 //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
                                                 while($resultado = mysqli_fetch_assoc($estudiantes_id)){
+                                                    if($resultado['estado_estudiantes']==='0'){
                                                 ?>
                                             <!-- En el value y el la opcion de la seleccion se imprimen los resultados de la consulta -->
                                                 <option value="<?php echo $resultado['id'] ?>"><?php echo $resultado['documento_de_identificacion'] ?></option>
-                                        <?php   }   ?>
+                                            <?php   }  
+                                                } ?>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -824,10 +1031,27 @@
                                     <h4 class="box-title">EDITAR NOTAS </h4>
                                 </div>
                                 <div class="card-body">
-                                    <form class="form-inline md-form mr-auto mb-4" ><!-- action="#" method="POST" -->
-                                        <input name="buscar32" class="form-control col-md-8" type="text" placeholder="Ingrese documento a buscar" aria-label="Search">
-                                        <button  class="btn aqua-gradient btn-rounded btn-sm my-1" type="submit">Buscar</button>
-                                    </form> 
+                                    <div id="editar3" class="form-inline md-form mr-auto mb-4" > 
+                                        <input name="buscar13" id="buscar12" type="text" class="form-control col-md-8"  placeholder="Ingrese documento a buscar" >
+                                        <span >
+                                            <button name="enviar13" class="btn aqua-gradient btn-rounded btn-sm my-1" type="button" onclick="loadLog3()">Enviar</button>
+                                        </span>
+                                    </div>
+                                    <script>
+                                        function loadLog3(){
+                                            var buscar13= document.getElementById('buscar13').value;
+                                            var xhttp = new XMLHttpRequest();
+                                            xhttp.onreadystatechange = function() {
+                                                //Si 4 = se proceso y ya se recibieron los datos y 200 = se enviaron los datos correctamente
+                                                if (xhttp.readyState == 4 && xhttp.status == 200){
+                                                    document.getElementById("editar1").innerHTML = xhttp.responseText;//obtener los datos de respuesta como una cadena
+                                                }
+                                            };
+                                            xhttp.open("POST", "FormUpdateEstudiante.php", true);//Realiza la petición de apertura de comunicación con método POST.
+                                            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//Añade un par cabecera – valor a la cabecera HTTP. Necesario para pasar datos por POST.
+                                            xhttp.send("buscar12="+buscar12+"");//Envia la peticion al servidor
+                                        }
+                                    </script>                                     
                                 </div>                                
                             </div> <!-- /.card -->
                         </div>  <!-- /.col-lg-12 -->
@@ -850,12 +1074,109 @@
                                 <div class="card-body">
                                     <h4 class="box-title">ELIMINAR NOTAS </h4>
                                 </div>
-                                <div class="card-body">
-                                    <form class="form-inline md-form mr-auto mb-4" ><!-- action="#" method="POST" -->
-                                        <input name="buscar33" class="form-control col-md-8" type="text" placeholder="Ingrese documento a buscar" aria-label="Search">
-                                        <button  class="btn aqua-gradient btn-rounded btn-sm my-1" type="submit">Buscar</button>
-                                    </form> 
-                                </div>                                
+                                <div class="card-body--">
+                                    <div class="table-stats order-table ov-h">
+                                        <table class="table ">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nombre de estudiante</th>
+                                                    <th>Nombre del docente</th>
+                                                    <th>Nota1</th>
+                                                    <th>Nota2</th>
+                                                    <th>Nota3</th>
+                                                    <th>Nota final</th>
+                                                    <th>Fecha y hora<br>(Ultima actualizacion)</th>
+                                                    <th colspan="2">Estado</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+                                            while ($consulta= mysqli_fetch_assoc($notas3)){
+                                            ?>
+                                            
+                                                <tr>
+                                                    <td class="name"><?php echo $consulta['nombreE'] ?> <?php echo $consulta['apellidoE'] ?></td>
+                                                    <td> <span class="name"><?php echo $consulta['nombreD'] ?> <?php echo $consulta['apellidoD'] ?></span> </td>
+                                                    <td> <span class="name"><?php echo $consulta['nota1'] ?></span></td>
+                                                    <td> <span class="name"><?php echo $consulta['nota2'] ?></span></td>
+                                                    <td> <span class="name"><?php echo $consulta['nota3'] ?></span></td>
+                                                    <td> <span class="name"><?php echo $consulta['nota_final'] ?></span></td>
+                                                    <td><span class="name"><?php echo $consulta['fecha_hora_actualizacion'] ?></span></td>
+
+                                                        <?php
+                                      
+                                                        if($consulta['estado_notas']==0){
+                                                           ?>
+                                                        <td >
+                                                            <div id="editar333" class="form-inline md-form mr-auto mb-4" > 
+                                                                <input name="idnot" id="idnot" type="text" class="form-control col-md-8" value="<?php echo $consulta['id'] ?>"  disabled hidden>  
+                                                                <span >
+                                                                    <button name="inhabilitar" type="button" onclick="loadLog333()">Inhabilitar</button>
+                                                                </span>
+                                                            </div>
+                                                            <script>
+                                                                function loadLog333(){
+                                                                    var idnot = document.getElementById('idnot').value;
+                                                                    var xhttp = new XMLHttpRequest();
+                                                                    xhttp.onreadystatechange = function() {
+                                                                        //Si 4 = se proceso y ya se recibieron los datos y 200 = se enviaron los datos correctamente
+                                                                        if (xhttp.readyState == 4 && xhttp.status == 200){
+                                                                            document.getElementById("editar333").innerHTML = xhttp.responseText;//obtener los datos de respuesta como una cadena
+                                                                        }
+                                                                    };
+                                                                    xhttp.open("POST", "controlador/inhabilitar.php", true);//Realiza la petición de apertura de comunicación con método POST.
+                                                                    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//Añade un par cabecera – valor a la cabecera HTTP. Necesario para pasar datos por POST.
+                                                                    xhttp.send("idnot="+idnot+"");//Envia la peticion al servidor
+                                                                }
+                                                            </script>
+                                                        </td>
+                                                        <?php
+                                                        
+                                                       } else {
+                                                           
+                                                        ?>
+                                                        <td >
+                                                            <div id="editar334" class="form-inline md-form mr-auto mb-4" > 
+                                                                <input name="idnot2" id="idnot2" type="text" class="form-control col-md-8" value="<?php echo $consulta['id'] ?>"  disabled hidden>  
+                                                                <span >
+                                                                    <button name="habilitar"  type="button" onclick="loadLog334()">Habilitar</button>
+                                                                </span>
+                                                            </div>
+                                                            <script>
+                                                                function loadLog334(){
+                                                                    var idnot2= document.getElementById('idnot2').value;
+                                                                    var xhttp = new XMLHttpRequest();
+                                                                    xhttp.onreadystatechange = function() {
+                                                                        //Si 4 = se proceso y ya se recibieron los datos y 200 = se enviaron los datos correctamente
+                                                                        if (xhttp.readyState == 4 && xhttp.status == 200){
+                                                                            document.getElementById("editar334").innerHTML = xhttp.responseText;//obtener los datos de respuesta como una cadena
+                                                                        }
+                                                                    };
+                                                                    xhttp.open("POST", "controlador/habilitar.php", true);//Realiza la petición de apertura de comunicación con método POST.
+                                                                    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//Añade un par cabecera – valor a la cabecera HTTP. Necesario para pasar datos por POST.
+                                                                    xhttp.send("idnot2="+idnot2+"");//Envia la peticion al servidor
+                                                                }
+                                                            </script>
+                                                        </td>
+                                                        <?php
+                                                   
+                                                       }
+                                                        
+                                                        ?>
+
+
+
+                                                </tr>
+                                            
+                                            <?php
+                                            }
+                                            ?>
+                                            </tbody>
+                                        </table>
+
+                                    </div> <!-- /.table-stats -->
+                                </div>                               
                             </div> <!-- /.card -->
                         </div>  <!-- /.col-lg-12 -->
                     </div>
@@ -866,6 +1187,7 @@
             <!-- .animated -->
         </div>
         <!-- /.content33 -->
+        
         <div class="clearfix"></div>
         <!-- Footer -->
         <footer class="site-footer">
@@ -890,14 +1212,112 @@
     <script src="bootstrap-4.3.1-dist/js/bootstrap.js"></script>
     
     <script src="bootstrap-4.3.1-dist/js/jquery.matchHeight.min.js"></script> 
-    <script src="fontawesome-free-5.11.2-web/js/all.js"></script>        
+    <script src="fontawesome-free-5.11.2-web/js/all.js"></script>    
+    <script src="js/Chart.js"></script>
     <script src="js/selectores.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="bootstrap-4.3.1-dist/js/tail.select.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            showGraph();
+            showGraph2();
+        });
+
+
+        function showGraph()
+        {
+            {
+                $.post("controlador/Grafico.php",
+                function (data)
+                {
+                    console.log(data);
+                    var Programa_nombre = [];
+                    var Cantidad = [];
+                    
+                    for (var i in data) {
+                        Programa_nombre.push(data[i].Programa_nombre);
+                        Cantidad.push(data[i].Cantidad);
+                    }
+                    
+                    var chartdata = {
+                        labels: Programa_nombre,
+                        datasets: [
+                            {
+                                label: 'Estudiantes',
+                                backgroundColor: '#3e95cd',
+                                borderColor: '#46d5f1',
+                                hoverBackgroundColor: '#CCCCCC',
+                                hoverBorderColor: '#666666',
+                                data: Cantidad
+                            }
+                        ]
+                    };
+
+                    var graphTarget = $("#graphCanvas");
+
+                    var barGraph = new Chart(graphTarget, {
+                        type: 'doughnut',
+                        data: chartdata
+                    });
+                    
+                });
+            }
+        }
+        
+        function showGraph2()
+        {
+            {
+                $.post("controlador/Grafico2.php",
+                function (data2)
+                {
+                //----------------------------
+                    console.log(data2);
+                    var Nota = [];
+                    var Cantidad2 = [];
+                    
+                    for (var j in data2) {
+                        Nota.push(data2[j].Nota);
+                        Cantidad2.push(data2[j].Cantidad2);
+                    }
+                    
+                    var chartdata = {
+                        labels: Nota,
+                        datasets: [
+                            {
+                                label: 'Notas',
+                                backgroundColor: '#3e95cd',
+                                borderColor: '#46d5f1',
+                                hoverBackgroundColor: '#CCCCCC',
+                                hoverBorderColor: '#666666',
+                                data: Cantidad2
+                            }
+                        ]
+                    };
+
+                    var graphTarget = $("#graphCanvas2");
+
+                    var barGraph = new Chart(graphTarget, {
+                        type: 'bar',
+                        data: chartdata
+                    });
+                });
+            }
+        }
+    </script>
+   
     <script>
         $(document).ready(function() {
             $('#tabla').DataTable( {
-                "order": [[ 3, "asc" ]]
+                "order": [[1, "asc" ]]
+            } );
+            
+            $('#tabla2').DataTable( {
+                "order": [[ 1, "asc" ]]
+            } );
+            
+            $('#tabla3').DataTable( {
+                "order": [[ 0, "asc" ]]
             } );
         } );
     </script>

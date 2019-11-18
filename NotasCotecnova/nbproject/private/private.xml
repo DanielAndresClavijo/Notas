@@ -5,9 +5,9 @@
         <group>
             <file>file:/C:/xampp/htdocs/NotasCotecnova/docente.php</file>
             <file>file:/C:/xampp/htdocs/NotasCotecnova/controlador/inserts.php</file>
-            <file>file:/C:/xampp/htdocs/NotasCotecnova/controlador/Update.php</file>
-            <file>file:/C:/xampp/htdocs/NotasCotecnova/js/datatables.js</file>
-            <file>file:/C:/xampp/htdocs/NotasCotecnova/modelo/MySQL.php</file>
+            <file>file:/C:/xampp/htdocs/NotasCotecnova/controlador/inhabilitar.php</file>
+            <file>file:/C:/xampp/htdocs/NotasCotecnova/FormUpdateNotas.php</file>
+            <file>file:/C:/xampp/htdocs/NotasCotecnova/controlador/habilitar.php</file>
             <file>file:/C:/xampp/htdocs/NotasCotecnova/FormUpdateEstudiante.php</file>
             <file>file:/C:/xampp/htdocs/NotasCotecnova/FormUpdateDocente.php</file>
         </group>
