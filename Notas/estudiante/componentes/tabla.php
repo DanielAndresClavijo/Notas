@@ -4,8 +4,7 @@
     require_once '../modelo/MySQL.php'; //se llama la pagina donde se encuentra la conexion para la base de datos
     $mysql = new MySQL(); //se declara un nuevo array
     $mysql->conectar();//Se conecta a la base de datos
-
-    //Select para hacer la consulta de los docentes, para mostrar la info en la grid de docentes
+      //Select para hacer la consulta de los docentes, para mostrar la info en la grid de docentes
     $docentes = $mysql->efectuarConsulta("SELECT notas.docentes.id, notas.docentes.nombres, notas.docentes.apellidos, notas.docentes.numero_de_identificacion FROM notas.docentes");
     $docentes_id = $mysql->efectuarConsulta("SELECT notas.docentes.id, notas.docentes.numero_de_identificacion FROM notas.docentes");
     //Select para hacer la consulta de los estudiantes, para mostrar la info en la grid de estudiantes
@@ -30,20 +29,19 @@
     //Select para hacer la consulta de los Programas, para mostrar la info en los selects de los formularios
     $selectPrograma = $mysql->efectuarConsulta("SELECT notas.programas.id_Programas, notas.programas.Programa_nombre FROM notas.programas");         
    
-?>
 
-
-        <!-- Modal para creacion de datos de docentes -->
+ ?>
+<!-- Modal para creacion de datos de estudiante -->
         <div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Agrega DOCENTE</h4>
+                <h4 class="modal-title" id="myModalLabel">Agrega ESTUDIANTE</h4>
               </div>
               <div class="modal-body">
                 <label>Tipo de Documento</label>
-                <select  class="form-control input-sm" id="tipo_documento2">
+                <select  class="form-control input-sm" id="tipo_documento">
                     <option disabled selected>Seleccione tipo de documento de identidad</option>
                     <?php 
                     //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
@@ -137,16 +135,16 @@
           </div>
         </div>
         <!-- Fin de Modal para edicion de datos de docentes -->
-        
+
 <div class="row">
     <div class="container col-sm-5 col-md-12 col-lg-12">
-        <h2>Gestion de docente</h2>
+        <h2>Gestion de Estudiante</h2>
         <button class="btn btn-primary" data-toggle="modal" data-target="#modalNuevo">
             Agregar nuevo 
             <span class="glyphicon glyphicon-plus"></span>
         </button>
         <button class="btn btn-info" id="restaurar">
-            Restaurar Docente eliminado
+            Restaurar Estudiante eliminado
             <span class="glyphicon glyphicon-repeat"></span>
         </button>
         <table class="table table-bordered" id="tabla1">
@@ -156,40 +154,43 @@
             <thead>
                 <tr>
                     <th scope="col">id</th>
+                    <th scope="col">Documento de identidad</th>
                     <th scope="col">Nombres</th>
                     <th scope="col">Apellidos</th>
-                    <th scope="col">Numero de identificacion</th>
+                    <th scope="col">Programa </th>
                     <th scope="col">Editar</th>
                     <th scope="col">Eliminar</th>
                 </tr>
             </thead>
             <tbody>
             <?php 
-            $sql = $mysql->efectuarConsulta("SELECT notas.docentes.id, notas.docentes.nombres, notas.docentes.apellidos, notas.estado_civil.id_estado_civil, notas.ciudades.id_ciudad_nacimiento, notas.docentes.numero_de_identificacion, notas.docentes.estado_docentes FROM notas.docentes inner join notas.estado_civil on notas.docentes.estado_civil_id_estado_civil=notas.estado_civil.id_estado_civil inner join notas.ciudades on notas.docentes.ciudades_id_ciudad_nacimiento=notas.ciudades.id_ciudad_nacimiento" );
+            $sql = $mysql->efectuarConsulta("SELECT notas.estudiantes.id, notas.estudiantes.documento_de_identificacion, notas.estudiantes.nombres, notas.estudiantes.apellidos,notas.programas.Programa_nombre,notas.estudiantes.estado_estudiantes  FROM notas.estudiantes INNER JOIN notas.programas ON notas.estudiantes.Programas_id_Programas=id_Programas" );
             $datos = array();
+            $datos2 = array();
             while($ver=mysqli_fetch_row($sql)){ 
-                if($ver[6]==0){
-                    $datos=$ver[0]."||".//id docente
-                               $ver[1]."||".//Nombre docente
-                               $ver[2]."||".//Apellidos docente
-                               $ver[3]."||".//Id estado civil Docente
-                               $ver[4];//Id Ciudad de nacimiento
-                    $datos2[0]=$ver[0];//id docente
-                    $datos2[1]=$ver[6];//Estado docente
+                if($ver[5]==0){//validacion para saber si el estudiante esta habilitado 
+                    $datos=$ver[0]."||".//id estudiante
+                               $ver[1]."||".//documento estudiante
+                               $ver[2]."||".//nombre estudiante
+                               $ver[3]."||".//apellido estudiante
+                               $ver[4];//programa
+                    $datos2[0]=$ver[0];//id 
+                    $datos2[1]=$ver[5];//Estado 
              ?>
 
             <tr>
                 <th scope="col"><?php echo $ver[0] ?></th>
                 <td><?php echo $ver[1] ?></td>
                 <td><?php echo $ver[2] ?></td>
-                <td><?php echo $ver[5] ?></td>
+                <td><?php echo $ver[3] ?></td>
+                <td><?php echo $ver[4] ?></td>
                 <td>
-                    <button class="btn btn-warning glyphicon glyphicon-pencil" data-toggle="modal" data-target="#modalEdicion" onclick="agregaform('<?php echo $datos ?>')">
+                    <button class="btn btn-warning glyphicon glyphicon-pencil" data-toggle="modal" data-target="#modalEdicion" onclick="agregaform2('<?php echo $datos ?>')">
                     </button>
                 </td>
                 <td>
                     <button class="btn btn-danger glyphicon glyphicon-remove" 
-                    onclick="preguntarSiNo('<?php echo $datos2[0] ?>','<?php echo $datos2[1] ?>' )">                       
+                    onclick="preguntarSiNo2('<?php echo $datos2[0] ?>','<?php echo $datos2[1] ?>' )">                       
                     </button>
                 </td>
             </tr>
@@ -203,7 +204,7 @@
 </div>
 <script type="text/javascript">
     $('#restaurar').click(function (){
-        $('#tabladoc').load('docente/componentes/tabla2.php');//Cargar la tabla donde estan los registros de de docente
+        $('#tabladoc').load('estudiante/componentes/tabla2.php');//Cargar la tabla donde estan los registros de de docente
     });
     $('#tabla1').DataTable({
         dom: '<"salto" B>lfrtip',
@@ -217,14 +218,14 @@
             extend: 'copyHtml5',
                 exportOptions: {
                     columns: ':visible',
-                    title: 'Registro de docentes Cotecnova'                    
+                    title: 'Registro de estudiantes Cotecnova'                    
                 }
             },
             {
                 extend: 'excelHtml5',
                 exportOptions: {
                     columns: ':visible',
-                    title: 'Registro de docentes Cotecnova'
+                    title: 'Registro de estudiantes Cotecnova'
                 }
             },
             {
@@ -239,8 +240,8 @@
                 exportOptions: {
                     columns: ':visible',
                     columnGap: 100,
-                    filename: 'Registro Docentes',
-                    title: 'Registro de docentes Cotecnova',
+                    filename: 'Registro estudiantes',
+                    title: 'Registro de estudiantes Cotecnova',
                     orientation: 'vertical',
                     pageSize: 'A4'
                 }
