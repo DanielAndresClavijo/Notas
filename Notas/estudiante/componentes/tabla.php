@@ -101,9 +101,9 @@
               <div class="modal-body">
                   <input type="text" hidden  id="iddocente">
                 <label>Nombres</label>
-                <input type="text" class="form-control" id="nombre2u"  placeholder="Ingrese nombre o  nombres">
+                <input type="text" class="form-control" id="nombreu"  placeholder="Ingrese nombre o  nombres">
                 <label>Apellidos</label>
-                <input type="text" class="form-control" id="apellido2u"  placeholder="Ingrese apellido o apellidos">
+                <input type="text" class="form-control" id="apellidou"  placeholder="Ingrese apellido o apellidos">
                 <label>Ciudad de nacimiento</label>
                 <select  class="form-control" id="ciudad2u" data-live-search="true" >
                 <option disabled selected >Seleccione la ciudad de nacimiento</option>
