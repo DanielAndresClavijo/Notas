@@ -4,15 +4,16 @@
     $mysql->conectar();//Se conecta a la base de datos
     //declaracion de variables
     //Variables de la tabla docentes
-    $iddocente = $_POST['iddocente'];
-    $nombre2 = $_POST['nombre2'];
-    $apellido2 = $_POST['apellido2'];
+    $idestudiante = $_POST['idestudiante'];
+    $nombreu = $_POST['nombreu'];
+    $apellidou = $_POST['apellidou'];
     //LLaves foraneas
-    $estado_civil2 = $_POST['estado_civil2'];
-    $ciudad2 = $_POST['ciudad2'];
+    $estado_civilu = $_POST['estado_civilu'];
+    $ciudadu = $_POST['ciudadu'];
+    $programau = $_POST['programau'];
 
     //Variable para llamar el ingreso de usuario y entregarle el insert
-    echo $up2 = $mysql->EditarRegistros("UPDATE notas.docentes SET notas.docentes.nombres='$nombre2',notas.docentes.apellidos='$apellido2',notas.docentes.ciudades_id_ciudad_nacimiento= '$ciudad2',notas.docentes.estado_civil_id_estado_civil= '$estado_civil2' where notas.docentes.id = '$iddocente' ");
+    echo $up = $mysql->EditarRegistros("UPDATE notas.estudiantes SET notas.estudiantes.nombres='".$nombreu."',notas.estudiantes.apellidos='".$apellidou."',notas.estudiantes.ciudades_id_ciudad_nacimiento=".$ciudadu.",notas.estudiantes.Programas_id_Programas=".$programau.",notas.estudiantes.estado_civil_id_estado_civil=".$estado_civilu." where notas.estudiantes.id = ".$idestudiante."");
     
 
  ?>

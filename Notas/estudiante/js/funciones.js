@@ -1,14 +1,15 @@
 //Funcion de creacion de nuevo registro
 //Esta funcion recibe como parametros los datos ingresados en el formulario de creacion de docente
-function agregardatos2 (tipo_documento2,documento2,nombre2,apellido2,ciudad2,estado_civil2,contrasenna2){
+function agregardatos2 (tipo_documento,documento,nombre,apellido,ciudad,estado_civil, programa,contrasenna){
     //Se crea una variable para enviarla como data por ajax
-    cadena="tipo_documento2=" + tipo_documento2 + 
-            "&documento2=" + documento2 +
-            "&nombre2=" + nombre2 +
-            "&apellido2=" + apellido2+
-            "&ciudad2=" + ciudad2+
-            "&estado_civil2=" + estado_civil2+
-            "&contrasenna2=" + contrasenna2;
+    cadena="tipo_documento=" + tipo_documento + 
+            "&documento=" + documento +
+            "&nombre=" + nombre +
+            "&apellido=" + apellido+
+            "&estado_civil=" + estado_civil+
+            "&ciudad=" + ciudad+
+            "&programa=" + programa+
+            "&contrasenna=" + contrasenna;
     //Este ajax envia la cadena a un archivo php
     //EN el archivo php se encuentra el proceso de validar y crear los datos
     //En ese archivo php retorna un valor
@@ -36,39 +37,42 @@ function agregaform2(datos){
     d=datos.split('||');
     //Lo siguiente hace que aparezcan los datos en los input del formulario actualizar
     //Entregandole a cada input, por medio de su id, el value de la variable creada anteriormente
-    $('#iddocente').val(d[0]);
-    $('#nombre2u').val(d[1]);
-    $('#apellido2u').val(d[2]);
-    $('#estado_civil2u').val(d[3]);
-    $('#ciudad2u').val(d[4]);        
+    $('#idestudiante').val(d[0]);
+    $('#nombreu').val(d[1]);
+    $('#apellidou').val(d[2]);
+    $('#estado_civilu').val(d[3]);
+    $('#ciudadu').val(d[4]);      
+    $('#programau').val(d[5]);
 }
 
 //Funcion para la Actualizacion de docente
 //Esta funcion se encuentra en el formulario de actualizacion
-function actualizaDatos(){
+function actualizaDatos2(){
     //Se reciben los valores de los inputs por medio de los id
-    iddocente=$('#iddocente').val();
-    nombre2=$('#nombre2u').val();
-    apellido2=$('#apellido2u').val();
-    estado_civil2=$('#estado_civil2u').val();
-    ciudad2=$('#ciudad2u').val();
+    idestudiante=$('#idestudiante').val();
+    nombreu=$('#nombreu').val();
+    apellidou=$('#apellidou').val();
+    estado_civilu=$('#estado_civilu').val();
+    ciudadu=$('#ciudadu').val();      
+    programau=$('#programau').val();
     
     //Se crea una cadena para enviarla por ajax con los valores creados anteriormente
-    cadena= "iddocente=" + iddocente +
-            "&nombre2=" + nombre2 +
-            "&apellido2=" + apellido2 +
-            "&estado_civil2=" + estado_civil2 +
-            "&ciudad2=" + ciudad2;
+    cadena= "idestudiante=" + idestudiante +
+            "&nombreu=" + nombreu +
+            "&apellidou=" + apellidou +
+            "&estado_civilu=" + estado_civilu +
+            "&ciudadu=" + ciudadu +
+            "&programau=" + programau;
     //Este ajax envia la cadena a un archivo php
     //EN el archivo php se encuentra el proceso de validar y actualizacion de datos
     //En ese archivo php retorna un valor
     $.ajax({
         type:"POST",
-        url:"docente/controlador/actualizaDatos.php",
+        url:"estudiante/controlador/actualizaDatos.php",
         data:cadena,
         success:function(r){//Esta funcion recibe el valor retornado
             if(r==1){//Se valida si el valor retornado es igual a 1, pues esto es el resultado de la consulta sql, si se ejecuto sin ningun problema
-                $('#tabladoc').load('docente/componentes/tabla.php');//Cargar la tabla donde estan los registros de de docente
+                $('#tabladoc').load('estudiante/componentes/tabla.php');//Cargar la tabla donde estan los registros de de docente
                 alertify.success("Actualizado con exito :)");
             }else{
                 alertify.error("Fallo el servidor :(");//Se muestra una alerta con el valor retornado, que sera el mensaje de la validacion

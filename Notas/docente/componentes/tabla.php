@@ -1,6 +1,4 @@
-
 <?php 
-    
     require_once '../modelo/MySQL.php'; //se llama la pagina donde se encuentra la conexion para la base de datos
     $mysql = new MySQL(); //se declara un nuevo array
     $mysql->conectar();//Se conecta a la base de datos
@@ -29,11 +27,10 @@
     $selectTipoDocumento2 = $mysql->efectuarConsulta("SELECT notas.tipo_documento.id_tipo_documento, notas.tipo_documento.tipo_documento FROM notas.tipo_documento");
     //Select para hacer la consulta de los Programas, para mostrar la info en los selects de los formularios
     $selectPrograma = $mysql->efectuarConsulta("SELECT notas.programas.id_Programas, notas.programas.Programa_nombre FROM notas.programas");         
-   
 ?>
 
 
-        <!-- Modal para creacion de datos de docentes -->
+<!-- Modal para creacion de datos de docentes -->
         <div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
@@ -131,7 +128,6 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-warning" id="actualizadatos" data-dismiss="modal">Actualizar</button>
-
               </div>
             </div>
           </div>
@@ -202,6 +198,22 @@
     </div>
 </div>
 <script type="text/javascript">
+    $('#guardarnuevo').click(function(){
+        //Se entregan los valores de los inputs del formularios de docentes por medio del id
+        tipo_documento2=$('#tipo_documento2').val();
+        documento2=$('#documento2').val();
+        nombre2=$('#nombre2').val();
+        apellido2=$('#apellido2').val();
+        ciudad2=$('#ciudad2').val();
+        estado_civil2=$('#estado_civil2').val();
+        contrasenna2=$('#contrasenna2').val();
+        //Los valores creados se envian a la funcion que realiza el nuevo registro
+        //Esta funcion esta en docente/js/funciones.js
+        agregardatos(tipo_documento2,documento2,nombre2,apellido2,ciudad2,estado_civil2,contrasenna2);
+    });
+    $('#actualizadatos').click(function(){
+        actualizaDatos();
+    });
     $('#restaurar').click(function (){
         $('#tabladoc').load('docente/componentes/tabla2.php');//Cargar la tabla donde estan los registros de de docente
     });
@@ -276,5 +288,4 @@
             }
         }
     });
- 
 </script>

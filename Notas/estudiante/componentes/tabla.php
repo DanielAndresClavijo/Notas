@@ -1,6 +1,4 @@
-
 <?php 
-    
     require_once '../modelo/MySQL.php'; //se llama la pagina donde se encuentra la conexion para la base de datos
     $mysql = new MySQL(); //se declara un nuevo array
     $mysql->conectar();//Se conecta a la base de datos
@@ -28,8 +26,7 @@
     $selectTipoDocumento2 = $mysql->efectuarConsulta("SELECT notas.tipo_documento.id_tipo_documento, notas.tipo_documento.tipo_documento FROM notas.tipo_documento");
     //Select para hacer la consulta de los Programas, para mostrar la info en los selects de los formularios
     $selectPrograma = $mysql->efectuarConsulta("SELECT notas.programas.id_Programas, notas.programas.Programa_nombre FROM notas.programas");         
-   
-
+    $selectPrograma2 = $mysql->efectuarConsulta("SELECT notas.programas.id_Programas, notas.programas.Programa_nombre FROM notas.programas");         
  ?>
 <!-- Modal para creacion de datos de estudiante -->
         <div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -52,13 +49,24 @@
                     <?php   }   ?>
                 </select>
                 <label>Numero de documento</label>
-                    <input type="text" class="form-control input-sm" id="documento2"  placeholder="Ingrese Numero de identidad">
+                    <input type="text" class="form-control input-sm" id="documento"  placeholder="Ingrese Numero de identidad">
                 <label>Nombres</label>
-                    <input type="text" class="form-control input-sm" id="nombre2"  placeholder="Ingrese nombre o  nombres">
+                    <input type="text" class="form-control input-sm" id="nombre"  placeholder="Ingrese nombre o  nombres">
                 <label>Apellidos</label>
-                    <input type="text" class="form-control input-sm" id="apellido2"  placeholder="Ingrese apellido o apellidos">
+                    <input type="text" class="form-control input-sm" id="apellido"  placeholder="Ingrese apellido o apellidos">
+                <label >Estado Civil</label>
+                    <select  class="form-control input-sm" id="estado_civil" data-live-search="true" >
+                        <option disabled selected >Seleccione Estado Civil</option>
+                        <?php 
+                        //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
+                        while($resultado = mysqli_fetch_assoc($selectEstadoCivil2)){
+                        ?>
+                        <!-- En el value y el la opcion de la seleccion se imprimen los resultados de la consulta -->
+                        <option value="<?php echo $resultado['id_estado_civil'] ?>" ><?php echo $resultado['estado_civil'] ?></option>
+                        <?php   }   ?>
+                    </select>
                 <label>Ciudad de nacimiento</label>
-                <select  class="form-control input-sm" id="ciudad2" data-live-search="true" >
+                <select  class="form-control input-sm" id="ciudad" data-live-search="true" >
                     <option disabled selected >Seleccione la ciudad de nacimiento</option>
                     <?php 
                     //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
@@ -68,22 +76,22 @@
                     <option value="<?php echo $resultado['id_ciudad_nacimiento'] ?>" ><?php echo $resultado['ciudad_nacimiento'] ?></option>
                     <?php   }   ?>
                 </select>
-                <label >Estado Civil</label>
-                <select  class="form-control input-sm" id="estado_civil2" data-live-search="true" >
-                    <option disabled selected >Seleccione Estado Civil</option>
-                    <?php 
-                    //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
-                    while($resultado = mysqli_fetch_assoc($selectEstadoCivil2)){
-                    ?>
+                <label>Programa que cursa</label>
+                    <select class="form-control" id="programa" data-live-search="true" >
+                        <option disabled selected value="">Seleccione el Programa</option>
+                        <?php 
+                        //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
+                        while($resultado = mysqli_fetch_assoc($selectPrograma)){
+                        ?>
                     <!-- En el value y el la opcion de la seleccion se imprimen los resultados de la consulta -->
-                    <option value="<?php echo $resultado['id_estado_civil'] ?>" ><?php echo $resultado['estado_civil'] ?></option>
-                    <?php   }   ?>
-                </select>
-                <label>Contraseña de docente</label>
-                    <input type="password" class="form-control input-sm" id="contrasenna2"  placeholder="Ingrese una contraseña para el docente">
+                        <option value="<?php echo $resultado['id_Programas'] ?>" ><?php echo $resultado['Programa_nombre'] ?></option>
+                        <?php   }   ?>
+                    </select>
+                <label>Contraseña de estudiante</label>
+                    <input type="password" class="form-control input-sm" id="contrasenna"  placeholder="Ingrese una contraseña para el docente">
               </div><!-- Fin modal-body --> 
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal" id="guardarnuevo">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="guardarnuevo2">
                 Agregar
                 </button>
               </div><!-- Fin modal-footer --> 
@@ -99,37 +107,47 @@
                 <h4 class="modal-title" id="myModalLabel">Actualizar datos</h4>
               </div>
               <div class="modal-body">
-                  <input type="text" hidden  id="iddocente">
+                  <input type="text" hidden  id="idestudiante">
                 <label>Nombres</label>
-                <input type="text" class="form-control" id="nombreu"  placeholder="Ingrese nombre o  nombres">
+                    <input type="text" class="form-control" id="nombreu"  placeholder="Ingrese nombre o  nombres">
                 <label>Apellidos</label>
-                <input type="text" class="form-control" id="apellidou"  placeholder="Ingrese apellido o apellidos">
-                <label>Ciudad de nacimiento</label>
-                <select  class="form-control" id="ciudad2u" data-live-search="true" >
-                <option disabled selected >Seleccione la ciudad de nacimiento</option>
-                <?php 
-                //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
-                while($resultado = mysqli_fetch_assoc($selectCiudades)){
-                ?>
-                <!-- En el value y el la opcion de la seleccion se imprimen los resultados de la consulta -->
-                <option value="<?php echo $resultado['id_ciudad_nacimiento'] ?>" ><?php echo $resultado['ciudad_nacimiento'] ?></option>
-                <?php   }   ?>
-                </select>
+                    <input type="text" class="form-control" id="apellidou"  placeholder="Ingrese apellido o apellidos">
                 <label>Estado Civil</label>
-                <select class="form-control" id="estado_civil2u" data-live-search="true" >
-                <option disabled selected >Seleccione Estado Civil</option>
-                <?php 
-                //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
-                while($resultado = mysqli_fetch_assoc($selectEstadoCivil)){
-                ?>
-                <!-- En el value y el la opcion de la seleccion se imprimen los resultados de la consulta -->
-                <option value="<?php echo $resultado['id_estado_civil'] ?>" ><?php echo $resultado['estado_civil'] ?></option>
-                <?php   }   ?>
-                </select>
+                    <select class="form-control" id="estado_civilu" data-live-search="true" >
+                        <option disabled selected >Seleccione Estado Civil</option>
+                        <?php 
+                        //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
+                        while($resultado = mysqli_fetch_assoc($selectEstadoCivil)){
+                        ?>
+                        <!-- En el value y el la opcion de la seleccion se imprimen los resultados de la consulta -->
+                        <option value="<?php echo $resultado['id_estado_civil'] ?>" ><?php echo $resultado['estado_civil'] ?></option>
+                        <?php   }   ?>
+                    </select>
+                <label>Ciudad de nacimiento</label>
+                    <select  class="form-control" id="ciudadu" data-live-search="true" >
+                        <option disabled selected >Seleccione la ciudad de nacimiento</option>
+                        <?php 
+                        //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
+                        while($resultado = mysqli_fetch_assoc($selectCiudades)){
+                        ?>
+                        <!-- En el value y el la opcion de la seleccion se imprimen los resultados de la consulta -->
+                        <option value="<?php echo $resultado['id_ciudad_nacimiento'] ?>" ><?php echo $resultado['ciudad_nacimiento'] ?></option>
+                        <?php   }   ?>
+                    </select>
+                <label>Programa que cursa</label>
+                    <select class="form-control" id="programau" data-live-search="true" >
+                        <option disabled selected >Seleccione la ciudad de nacimiento</option>
+                        <?php 
+                        //Ciclo para recorrer los resultados de la consulta de la variable $selectTipoDocumento
+                        while($resultado = mysqli_fetch_assoc($selectPrograma2)){
+                        ?>
+                    <!-- En el value y el la opcion de la seleccion se imprimen los resultados de la consulta -->
+                        <option value="<?php echo $resultado['id_Programas'] ?>" ><?php echo $resultado['Programa_nombre'] ?></option>
+                        <?php   }   ?>
+                    </select>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-warning" id="actualizadatos" data-dismiss="modal">Actualizar</button>
-
+                <button type="button" class="btn btn-warning" id="actualizadatosu" data-dismiss="modal">Actualizar</button>
               </div>
             </div>
           </div>
@@ -143,7 +161,7 @@
             Agregar nuevo 
             <span class="glyphicon glyphicon-plus"></span>
         </button>
-        <button class="btn btn-info" id="restaurar">
+        <button class="btn btn-info" id="restaurar2">
             Restaurar Estudiante eliminado
             <span class="glyphicon glyphicon-repeat"></span>
         </button>
@@ -164,26 +182,27 @@
             </thead>
             <tbody>
             <?php 
-            $sql = $mysql->efectuarConsulta("SELECT notas.estudiantes.id, notas.estudiantes.documento_de_identificacion, notas.estudiantes.nombres, notas.estudiantes.apellidos,notas.programas.Programa_nombre,notas.estudiantes.estado_estudiantes  FROM notas.estudiantes INNER JOIN notas.programas ON notas.estudiantes.Programas_id_Programas=id_Programas" );
+            $sql = $mysql->efectuarConsulta("SELECT notas.estudiantes.id, notas.estudiantes.nombres, notas.estudiantes.apellidos, notas.estudiantes.estado_civil_id_estado_civil, notas.estudiantes.ciudades_id_ciudad_nacimiento, notas.estudiantes.Programas_id_Programas, notas.estudiantes.documento_de_identificacion, notas.programas.Programa_nombre, notas.estudiantes.estado_estudiantes  FROM notas.estudiantes INNER JOIN notas.programas ON notas.estudiantes.Programas_id_Programas=id_Programas" );
             $datos = array();
             $datos2 = array();
             while($ver=mysqli_fetch_row($sql)){ 
-                if($ver[5]==0){//validacion para saber si el estudiante esta habilitado 
+                if($ver[8]==0){//validacion para saber si el estudiante esta habilitado 
                     $datos=$ver[0]."||".//id estudiante
-                               $ver[1]."||".//documento estudiante
-                               $ver[2]."||".//nombre estudiante
-                               $ver[3]."||".//apellido estudiante
-                               $ver[4];//programa
+                               $ver[1]."||".//nombre estudiante
+                               $ver[2]."||".//apellido estudiante
+                               $ver[3]."||".//estado civil estudiante
+                               $ver[4]."||".//ciudad estudiante
+                               $ver[5];//prorama estudiante
                     $datos2[0]=$ver[0];//id 
-                    $datos2[1]=$ver[5];//Estado 
+                    $datos2[1]=$ver[8];//Estado 
              ?>
 
             <tr>
                 <th scope="col"><?php echo $ver[0] ?></th>
+                <td><?php echo $ver[6] ?></td>
                 <td><?php echo $ver[1] ?></td>
                 <td><?php echo $ver[2] ?></td>
-                <td><?php echo $ver[3] ?></td>
-                <td><?php echo $ver[4] ?></td>
+                <td><?php echo $ver[7] ?></td>
                 <td>
                     <button class="btn btn-warning glyphicon glyphicon-pencil" data-toggle="modal" data-target="#modalEdicion" onclick="agregaform2('<?php echo $datos ?>')">
                     </button>
@@ -203,8 +222,28 @@
     </div>
 </div>
 <script type="text/javascript">
-    $('#restaurar').click(function (){
+    $('#guardarnuevo2').click(function(){
+        //Se entregan los valores de los inputs del formularios de docentes por medio del id
+        tipo_documento=$('#tipo_documento').val();
+        documento=$('#documento').val();
+        nombre=$('#nombre').val();
+        apellido=$('#apellido').val();
+        estado_civil=$('#estado_civil').val();
+        ciudad=$('#ciudad').val();
+        programa=$('#programa').val();        
+        contrasenna=$('#contrasenna').val();
+        //Los valores creados se envian a la funcion que realiza el nuevo registro
+        //Esta funcion esta en docente/js/funciones.js
+        agregardatos2(tipo_documento, documento, nombre, apellido, ciudad, estado_civil, programa, contrasenna);
+        $('.modal-backdrop fade in').toggleClass('closed');
+    });
+    $('#actualizadatosu').click(function(){
+        actualizaDatos2();
+        $('.modal-backdrop fade in').toggleClass('closed');
+    });
+    $('#restaurar2').click(function (){
         $('#tabladoc').load('estudiante/componentes/tabla2.php');//Cargar la tabla donde estan los registros de de docente
+        $('.modal-backdrop fade in').toggleClass('closed');
     });
     $('#tabla1').DataTable({
         dom: '<"salto" B>lfrtip',
@@ -277,5 +316,4 @@
             }
         }
     });
- 
 </script>

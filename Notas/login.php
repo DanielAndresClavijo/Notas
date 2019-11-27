@@ -1,18 +1,17 @@
 <?php
-session_start();
-if(isset($_POST['cerrar_session'])){
-    session_unset();
-
-    session_destroy();
+session_start();//Inicio de sesion
+if(isset($_POST['cerrar_session'])){//Se valida si existe la varible de cerrar sesion, esta se envia cuando se cierra sesion en algun perfil abierto
+    session_unset();//libera todas las variables de sesión actualmente registradas
+    session_destroy();//Destruye toda la información registrada de la sesión
 }
-if(isset($_SESSION['rol'])){
-    if($_SESSION['rol']==1){
+if(isset($_SESSION['rol'])){//Valida si existe la variable de sesion rol, esta variable es la que define si es un docente o un estudiante
+    if($_SESSION['rol']==1){//Validacion para saber si el rol es docente
 //        echo $_SESSION['rol'].'<br>';
-    header('location: docente.php');
+    header('location: docente.php');//Se redirecciona a docente.php
     }else{
-        if($_SESSION['rol']==2){
+        if($_SESSION['rol']==2){//Validacion para salber si el rol es estudiante
     //        echo $_SESSION['rol'];
-        header('location: estudiante.php');
+        header('location: estudiante.php');//Se redirecciona a docente.php
         } 
     } 
 }
@@ -41,22 +40,21 @@ if(isset($_SESSION['rol'])){
 </head>
 
 <body>
-  <div class="wrapper">
+    <div class="wrapper">
 	<div class="container">
-                <img src="images/logo.png" width="300" height="50" alt="logo"/>
-                <h1>INICIO DE SESION</h1> 
-		<form action='#' method="POST">
-			<input placeholder="Numero de Documento" name='txtcc' required>
-                        <input type="password" placeholder="Contraseña" name='txtpass' required><br>
-                        <select name="tipousuario" style="color: #ffffff; outline: 0;border: 1px solid rgba(255, 255, 255, 0.4);background-color: rgba(255, 255, 255, 0.2);width: 250px;border-radius: 3px;padding: 10px 15px;margin: 0 auto 10px auto;display: block;text-align: center;font-size: 18px;-webkit-transition-duration: 0.25s;transition-duration: 0.25s;font-weight: 300;">
-                            <option value="0" selected disabled >Seleccione un usuario</option>
-                            <option value="1" style="color:#000000;">Docente</option>
-                            <option value="2" style="color:#000000;">Estudiante</option>
-                        </select><br>
-                        <br><br>
-			<button type="submit" name="login">Entrar</button>
-		</form>
-        
+            <img src="images/logo.png" width="300" height="50" alt="logo"/>
+            <h1>INICIO DE SESION</h1> 
+            <form action='#' method="POST">
+                    <input placeholder="Numero de Documento" name='txtcc' required>
+                    <input type="password" placeholder="Contraseña" name='txtpass' required><br>
+                    <select name="tipousuario" style="color: #ffffff; outline: 0;border: 1px solid rgba(255, 255, 255, 0.4);background-color: rgba(255, 255, 255, 0.2);width: 250px;border-radius: 3px;padding: 10px 15px;margin: 0 auto 10px auto;display: block;text-align: center;font-size: 18px;-webkit-transition-duration: 0.25s;transition-duration: 0.25s;font-weight: 300;">
+                        <option value="0" selected disabled >Seleccione un usuario</option>
+                        <option value="1" style="color:#000000;">Docente</option>
+                        <option value="2" style="color:#000000;">Estudiante</option>
+                    </select><br>
+                    <br><br>
+                    <button type="submit" name="login">Entrar</button>
+            </form> 
 	</div>
 	
 	<ul class="bg-bubbles">

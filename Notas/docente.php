@@ -55,8 +55,6 @@ if(!isset($_SESSION['rol'])){
     <script src="librerias/charts/js/Chart.js"></script>
 </head>
 <body>
-
-
     <div class="header">
         <div class="logo">
             <img src="images/logo.png" width="300" height="50" alt="NotasCotecnova" />
@@ -77,13 +75,8 @@ if(!isset($_SESSION['rol'])){
             </footer>
         </nav>
     </div>
-        
 <!--contenido docente-->
     <div class="container-fluid col-lg-12 col-md-12 col-sm-8">
-
-        
-        
-        
         <div id="tabladoc" class="container-fluid col-lg-12 col-md-12 col-sm-8">
             <div class="container" id="inicio">
                 <h1 class="titulo">
@@ -109,20 +102,6 @@ if(!isset($_SESSION['rol'])){
          $('#estudiante').click(function() {
             $('#tabladoc').load('estudiante/componentes/tabla.php');
         });
-        //guardar nuevo registro de docente
-        $('#guardarnuevo').click(function(){
-            //Se entregan los valores de los inputs del formularios de docentes por medio del id
-            tipo_documento2=$('#tipo_documento2').val();
-            documento2=$('#documento2').val();
-            nombre2=$('#nombre2').val();
-            apellido2=$('#apellido2').val();
-            ciudad2=$('#ciudad2').val();
-            estado_civil2=$('#estado_civil2').val();
-            contrasenna2=$('#contrasenna2').val();
-            //Los valores creados se envian a la funcion que realiza el nuevo registro
-            //Esta funcion esta en docente/js/funciones.js
-            agregardatos(tipo_documento2,documento2,nombre2,apellido2,ciudad2,estado_civil2,contrasenna2);
-        });
         $('#cerrar_session').click(function() {
             alertify.confirm('Cerrar Sesion', '¿Esta seguro que desea cerrar sesion?', 
             function(){ 
@@ -143,9 +122,7 @@ if(!isset($_SESSION['rol'])){
         //Actualizar o Editar registro de docente
         //Cuando se oprima el elemento con id actualizardatos, se ejecutara la funcion actualizar datos
         ////Esta funcion esta en docente/js/funciones.js
-        $('#actualizadatos').click(function(){
-            actualizaDatos();
-        });
+        
         // Para menu toggle
         var $els = $('.menu a, .menu header, .menu li, .menu ol');
         var count = $els.length;

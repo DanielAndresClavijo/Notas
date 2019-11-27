@@ -4,11 +4,15 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/Notas/docente/componentes/tabla.php</file>
-            <file>file:/C:/xampp/htdocs/Notas/docente/js/funciones.js</file>
+            <file>file:/C:/xampp/htdocs/Notas/estudiante/componentes/tabla.php</file>
+            <file>file:/C:/xampp/htdocs/Notas/estudiante/controlador/actualizaDatos.php</file>
             <file>file:/C:/xampp/htdocs/Notas/docente/controlador/agregarDatos.php</file>
-            <file>file:/C:/xampp/htdocs/Notas/docente/componentes/tabla2.php</file>
-            <file>file:/C:/xampp/htdocs/Notas/docente/controlador/eliminarDatos.php</file>
-            <file>file:/C:/xampp/htdocs/Notas/index.php</file>
+            <file>file:/C:/xampp/htdocs/Notas/estudiante/controlador/agregarDatos.php</file>
+            <file>file:/C:/xampp/htdocs/Notas/controlador/email/correo.php</file>
+            <file>file:/C:/xampp/htdocs/Notas/estudiante/js/funciones.js</file>
+            <file>file:/C:/xampp/htdocs/Notas/controlador/email/sendemail.php</file>
+            <file>file:/C:/xampp/htdocs/Notas/controlador/email/email_template.html</file>
+            <file>file:/C:/xampp/htdocs/Notas/docente/controlador/actualizaDatos.php</file>
         </group>
     </open-files>
 </project-private>
