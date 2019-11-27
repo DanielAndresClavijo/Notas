@@ -91,7 +91,7 @@ if(isset($_POST['login'])){
         if ($tipouser == 1){
             $usuarios = $mysql->efectuarConsulta("SELECT notas.docentes.nombres, notas.docentes.apellidos, notas.docentes.estado_docentes  FROM notas.docentes WHERE notas.docentes.numero_de_identificacion=".$documento." AND notas.docentes.contrasenna='".$pass."' AND notas.docentes.estado_docentes = 0");
         }else{
-            $usuarios = $mysql->efectuarConsulta("SELECT notas.estudiantes.nombres, notas.estudiantes.apellidos, notas.estudiantes.estado_estudiantes  FROM notas.estudiantes WHERE notas.estudiantes.documento_de_identificacion=".$documento." AND notas.estudiantes.contrasenna='".$pass."'  AND notas.estudiantes.estado_estudiantes = 0");   
+            $usuarios = $mysql->efectuarConsulta("SELECT notas.estudiantes.id, notas.estudiantes.nombres, notas.estudiantes.apellidos, notas.estudiantes.estado_estudiantes  FROM notas.estudiantes WHERE notas.estudiantes.documento_de_identificacion=".$documento." AND notas.estudiantes.contrasenna='".$pass."'  AND notas.estudiantes.estado_estudiantes = 0");   
         }
         $mysql->desconectar();
         
@@ -99,6 +99,7 @@ if(isset($_POST['login'])){
             while ($resultado= mysqli_fetch_assoc($usuarios)){
                 $nombre= $resultado["nombres"];
                 $apellido= $resultado["apellidos"];
+                $idest=$resultado["id"];
             }
             if ($tipouser == 1){
                 $_SESSION['rol']=1;
@@ -107,6 +108,7 @@ if(isset($_POST['login'])){
             }else{
                 $_SESSION['rol']=2;
                 $_SESSION['nombre']=$nombre.' '.$apellido;
+                $_SESSION['idest']= $idest;
                 header("Location: estudiante.php");
             }
         }else{

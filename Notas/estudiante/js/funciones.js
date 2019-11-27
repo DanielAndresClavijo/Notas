@@ -19,7 +19,7 @@ function agregardatos2 (tipo_documento,documento,nombre,apellido,ciudad,estado_c
         data:cadena,
         success:function(r){//Esta funcion recibe el valor retornado
             if(r==1){//Se valida si el valor retornado es igual a 1, pues esto es el resultado de la consulta sql, si se ejecuto sin ningun problema
-                $('#tabladoc').load('docente/componentes/tabla.php');//Cargar la tabla donde estan los registros de de docente
+                $('#tabladoc').load('estudiante/componentes/tabla.php');//Cargar la tabla donde estan los registros de de docente
                 alertify.success("agregado con exito :)");
             }else{
                 alertify.error(r);//Se muestra una alerta con el valor retornado, que sera el mensaje de la validacion

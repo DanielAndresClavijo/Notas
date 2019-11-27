@@ -9,7 +9,7 @@
     $nombre = $_POST['nombre'];
     $apellido = $_POST['apellido'];
     $pass = md5($_POST['contrasenna']);
-    $programa = md5($_POST['programa']);
+    $programa = $_POST['programa'];
     //LLaves foraneas
     $tipoDocumento = $_POST['tipo_documento'];
     $estado_civil = $_POST['estado_civil'];
@@ -56,7 +56,7 @@
                             if(!preg_match($patron_texto, $apellido)){
                                 echo 'Apellido incorrecto';
                             }else{                                
-                                echo $in = $mysql->ingresoRegistro("insert into notas.estudiantes (notas.estudiantes.documento_de_identificacion, notas.estudiantes.nombres, notas.estudiantes.apellidos, notas.estudiantes.contrasenna, notas.estudiantes.Programas_id_Programas, notas.estudiantes.tipo_documento_id_tipo_documento, notas.estudiantes.estado_civil_id_estado_civil, notas.estudiantes.ciudades_id_ciudad_nacimiento, notas.estudiantes.estado_estudiantes) values(".$documento.", '".$nombre."', '".$apellido."', '".$pass."', ".$programa.", ".$tipoDocumento.", ".$estado_civil.", ".$ciudad.", 0)");
+                                echo $in  = $mysql->ingresoRegistro("insert into notas.estudiantes (notas.estudiantes.documento_de_identificacion, notas.estudiantes.nombres, notas.estudiantes.apellidos, notas.estudiantes.contrasenna, notas.estudiantes.Programas_id_Programas, notas.estudiantes.tipo_documento_id_tipo_documento, notas.estudiantes.estado_civil_id_estado_civil, notas.estudiantes.ciudades_id_ciudad_nacimiento, notas.estudiantes.estado_estudiantes) values(".$documento.", '".$nombre."', '".$apellido."', '".$pass."', ".$programa.", ".$tipoDocumento.", ".$estado_civil.", ".$ciudad.", 0)");
                             }
                         }
                     } 
@@ -71,4 +71,5 @@
     }else{
         echo 'No se envio nada por post';
     }
+    
  ?>

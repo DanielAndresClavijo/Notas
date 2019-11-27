@@ -50,9 +50,8 @@ if(!isset($_SESSION['rol'])){
     <script src="librerias/datatables/js/buttons/pdfmake.min.js"></script>
     <script src="librerias/datatables/js/buttons/vfs_fonts.js"></script>
     <script src="librerias/datatables/js/buttons/buttons.html5.min.js"></script>
-    <!-- js Charts -->
-    <script src="librerias/charts/js/Chart.bundle.js"></script>
-    <script src="librerias/charts/js/Chart.js"></script>
+    <!-- js Plotly -->
+    <script src="librerias/plotly/js/plotly-latest.min.js"></script>
 </head>
 <body>
     <div class="header">
@@ -65,7 +64,7 @@ if(!isset($_SESSION['rol'])){
                 <li class="menu-item" ><a id="docentes"><span class="glyphicon glyphicon-user"></span> Gestionar docentes</a></li>
                 <li class="menu-item"><a id="estudiante" ><span class="glyphicon glyphicon-education"></span> Gestionar estudiantes</a></li>
                 <li class="menu-item"><a ><span class="glyphicon glyphicon-pencil"></span> Gestionar notas</a></li>
-                <li class="menu-item"><a ><span class="glyphicon glyphicon-stats"></span> Graficos</a></li>
+                <li class="menu-item"><a id="graf"><span class="glyphicon glyphicon-stats"></span> Graficos</a></li>
                 <li class="menu-item"><a id="enviaremail"><span class="glyphicon glyphicon-bell"></span> Correo informativo</a></li>
                 <li class="menu-item"><a id="backup"><span class="glyphicon glyphicon-export"></span> Backup DB</a></li>
                 <li class="menu-item"><a id="cerrar_session"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesion</a></li>
@@ -101,6 +100,9 @@ if(!isset($_SESSION['rol'])){
         });
          $('#estudiante').click(function() {
             $('#tabladoc').load('estudiante/componentes/tabla.php');
+        });
+        $('#graf').click(function() {
+            $('#tabladoc').load('controlador/graficas/graficas.php');
         });
         $('#cerrar_session').click(function() {
             alertify.confirm('Cerrar Sesion', '¿Esta seguro que desea cerrar sesion?', 
