@@ -20,25 +20,26 @@ if( !empty($_POST['tipo_documento1']) && !empty($_POST['estado_civil1']) && !emp
     $estudiantes = $mysql->efectuarConsulta("SELECT notas.estudiantes.id, notas.estudiantes.nombres, notas.estudiantes.apellidos, notas.estudiantes.documento_de_identificacion, notas.programas.Programa_nombre FROM notas.estudiantes INNER JOIN notas.programas ON notas.programas.id_Programas=notas.estudiantes.Programas_id_Programas");
     $cont=0;
     while ($consulta= mysqli_fetch_assoc($estudiantes)){
-        if($consulta['documento_de_identificacion']==$documento1){
+        if($consulta['documento_de_identificacion']==$documento1){//Este if es para verificar si la cedula ingresada ya esta en la base de datos, si ya esta, entonces el cont pasara a ser 1
             $cont = 1;
         }
     }
-    if($cont==0){
+    if($cont==0){//Validacion si el contador es 0, si es 0 entonces no hay cedula repetida
         //Variable para llamar el ingreso de usuario y entregarle el insert
         $in = $mysql->ingresoRegistro("insert into notas.estudiantes (notas.estudiantes.documento_de_identificacion, notas.estudiantes.nombres, notas.estudiantes.apellidos, notas.estudiantes.contrasenna,notas.estudiantes.Programas_id_Programas, notas.estudiantes.tipo_documento_id_tipo_documento, notas.estudiantes.estado_civil_id_estado_civil, notas.estudiantes.ciudades_id_ciudad_nacimiento) values(".$documento1.",'".$nombre1."','".$apellido1."','".$pass1."',".$programa1.",".$tipoDocumento1.",".$estado_civil1.",".$ciudad1.")");
 
         //Validacion para saber si el registro se ejecuto correctamente
         if($in){
-            echo '<button type="button" class="btn btn-primary"><a class="nav-link" href="docente.php">Subir Cambios</a></button>';
+            echo '<button type="button" class="btn btn-primary"><a class="nav-link" href="docente.php" style="color:white;">Subir Cambios</a></button>';
             //header("Location: ../docente.php");
         }else{
             echo "Erroooooooooooooooooooooooooooooooor";
         }
         $mysql->desconectar();//Desconexion 
-    }else{
-        $url='tu/url';
-echo '<meta http-equiv=refresh content="1; '.$url.'">';die('<script type="text/javascript">window.location=\''.$url.'\';</script‌​>');
+    }else{//Este else es para cuando la cedula esta repetida
+        $mysql->desconectar();//Desconexion
+        $url='docente.php';
+        echo '<meta http-equiv=refresh content="1; '.$url.'">';die('<script type="text/javascript">window.location=\''.$url.'\';</script‌​>');
     }                                      
         
 }else{
@@ -58,20 +59,32 @@ echo '<meta http-equiv=refresh content="1; '.$url.'">';die('<script type="text/j
 
         $mysql = new MySQL(); //se declara un nuevo array
         $mysql->conectar();//Se conecta a la base de datos
-
+        $docentes2 = $mysql->efectuarConsulta("SELECT notas.docentes.id, notas.docentes.nombres, notas.docentes.apellidos, notas.docentes.numero_de_identificacion FROM notas.docentes");
+        $cont=0;
+        while ($consulta= mysqli_fetch_assoc($docentes2)){
+            if($consulta['numero_de_identificacion']==$documento2){//Este if es para verificar si la cedula ingresada ya esta en la base de datos, si ya esta, entonces el cont pasara a ser 1
+                $cont = 1;
+            }
+        }
         //Variable para llamar el ingreso de usuario y entregarle el insert
         $in2 = $mysql->ingresoRegistro("insert into notas.docentes (notas.docentes.numero_de_identificacion, notas.docentes.nombres, notas.docentes.apellidos, notas.docentes.contrasenna,notas.docentes.ciudades_id_ciudad_nacimiento, notas.docentes.tipo_documento_id_tipo_documento, notas.docentes.estado_civil_id_estado_civil) values(".$documento2.",'".$nombre2."','".$apellido2."','".$pass2."',".$ciudad2.",".$tipoDocumento2.",".$estado_civil2.")");
-
-        //Validacion para saber si el registro se ejecuto correctamente
-        if($in2){
-            echo "<script>alert('Datos registrados');
-            location.href = '../docente.php';
-            </script>";
-            //header("Location: ../docente.php");
+        
+        if($cont==0){//Validacion si el contador es 0, si es 0 entonces no hay cedula repetida
+            //Validacion para saber si el registro se ejecuto correctamente
+            if($in2){
+                echo "<script>alert('Datos registrados');
+                location.href = '../docente.php';
+                </script>";
+                //header("Location: ../docente.php");
+            }else{
+                echo "Erroooooooooooooooooooooooooooooooor";
+            }
+            $mysql->desconectar();//Desconexion 
         }else{
-            echo "Erroooooooooooooooooooooooooooooooor";
+            $mysql->desconectar();//Desconexion
+            $url='docente.php';
+            echo '<meta http-equiv=refresh content="1; '.$url.'">';die('<script type="text/javascript">window.location=\''.$url.'\';</script‌​>');
         }
-        $mysql->desconectar();//Desconexion 
     }else{
         
 //******************************************************************************* Notas ***************************************************************************
